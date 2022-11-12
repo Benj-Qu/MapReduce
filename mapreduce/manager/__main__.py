@@ -24,7 +24,7 @@ class Manager:
             host, port, os.getcwd(),
         )
 
-        self.workers = []
+        self.workers = {}
 
         # Create a new thread, which will listen for UDP heartbeat messages from the Workers.
         threads = []
@@ -113,11 +113,11 @@ class Manager:
         #   "worker_host" : string,
         #   "worker_port" : int,
         # }
-        self.workers.append({
-                            "worker_host": message_dict["worker_host"],
-                            "worker_port": message_dict["worker_port"],
-                            "status": "ready",
-                            })
+        self.workers[(message_dict["worker_host"], message_dict["worker_port"])] = {
+                                                                                    "worker_host": message_dict["worker_host"],
+                                                                                    "worker_port": message_dict["worker_port"],
+                                                                                    "status": "ready",
+                                                                                    }
 
 
     def new_manager_job(self, message_dict):
