@@ -36,9 +36,20 @@ class Manager:
         thread2.start()
         # Create a new TCP socket on the given port and call the listen() function. 
         # Note: only one listen() thread should remain open for the whole lifetime of the Manager.
-        
-        message_dict = mapreduce.utils.create_TCP(port)
-        self.message_handler(message_dict)
+        while True:
+            message_dict = mapreduce.utils.create_TCP(port)
+            if message_dict["message_type"] == "shutdown":
+                # TODO
+                self.shutdown(message_dict)
+                break
+            elif message_dict["message_type"] == "register":
+                self.register(message_dict)
+            elif message_dict["message_type"] == "new_manager_job":
+                self.new_manager_job(message_dict)
+            elif message_dict["message_type"] == "finished":
+                self.finished(message_dict)
+            elif message_dict["message_type"] == "heartbeat":
+                self.heartbeat(message_dict)
 
         thread1.join()
         thread2.join()
@@ -86,39 +97,30 @@ class Manager:
         pass
 
 
-    def message_handler(self, message_dict):
-        # TODO: IMPLEMENT THIS
-        if message_dict["message_type"] == "shutdown":
-            self.shutdown(message_dict)
-        elif message_dict["message_type"] == "register":
-            self.register(message_dict)
-        elif message_dict["message_type"] == "new_manager_job":
-            self.new_manager_job(message_dict)
-        elif message_dict["message_type"] == "finished":
-            self.finished(message_dict)
-        elif message_dict["message_type"] == "heartbeat":
-            self.heartbeat(message_dict)
-
-
     def shutdown(self, message_dict):
         # TODO: IMPLEMENT THIS
         pass
-    
+
+
     def register(self, message_dict):
         # TODO: IMPLEMENT THIS
         pass
+
 
     def new_manager_job(self, message_dict):
         # TODO: IMPLEMENT THIS
         pass
 
+
     def finished(self, message_dict):
         # TODO: IMPLEMENT THIS
         pass
-    
+
+
     def heartbeat(self, message_dict):
         # TODO: IMPLEMENT THIS
         pass
+
 
 @click.command()
 @click.option("--host", "host", default="localhost")
