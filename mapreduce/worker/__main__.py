@@ -5,7 +5,7 @@ import json
 import time
 import click
 import mapreduce.utils
-
+import threading
 
 # Configure logging
 LOGGER = logging.getLogger(__name__)
@@ -24,18 +24,21 @@ class Worker:
             manager_host, manager_port,
         )
 
-        # This is a fake message to demonstrate pretty printing with logging
-        message_dict = {
-            "message_type": "register_ack",
-            "worker_host": "localhost",
-            "worker_port": 6001,
-        }
-        LOGGER.debug("TCP recv\n%s", json.dumps(message_dict, indent=2))
+        # Create a new TCP socket on the given port and call the listen() function.
+        messgage_dict = mapreduce.utils.create_TCP(port)
+        
+        # # This is a fake message to demonstrate pretty printing with logging
+        # message_dict = {
+        #     "message_type": "register_ack",
+        #     "worker_host": "localhost",
+        #     "worker_port": 6001,
+        # }
+        # LOGGER.debug("TCP recv\n%s", json.dumps(message_dict, indent=2))
 
-        # TODO: you should remove this. This is just so the program doesn't
-        # exit immediately!
-        LOGGER.debug("IMPLEMENT ME!")
-        time.sleep(120)
+        # # TODO: you should remove this. This is just so the program doesn't
+        # # exit immediately!
+        # LOGGER.debug("IMPLEMENT ME!")
+        # time.sleep(120)
 
 
 @click.command()
