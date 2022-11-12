@@ -113,11 +113,7 @@ class Manager:
         #   "worker_host" : string,
         #   "worker_port" : int,
         # }
-        self.workers[(message_dict["worker_host"], message_dict["worker_port"])] = {
-                                                                                    "worker_host": message_dict["worker_host"],
-                                                                                    "worker_port": message_dict["worker_port"],
-                                                                                    "status": "ready",
-                                                                                    }
+        self.workers[(message_dict["worker_host"], message_dict["worker_port"])] = "ready"
 
 
     def new_manager_job(self, message_dict):
