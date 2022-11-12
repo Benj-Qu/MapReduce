@@ -24,6 +24,21 @@ class Worker:
             manager_host, manager_port,
         )
 
+        # Create a new thread, which will listen for UDP heartbeat messages from the Workers.
+        threads = []
+        thread1 = threading.Thread(target=self.send_heartbeat, args=(port,))
+        threads.append(thread1)
+        thread1.start()
+
+        # Create a new TCP socket on the given port and call the listen() function. 
+        # Note: only one listen() thread should remain open for the whole lifetime of the Manager.
+        
+        message_dict = mapreduce.utils.create_TCP(port)
+        self.message_handler(message_dict)
+
+        thread1.join()
+
+        
         # Create a new TCP socket on the given port and call the listen() function.
         messgage_dict = mapreduce.utils.create_TCP(port)
         
@@ -39,6 +54,10 @@ class Worker:
         # # exit immediately!
         # LOGGER.debug("IMPLEMENT ME!")
         # time.sleep(120)
+
+    def send_heartbeat():
+        ## TODO ##
+        return
 
 
 @click.command()
