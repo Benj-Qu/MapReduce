@@ -57,7 +57,7 @@ class Manager:
         # time.sleep(120)
 
 
-    def listen_worker_heartbeat(port):
+    def listen_worker_heartbeat(self, port):
         # Listen for UDP heartbeat messages from the workers
         # Create an INET, DGRAM socket, this is UDP
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
@@ -81,13 +81,44 @@ class Manager:
                 print(message_dict)
 
 
-    def fault_tolerance():
+    def fault_tolerance(self):
         # TODO: IMPLEMENT THIS
         pass
 
 
-    def message_handler(message_dict):
-        
+    def message_handler(self, message_dict):
+        # TODO: IMPLEMENT THIS
+        if message_dict["message_type"] == "shutdown":
+            self.shutdown(message_dict)
+        elif message_dict["message_type"] == "register":
+            self.register(message_dict)
+        elif message_dict["message_type"] == "new_manager_job":
+            self.new_manager_job(message_dict)
+        elif message_dict["message_type"] == "finished":
+            self.finished(message_dict)
+        elif message_dict["message_type"] == "heartbeat":
+            self.heartbeat(message_dict)
+
+
+    def shutdown(self, message_dict):
+        # TODO: IMPLEMENT THIS
+        pass
+    
+    def register(self, message_dict):
+        # TODO: IMPLEMENT THIS
+        pass
+
+    def new_manager_job(self, message_dict):
+        # TODO: IMPLEMENT THIS
+        pass
+
+    def finished(self, message_dict):
+        # TODO: IMPLEMENT THIS
+        pass
+    
+    def heartbeat(self, message_dict):
+        # TODO: IMPLEMENT THIS
+        pass
 
 @click.command()
 @click.option("--host", "host", default="localhost")
