@@ -24,7 +24,8 @@ class Manager:
             host, port, os.getcwd(),
         )
 
-        registered_workers = []
+        self.workers = []
+
         # Create a new thread, which will listen for UDP heartbeat messages from the Workers.
         threads = []
         thread1 = threading.Thread(target=self.listen_worker_heartbeat, args=(port,))
@@ -40,7 +41,6 @@ class Manager:
         while True:
             message_dict = mapreduce.utils.create_TCP(port)
             if message_dict["message_type"] == "shutdown":
-                # TODO
                 self.shutdown(message_dict)
                 break
             elif message_dict["message_type"] == "register":
@@ -102,13 +102,22 @@ class Manager:
         # TODO: IMPLEMENT THIS
         # Forward this message to all of the living Workers
         # that have registered with it
-        
-        pass
+        for worker in self.workers:
+            mapreduce.utils.send_TCP_message(worker["worker_port"], message_dict)
 
 
     def register(self, message_dict):
-        # TODO: IMPLEMENT THIS
-        pass
+        # Register a worker
+        # {
+        #   "message_type" : "register",
+        #   "worker_host" : string,
+        #   "worker_port" : int,
+        # }
+        self.workers.append({
+                            "worker_host": message_dict["worker_host"],
+                            "worker_port": message_dict["worker_port"],
+                            "status": "ready",
+                            })
 
 
     def new_manager_job(self, message_dict):
