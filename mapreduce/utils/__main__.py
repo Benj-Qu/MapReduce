@@ -62,5 +62,3 @@ def create_TCP(port):
                 continue
             return message_dict
 
-
-def send_TCP_me
