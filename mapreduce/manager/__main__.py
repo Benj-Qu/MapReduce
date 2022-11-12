@@ -24,6 +24,7 @@ class Manager:
             host, port, os.getcwd(),
         )
 
+        registered_workers = []
         # Create a new thread, which will listen for UDP heartbeat messages from the Workers.
         threads = []
         thread1 = threading.Thread(target=self.listen_worker_heartbeat, args=(port,))
@@ -99,6 +100,9 @@ class Manager:
 
     def shutdown(self, message_dict):
         # TODO: IMPLEMENT THIS
+        # Forward this message to all of the living Workers
+        # that have registered with it
+        
         pass
 
 

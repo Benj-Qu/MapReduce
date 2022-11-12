@@ -62,3 +62,51 @@ def create_TCP(port):
                 continue
             return message_dict
 
+
+def send_TCP_message(port, message_dict):
+    """Test TCP Socket Client."""
+    # create an INET, STREAMing socket, this is TCP
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+
+        # connect to the server
+        sock.connect(("localhost", port))
+
+        # send a message
+        message = json.dumps(message_dict)
+        sock.sendall(message.encode('utf-8'))
+
+
+def create_UDP(port):
+    """Test UDP Socket Server."""
+    # Create an INET, DGRAM socket, this is UDP
+    with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
+
+        # Bind the UDP socket to the server
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        sock.bind(("localhost", port))
+        sock.settimeout(1)
+
+        # No sock.listen() since UDP doesn't establish connections like TCP
+
+        # Receive incoming UDP messages
+        while True:
+            try:
+                message_bytes = sock.recv(4096)
+            except socket.timeout:
+                continue
+            message_str = message_bytes.decode("utf-8")
+            message_dict = json.loads(message_str)
+            return message_dict
+
+
+def send_UDP_message(port, message_dict):
+    """Test UDP Socket Client."""
+    # Create an INET, DGRAM socket, this is UDP
+    with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
+
+        # Connect to the UDP socket on server
+        sock.connect(("localhost", port))
+
+        # Send a message
+        message = json.dumps(message_dict)
+        sock.sendall(message.encode('utf-8'))
