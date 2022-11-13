@@ -29,7 +29,9 @@ class Worker:
         self.manager_host = manager_host
         self.manager_port = manager_port
 
-        self.working =  True
+        self.working = True
+
+        self.register()
 
         # Create a new TCP socket on the given port and call the listen() function. 
         # Note: only one listen() thread should remain open for the whole lifetime of the Manager.
