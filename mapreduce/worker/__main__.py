@@ -90,8 +90,8 @@ class Worker:
                     message_dict = json.loads(message_str)
                 except json.JSONDecodeError:
                     continue
-                
 
+                thread1 = threading.Thread(target=self.heartbeat,)
                 if message_dict["message_type"] == "shutdown":
                     self.working = False
                 elif message_dict["message_type"] == "register_ack":
