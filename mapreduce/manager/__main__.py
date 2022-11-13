@@ -30,6 +30,7 @@ class Manager:
         self.working = True
         self.jobs = [] # job queue, add by append, remove by self.jobs.pop(0)
         self.num_jobs = 0 # assign job id
+        self.is_running_job = False
 
         # Create a new thread, which will listen for UDP heartbeat messages from the Workers.
         threads = []
@@ -46,8 +47,8 @@ class Manager:
         while self.working:
             message_dict = mapreduce.utils.create_TCP(host, port)
             if message_dict["message_type"] == "shutdown":
-                self.working = False
                 self.shutdown(message_dict)
+                self.working = False
             elif message_dict["message_type"] == "register":
                 self.register(message_dict)
             elif message_dict["message_type"] == "new_manager_job":
@@ -56,6 +57,8 @@ class Manager:
                 self.finished(message_dict)
             elif message_dict["message_type"] == "heartbeat":
                 self.heartbeat(message_dict)
+            if not self.is_running_job:
+                self.run_job()
 
         thread1.join()
         thread2.join()
@@ -133,6 +136,9 @@ class Manager:
     def register(self, message_dict):
         # Register a worker
         self.workers[(message_dict["worker_host"], message_dict["worker_port"])] = "ready"
+        message_dict["message_type"] = "register_ack"
+        mapreduce.utils.send_TCP_message(message_dict["worker_host"], message_dict["worker_port"], message_dict)
+        # check job queue
 
 
     def new_manager_job(self, message_dict):
@@ -151,6 +157,21 @@ class Manager:
     def partition(self, directory):
         p = Path(directory).glob('**/*')
         files = [x for x in p if x.is_file()]
+
+
+    def run_job(self):
+        self.is_running_job = True
+        new_job = self.jobs.pop(0)
+        prefix = f"mapreduce-shared-job{new_job['job_id']:05d}-"
+        with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
+            LOGGER.info("Created tmpdir %s", tmpdir)
+            # FIXME: Change this loop so that it runs either until shutdown 
+            # or when the job is completed.
+            # while self.working:
+                
+
+        LOGGER.info("Cleaned up tmpdir %s", tmpdir)
+        self.is_running_job = False
 
 
     def finished(self, message_dict):
