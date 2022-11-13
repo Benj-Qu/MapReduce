@@ -43,8 +43,6 @@ class Worker:
         # Note: only one listen() thread should remain open for the whole lifetime of the Manager.
         
         message_dict = mapreduce.utils.create_TCP(port)
-        self.message_handler(message_dict)
-        thread1.join()
 
         while working:
             message_dict = mapreduce.utils.create_TCP(port)
@@ -56,6 +54,8 @@ class Worker:
                 self.mapping(message_dict)
             elif message_dict["message_type"] == "new_reduce_task":
                 self.reducing(message_dict)
+
+        thread1.join()
 
     def send_heartbeat(self):
         ## TODO ##
