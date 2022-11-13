@@ -156,16 +156,16 @@ class Manager:
         #     self.run_job(message_dict)
 
 
-    def input_partitioning(self, message_dict, tmpdir):
+    def input_partitioning(self, tmpdir):
         # p = Path(directory).glob('**/*')
         # files = [x for x in p if x.is_file()]
-        input_dir_path = Path(message_dict["input_directory"])
+        input_dir_path = Path(self.cur_job_message["input_directory"])
         files = list(input_dir_path.glob('**/*')).sort()
         partitioned_files = defaultdict(list)
         cur_task_id = 0
         for file in files:
             partitioned_files[cur_task_id].append(file)
-            cur_task_id = (cur_task_id + 1) % message_dict["num_mappers"]
+            cur_task_id = (cur_task_id + 1) % self.cur_job_message["num_mappers"]
         task_id = 0
         for host, port in self.workers.keys():
             if self.workers[(host, port)] == "ready":
@@ -173,9 +173,9 @@ class Manager:
                     "message_type": "new_map_task",
                     "task_id": task_id,
                     "input_paths": partitioned_files[task_id],
-                    "executable": message_dict["mapper_executable"],
+                    "executable": self.cur_job_message["mapper_executable"],
                     "output_directory": tmpdir,
-                    "num_partitions": message_dict["num_reducers"],
+                    "num_partitions": self.cur_job_message["num_reducers"],
                     "worker_host": host,
                     "worker_port": port,
                 }
@@ -188,6 +188,8 @@ class Manager:
 
     def run_job(self):
         while self.working and self.jobs:
+            print(self.cur_job_message)
+            print("hi\n")
             time.sleep(0.1)
             new_job = self.jobs.pop(0)
             prefix = f"mapreduce-shared-job{new_job['job_id']:05d}-"
@@ -195,9 +197,9 @@ class Manager:
                 LOGGER.info("Created tmpdir %s", tmpdir)
                 # FIXME: Change this loop so that it runs either until shutdown 
                 # or when the job is completed.
-                self.input_partitioning(self.cur_job_message, tmpdir)
-                # while self.working:
-                #     time.sleep(0.1)
+                self.input_partitioning(tmpdir)
+                while self.working:
+                    time.sleep(0.1)
             LOGGER.info("Cleaned up tmpdir %s", tmpdir)
 
 
