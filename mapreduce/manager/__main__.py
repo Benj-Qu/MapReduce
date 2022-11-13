@@ -69,8 +69,6 @@ class Manager:
             self.run_job()
 
 
-
-
     def listen_worker_heartbeat(self, host, port):
         # Listen for UDP heartbeat messages from the workers
         # Create an INET, DGRAM socket, this is UDP
