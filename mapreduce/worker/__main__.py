@@ -24,6 +24,15 @@ class Worker:
             manager_host, manager_port,
         )
 
+        working =  True
+
+        info = {
+            "message_type": "register_ack",
+            "worker_host": host,
+            "worker_port": port,
+        }
+        mapreduce.utils.send_TCP_message(host, port, info)
+
         # Create a new thread, which will listen for UDP heartbeat messages from the Workers.
         threads = []
         thread1 = threading.Thread(target=self.send_heartbeat, args=(port,))
@@ -35,25 +44,32 @@ class Worker:
         
         message_dict = mapreduce.utils.create_TCP(port)
         self.message_handler(message_dict)
-
         thread1.join()
 
-        while True:
+        while working:
             message_dict = mapreduce.utils.create_TCP(port)
             if message_dict["message_type"] == "shutdown":
-                # TODO
-                self.shutdown(message_dict)
-                break
-            elif message_dict["message_type"] == "register":
+                working = False
+            elif message_dict["message_type"] == "register_ack":
                 self.register(message_dict)
-            elif message_dict["message_type"] == "new_manager_job":
-                self.new_manager_job(message_dict)
-            elif message_dict["message_type"] == "finished":
-                self.finished(message_dict)
-            elif message_dict["message_type"] == "heartbeat":
-                self.heartbeat(message_dict)
+            elif message_dict["message_type"] == "new_map_task":
+                self.mapping(message_dict)
+            elif message_dict["message_type"] == "new_reduce_task":
+                self.reducing(message_dict)
 
     def send_heartbeat(self):
+        ## TODO ##
+        return
+
+    def register(self):
+        ## TODO ##
+        return
+
+    def mapping(self):
+        ## TODO ##
+        return
+
+    def reducing(self):
         ## TODO ##
         return
 
