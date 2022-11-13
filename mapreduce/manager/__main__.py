@@ -28,14 +28,12 @@ class Manager:
 
         self.host = host
         self.port = port
+        self.cur_job_message = None
 
-        self.lock = threading.Lock()
-        
         self.workers = {}
         self.working = True
         self.jobs = [] # job queue, add by append, remove by self.jobs.pop(0)
         self.num_jobs = 0 # assign job id
-        self.is_running_job = False
 
         self.create_TCP = mapreduce.utils.create_TCP
 
@@ -49,83 +47,82 @@ class Manager:
         thread2 = threading.Thread(target=self.fault_tolerance, args=(host, port,))
         threads.append(thread2)
         thread2.start()
+
+        thread3 = threading.Thread(target=self.run_job,)
+        threads.append(thread3)
+        thread3.start()
         # Create a new TCP socket on the given port and call the listen() function. 
         # Note: only one listen() thread should remain open for the whole lifetime of the Manager.
         self.create_TCP(self, None)
 
         thread1.join()
         thread2.join()
+        thread3.join()
 
     def handler(self, message_dict):
         if message_dict["message_type"] == "shutdown":
-            print("about shutdown")
             self.shutdown(message_dict)
             with self.lock:
                 self.working = False
         elif message_dict["message_type"] == "register":
-            print("about register")
             self.register(message_dict)
         elif message_dict["message_type"] == "new_manager_job":
-            print("about new_manager_job")
             self.new_manager_job(message_dict)
         elif message_dict["message_type"] == "finished":
-            print("about finished")
             self.finished(message_dict)
         elif message_dict["message_type"] == "heartbeat":
-            print("about heartbeat")
             self.heartbeat(message_dict)
-        if not self.is_running_job:
-            print("about running job")
-            self.run_job()
 
 
     def listen_worker_heartbeat(self, host, port):
         # Listen for UDP heartbeat messages from the workers
         # Create an INET, DGRAM socket, this is UDP
-        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
+        # with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
 
-            # Bind the UDP socket to the server
-            sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-            sock.bind((host, port))
-            sock.settimeout(1)
+        #     # Bind the UDP socket to the server
+        #     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        #     sock.bind((host, port))
+        #     sock.settimeout(1)
 
-            # No sock.listen() since UDP doesn't establish connections like TCP
+        #     # No sock.listen() since UDP doesn't establish connections like TCP
 
-            # TODO: IMPLEMENT THIS
-            # Receive incoming UDP messages
-            while self.working:
-                try:
-                    message_bytes = sock.recv(4096)
-                except socket.timeout:
-                    continue
-                message_str = message_bytes.decode("utf-8")
-                message_dict = json.loads(message_str)
-                print(message_dict)
+        #     # TODO: IMPLEMENT THIS
+        #     # Receive incoming UDP messages
+        #     while self.working:
+        #         try:
+        #             message_bytes = sock.recv(4096)
+        #         except socket.timeout:
+        #             continue
+        #         message_str = message_bytes.decode("utf-8")
+        #         message_dict = json.loads(message_str)
+        #         print(message_dict)
+        pass
 
 
     def fault_tolerance(self, host, port):
         # TODO: IMPLEMENT THIS
         # Listen for UDP heartbeat messages from the workers
         # Create an INET, DGRAM socket, this is UDP
-        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
+        # with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
 
-            # Bind the UDP socket to the server
-            sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-            sock.bind((host, port))
-            sock.settimeout(1)
+        #     # Bind the UDP socket to the server
+        #     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        #     sock.bind((host, port))
+        #     sock.settimeout(1)
 
-            # No sock.listen() since UDP doesn't establish connections like TCP
+        #     # No sock.listen() since UDP doesn't establish connections like TCP
 
-            # TODO: IMPLEMENT THIS
-            # Receive incoming UDP messages
-            while self.working:
-                try:
-                    message_bytes = sock.recv(4096)
-                except socket.timeout:
-                    continue
-                message_str = message_bytes.decode("utf-8")
-                message_dict = json.loads(message_str)
-                print(message_dict)
+        #     # TODO: IMPLEMENT THIS
+        #     # Receive incoming UDP messages
+        #     while self.working:
+        #         try:
+        #             message_bytes = sock.recv(4096)
+        #         except socket.timeout:
+        #             continue
+        #         message_str = message_bytes.decode("utf-8")
+        #         message_dict = json.loads(message_str)
+        #         print(message_dict)
+        pass
 
 
     def shutdown(self, message_dict):
@@ -145,6 +142,7 @@ class Manager:
 
     def new_manager_job(self, message_dict):
         # Assign a job_id which starts from zero and increments.
+        self.cur_job_message = message_dict
         message_dict["job_id"] = self.num_jobs
         self.num_jobs += 1
         # Add the job to a queue.
@@ -154,9 +152,11 @@ class Manager:
         if output_directory_path.exists():
             output_directory_path.rmdir()
         output_directory_path.mkdir()
+        # if self.jobs and self.is_running_job is False:
+        #     self.run_job(message_dict)
 
 
-    def input_partitioning(self, message_dict):
+    def input_partitioning(self, message_dict, tmpdir):
         # p = Path(directory).glob('**/*')
         # files = [x for x in p if x.is_file()]
         input_dir_path = Path(message_dict["input_directory"])
@@ -174,7 +174,7 @@ class Manager:
                     "task_id": task_id,
                     "input_paths": partitioned_files[task_id],
                     "executable": message_dict["mapper_executable"],
-                    "output_directory": message_dict["output_directory"],
+                    "output_directory": tmpdir,
                     "num_partitions": message_dict["num_reducers"],
                     "worker_host": host,
                     "worker_port": port,
@@ -187,29 +187,18 @@ class Manager:
 
 
     def run_job(self):
-        if self.jobs:
+        while self.working and self.jobs:
+            time.sleep(0.1)
             new_job = self.jobs.pop(0)
-            self.is_running_job = True
             prefix = f"mapreduce-shared-job{new_job['job_id']:05d}-"
-            
             with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
                 LOGGER.info("Created tmpdir %s", tmpdir)
                 # FIXME: Change this loop so that it runs either until shutdown 
                 # or when the job is completed.
-                # print(11111111)
-                with self.lock:
-                    working = self.working
-                # print(22222222)
-                print(working)
-                while working:
-                    # print("dkflsdlkff")
-                    print(working)
-                    time.sleep(0.1)
-                    with self.lock:
-                        working = self.working
-
+                self.input_partitioning(self.cur_job_message, tmpdir)
+                # while self.working:
+                #     time.sleep(0.1)
             LOGGER.info("Cleaned up tmpdir %s", tmpdir)
-            self.is_running_job = False
 
 
     def finished(self, message_dict):
