@@ -133,6 +133,9 @@ class Manager:
     def register(self, message_dict):
         # Register a worker
         self.workers[(message_dict["worker_host"], message_dict["worker_port"])] = "ready"
+        message_dict["message_type"] = "register_ack"
+        mapreduce.utils.send_TCP_message(message_dict["worker_host"], message_dict["worker_port"], message_dict)
+        # check job queue
 
 
     def new_manager_job(self, message_dict):
