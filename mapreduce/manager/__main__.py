@@ -29,6 +29,8 @@ class Manager:
         self.host = host
         self.port = port
 
+        self.lock = threading.Lock()
+        
         self.workers = {}
         self.working = True
         self.jobs = [] # job queue, add by append, remove by self.jobs.pop(0)
@@ -55,19 +57,26 @@ class Manager:
         thread2.join()
 
     def handler(self, message_dict):
-        if message_dict["message_type"] == "shutdown":
-            self.shutdown(message_dict)
-            self.working = False
-        elif message_dict["message_type"] == "register":
-            self.register(message_dict)
-        elif message_dict["message_type"] == "new_manager_job":
-            self.new_manager_job(message_dict)
-        elif message_dict["message_type"] == "finished":
-            self.finished(message_dict)
-        elif message_dict["message_type"] == "heartbeat":
-            self.heartbeat(message_dict)
-        if not self.is_running_job:
-            self.run_job()
+        with self.lock:
+            if message_dict["message_type"] == "shutdown":
+                print("about shutdown")
+                self.shutdown(message_dict)
+                self.working = False
+            elif message_dict["message_type"] == "register":
+                print("about register")
+                self.register(message_dict)
+            elif message_dict["message_type"] == "new_manager_job":
+                print("about new_manager_job")
+                self.new_manager_job(message_dict)
+            elif message_dict["message_type"] == "finished":
+                print("about finished")
+                self.finished(message_dict)
+            elif message_dict["message_type"] == "heartbeat":
+                print("about heartbeat")
+                self.heartbeat(message_dict)
+            if not self.is_running_job:
+                print("about running job")
+                self.run_job()
 
 
     def listen_worker_heartbeat(self, host, port):
@@ -187,8 +196,13 @@ class Manager:
                 LOGGER.info("Created tmpdir %s", tmpdir)
                 # FIXME: Change this loop so that it runs either until shutdown 
                 # or when the job is completed.
-                while self.working:
+                with self.lock:
+                    working = self.working
+                while working:
+                    print(working)
                     time.sleep(0.1)
+                    with self.lock:
+                        working = self.working
 
             LOGGER.info("Cleaned up tmpdir %s", tmpdir)
             # self.is_running_job = False
