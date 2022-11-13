@@ -30,6 +30,7 @@ class Manager:
         self.working = True
         self.jobs = [] # job queue, add by append, remove by self.jobs.pop(0)
         self.num_jobs = 0 # assign job id
+        self.is_running_job = False
 
         # Create a new thread, which will listen for UDP heartbeat messages from the Workers.
         threads = []
@@ -56,6 +57,8 @@ class Manager:
                 self.finished(message_dict)
             elif message_dict["message_type"] == "heartbeat":
                 self.heartbeat(message_dict)
+            if not self.is_running_job:
+                self.run_job()
 
         thread1.join()
         thread2.join()
@@ -155,7 +158,20 @@ class Manager:
         p = Path(directory).glob('**/*')
         files = [x for x in p if x.is_file()]
 
-        
+
+    def run_job(self):
+        self.is_running_job = True
+        new_job = self.jobs.pop(0)
+        prefix = f"mapreduce-shared-job{self.job_id:05d}-"
+        with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
+            LOGGER.info("Created tmpdir %s", tmpdir)
+            # FIXME: Change this loop so that it runs either until shutdown 
+            # or when the job is completed.
+            while True:
+                time.sleep(0.1)
+        LOGGER.info("Cleaned up tmpdir %s", tmpdir)
+        self.is_running_job = False
+
 
     def finished(self, message_dict):
         # TODO: IMPLEMENT THIS
