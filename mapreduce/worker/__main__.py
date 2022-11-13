@@ -37,7 +37,7 @@ class Worker:
         # Note: only one listen() thread should remain open for the whole lifetime of the Manager.
 
         thread1 = threading.Thread(target=self.heartbeat())
-        
+
         while self.working:
             message_dict = mapreduce.utils.create_TCP(manager_host, manager_port)
             if message_dict["message_type"] == "shutdown":
