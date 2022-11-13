@@ -28,7 +28,7 @@ class Manager:
 
         # Create a new thread, which will listen for UDP heartbeat messages from the Workers.
         threads = []
-        thread1 = threading.Thread(target=self.listen_worker_heartbeat, args=(port,))
+        thread1 = threading.Thread(target=self.listen_worker_heartbeat, args=(host, port,))
         threads.append(thread1)
         thread1.start()
         # Create any additional threads or setup you think you may need. 
@@ -69,25 +69,26 @@ class Manager:
         # time.sleep(120)
 
 
-    def listen_worker_heartbeat(self, port):
+    def listen_worker_heartbeat(self, host, port):
         # Listen for UDP heartbeat messages from the workers
         # Create an INET, DGRAM socket, this is UDP
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
 
             # Bind the UDP socket to the server
             sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-            sock.bind(("localhost", port))
+            sock.bind((host, port))
             sock.settimeout(1)
 
             # No sock.listen() since UDP doesn't establish connections like TCP
 
+            # TODO: IMPLEMENT THIS
             # Receive incoming UDP messages
             while True:
                 try:
                     message_bytes = sock.recv(4096)
                 except socket.timeout:
                     continue
-                # TODO: IMPLEMENT THIS
+                
                 message_str = message_bytes.decode("utf-8")
                 message_dict = json.loads(message_str)
                 print(message_dict)
@@ -102,7 +103,7 @@ class Manager:
         # TODO: IMPLEMENT THIS
         # Forward this message to all of the living Workers
         # that have registered with it
-        for worker in self.workers:
+        for worker in self.workers.keys():
             mapreduce.utils.send_TCP_message(worker["worker_port"], message_dict)
 
 
