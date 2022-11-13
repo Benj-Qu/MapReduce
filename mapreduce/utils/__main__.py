@@ -12,7 +12,6 @@ def create_TCP(self, send_msg):
     # Note: context manager syntax allows for sockets to automatically be
     # closed when an exception is raised or control flow returns.
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-
         # Bind the socket to the server
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         sock.bind((self.host, self.port))
