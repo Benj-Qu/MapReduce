@@ -196,16 +196,20 @@ class Manager:
                 LOGGER.info("Created tmpdir %s", tmpdir)
                 # FIXME: Change this loop so that it runs either until shutdown 
                 # or when the job is completed.
+                # print(11111111)
                 with self.lock:
                     working = self.working
+                # print(22222222)
+                print(working)
                 while working:
+                    # print("dkflsdlkff")
                     print(working)
                     time.sleep(0.1)
                     with self.lock:
                         working = self.working
 
             LOGGER.info("Cleaned up tmpdir %s", tmpdir)
-            # self.is_running_job = False
+            self.is_running_job = False
 
 
     def finished(self, message_dict):
