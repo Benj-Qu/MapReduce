@@ -7,6 +7,9 @@ import click
 import mapreduce.utils
 import threading
 import socket
+import hashlib
+import subprocess
+import tempfile
 
 
 # Configure logging
@@ -70,12 +73,42 @@ class Worker:
             time.sleep(2000)
 
 
-    def mapping(self):
+    def mapping(self, message_dict):
         ## TODO ##
-        return
+        task_id = message_dict["task_id"]
+        prefix = f"mapreduce-local-task{task_id:05d}-"
+        with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
+            LOGGER.info("Created tmpdir %s", tmpdir)
+            for input_path in message_dict["input_paths"]:
+                with open(input_path) as infile:
+                    with subprocess.Popen(
+                        [message_dict["executable"]],
+                        stdin=infile,
+                        stdout=subprocess.PIPE,
+                        text=True,
+                    ) as map_process:
+                        for line in map_process.stdout:
+                            key = line.split("\t")[0]
+                            hexdigest = hashlib.md5(key.encode("utf-8")).hexdigest()
+                            keyhash = int(hexdigest, base=16)
+                            partition = keyhash % message_dict["num_partitions"]
+                            # correct partiton output file
+        LOGGER.info("Cleaned up tmpdir %s", tmpdir)
 
-    def reducing(self):
+    def reducing(self, message_dict):
         ## TODO ##
+        executable = # reduce executable
+        instream = # merged input files
+        outfile = # open output file
+        with subprocess.Popen(
+            [executable],
+            text=True,
+            stdin=subprocess.PIPE,
+            stdout=outfile,
+        ) as reduce_process:
+            # Pipe input to reduce_process
+            for line in instream:
+                reduce_process.stdin.write(line)
         return
 
 
