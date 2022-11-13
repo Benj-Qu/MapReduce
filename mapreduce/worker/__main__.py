@@ -42,10 +42,10 @@ class Worker:
         # Create a new TCP socket on the given port and call the listen() function. 
         # Note: only one listen() thread should remain open for the whole lifetime of the Manager.
         
-        message_dict = mapreduce.utils.create_TCP(port)
+        message_dict = mapreduce.utils.create_TCP(manager_host, manager_port)
 
         while working:
-            message_dict = mapreduce.utils.create_TCP(port)
+            message_dict = mapreduce.utils.create_TCP(manager_host, manager_port)
             if message_dict["message_type"] == "shutdown":
                 working = False
             elif message_dict["message_type"] == "register_ack":
