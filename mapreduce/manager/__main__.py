@@ -47,8 +47,8 @@ class Manager:
         while self.working:
             message_dict = mapreduce.utils.create_TCP(host, port)
             if message_dict["message_type"] == "shutdown":
-                self.working = False
                 self.shutdown(message_dict)
+                self.working = False
             elif message_dict["message_type"] == "register":
                 self.register(message_dict)
             elif message_dict["message_type"] == "new_manager_job":
@@ -162,13 +162,14 @@ class Manager:
     def run_job(self):
         self.is_running_job = True
         new_job = self.jobs.pop(0)
-        prefix = f"mapreduce-shared-job{self.job_id:05d}-"
+        prefix = f"mapreduce-shared-job{new_job['job_id']:05d}-"
         with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
             LOGGER.info("Created tmpdir %s", tmpdir)
             # FIXME: Change this loop so that it runs either until shutdown 
             # or when the job is completed.
-            while True:
-                time.sleep(0.1)
+            # while self.working:
+                
+
         LOGGER.info("Cleaned up tmpdir %s", tmpdir)
         self.is_running_job = False
 
