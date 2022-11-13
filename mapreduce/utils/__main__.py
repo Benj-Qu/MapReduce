@@ -4,7 +4,7 @@ import threading
 import json
 
 
-def create_TCP(port):
+def create_TCP(host, port):
     """Create a new TCP socket on the given port 
         and call the listen() function."""
 
@@ -15,7 +15,7 @@ def create_TCP(port):
 
         # Bind the socket to the server
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        sock.bind(("localhost", port))
+        sock.bind((host, port))
         sock.listen()
 
         # Socket accept() will block for a maximum of 1 second.  If you
@@ -63,27 +63,27 @@ def create_TCP(port):
             return message_dict
 
 
-def send_TCP_message(port, message_dict):
+def send_TCP_message(host, port, message_dict):
     """Test TCP Socket Client."""
     # create an INET, STREAMing socket, this is TCP
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
 
         # connect to the server
-        sock.connect(("localhost", port))
+        sock.connect((host, port))
 
         # send a message
         message = json.dumps(message_dict)
         sock.sendall(message.encode('utf-8'))
 
 
-def create_UDP(port):
+def create_UDP(host, port):
     """Test UDP Socket Server."""
     # Create an INET, DGRAM socket, this is UDP
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
 
         # Bind the UDP socket to the server
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        sock.bind(("localhost", port))
+        sock.bind((host, port))
         sock.settimeout(1)
 
         # No sock.listen() since UDP doesn't establish connections like TCP
@@ -99,13 +99,13 @@ def create_UDP(port):
             return message_dict
 
 
-def send_UDP_message(port, message_dict):
+def send_UDP_message(host, port, message_dict):
     """Test UDP Socket Client."""
     # Create an INET, DGRAM socket, this is UDP
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
 
         # Connect to the UDP socket on server
-        sock.connect(("localhost", port))
+        sock.connect((host, port))
 
         # Send a message
         message = json.dumps(message_dict)
