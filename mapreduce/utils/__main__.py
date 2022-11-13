@@ -4,7 +4,7 @@ import threading
 import json
 
 
-def create_TCP(host, port):
+def create_TCP(host, port, fun):
     """Create a new TCP socket on the given port 
         and call the listen() function."""
 

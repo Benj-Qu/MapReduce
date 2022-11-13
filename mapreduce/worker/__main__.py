@@ -33,6 +33,7 @@ class Worker:
         self.registered = False
         self.working = True
 
+        thread1 = threading.Thread(target=self.heartbeat)
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
 
             # Bind the socket to the server
@@ -90,7 +91,6 @@ class Worker:
                 except json.JSONDecodeError:
                     continue
                 
-                thread1 = threading.Thread(target=self.heartbeat,)
 
                 if message_dict["message_type"] == "shutdown":
                     self.working = False
@@ -101,8 +101,8 @@ class Worker:
                     self.mapping(message_dict)
                 elif message_dict["message_type"] == "new_reduce_task":
                     self.reducing(message_dict)
-            if self.registered:
-                thread1.join()
+        if self.registered:
+            thread1.join()
 
 
 
