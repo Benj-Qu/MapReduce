@@ -8,6 +8,8 @@ import click
 import mapreduce.utils
 import threading
 import socket
+from pathlib import Path
+
 
 # Configure logging
 LOGGER = logging.getLogger(__name__)
@@ -26,6 +28,8 @@ class Manager:
 
         self.workers = {}
         self.working = True
+        self.jobs = [] # job queue, add by append, remove by self.jobs.pop(0)
+        self.num_jobs = 0 # assign job id
 
         # Create a new thread, which will listen for UDP heartbeat messages from the Workers.
         threads = []
@@ -132,8 +136,16 @@ class Manager:
 
 
     def new_manager_job(self, message_dict):
-        # TODO: IMPLEMENT THIS
-        pass
+        # Assign a job_id which starts from zero and increments.
+        message_dict["job_id"] = self.num_jobs
+        self.num_jobs += 1
+        # Add the job to a queue.
+        self.jobs.append(message_dict)
+        # Delete the output directory if it exists. Create the output directory.
+        output_directory_path = Path(message_dict["output_directory"])
+        if output_directory_path.exists():
+            output_directory_path.rmdir()
+        output_directory_path.mkdir()
 
 
     def finished(self, message_dict):
