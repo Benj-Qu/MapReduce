@@ -148,6 +148,12 @@ class Manager:
         output_directory_path.mkdir()
 
 
+    def partition(self, directory):
+        p = Path(directory).glob('**/*')
+        files = [x for x in p if x.is_file()]
+
+        
+
     def finished(self, message_dict):
         # TODO: IMPLEMENT THIS
         pass
