@@ -29,6 +29,7 @@ class Manager:
         self.host = host
         self.port = port
         self.cur_job_message = None
+        self.lock = threading.Lock()
 
         self.workers = {}
         self.working = True
@@ -144,9 +145,10 @@ class Manager:
         # Assign a job_id which starts from zero and increments.
         self.cur_job_message = message_dict
         message_dict["job_id"] = self.num_jobs
-        self.num_jobs += 1
-        # Add the job to a queue.
-        self.jobs.append(message_dict)
+        with self.lock:
+            self.num_jobs += 1
+            # Add the job to a queue.
+            self.jobs.append(message_dict)
         # Delete the output directory if it exists. Create the output directory.
         output_directory_path = Path(message_dict["output_directory"])
         if output_directory_path.exists():
@@ -189,15 +191,19 @@ class Manager:
     def run_job(self):
         while self.working and self.jobs:
             time.sleep(0.1)
-            new_job = self.jobs.pop(0)
+            with self.lock:
+                new_job = self.jobs.pop(0)
             prefix = f"mapreduce-shared-job{new_job['job_id']:05d}-"
             with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
                 LOGGER.info("Created tmpdir %s", tmpdir)
                 # FIXME: Change this loop so that it runs either until shutdown 
                 # or when the job is completed.
                 self.input_partitioning(self.cur_job_message, tmpdir)
-                # while self.working:
-                #     time.sleep(0.1)
+                while True:
+                    time.sleep(0.1)
+                    with self.lock:
+                        if not self.working:
+                            break
             LOGGER.info("Cleaned up tmpdir %s", tmpdir)
 
 

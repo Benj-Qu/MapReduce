@@ -24,7 +24,10 @@ def create_TCP(self, send_msg):
         # omit this, it blocks indefinitely, waiting for a connection.
         sock.settimeout(1)
 
-        while self.working:
+        while True:
+            with self.lock:
+                if not self.working:
+                    break
             # Wait for a connection for 1s.  The socket library avoids consuming
             # CPU while waiting for a connection.
             try:
