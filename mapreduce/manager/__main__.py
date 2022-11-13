@@ -152,7 +152,6 @@ class Manager:
         p = Path(directory).glob('**/*')
         files = [x for x in p if x.is_file()]
 
-        
 
     def finished(self, message_dict):
         # TODO: IMPLEMENT THIS
