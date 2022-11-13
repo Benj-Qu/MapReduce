@@ -120,7 +120,6 @@ class Manager:
 
 
     def shutdown(self, message_dict):
-        # TODO: IMPLEMENT THIS
         # Forward this message to all of the living Workers
         # that have registered with it
         for host, port in self.workers.keys():
