@@ -135,7 +135,8 @@ class Manager:
 
     def register(self, message_dict):
         # Register a worker
-        self.workers[(message_dict["worker_host"], message_dict["worker_port"])] = "ready"
+        with self.lock:
+            self.workers[(message_dict["worker_host"], message_dict["worker_port"])] = "ready"
         message_dict["message_type"] = "register_ack"
         mapreduce.utils.send_TCP_message(message_dict["worker_host"], message_dict["worker_port"], message_dict)
         # check job queue
@@ -189,18 +190,26 @@ class Manager:
 
 
     def run_job(self):
-        while self.working:
+        while True:
+            with self.lock:
+                if not self.working:
+                    break
             time.sleep(0.1)
-            if self.jobs:
+            with self.lock:
+                jobs = self.jobs
+            if jobs:
                 with self.lock:
-                    new_job = self.jobs.pop(0)
+                    new_job = jobs.pop(0)
                 prefix = f"mapreduce-shared-job{new_job['job_id']:05d}-"
                 print(prefix)
                 with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
                     LOGGER.info("Created tmpdir %s", tmpdir)
                     # FIXME: Change this loop so that it runs either until shutdown 
                     # or when the job is completed.
-                    while self.working:
+                    while True:
+                        with self.lock:
+                            if self.working:
+                                break
                         time.sleep(0.1)
                     # self.input_partitioning(tmpdir)
                 LOGGER.info("Cleaned up tmpdir %s", tmpdir)

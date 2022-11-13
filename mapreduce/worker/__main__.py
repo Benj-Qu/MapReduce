@@ -93,6 +93,9 @@ class Worker:
                             keyhash = int(hexdigest, base=16)
                             partition = keyhash % message_dict["num_partitions"]
                             # correct partiton output file
+                            filename = f"maptask{task_id:05d}-part{partition:05d}"
+                            with open(filename, 'a+') as outfile:
+                                outfile.write(line)
         LOGGER.info("Cleaned up tmpdir %s", tmpdir)
 
     def reducing(self, message_dict):
