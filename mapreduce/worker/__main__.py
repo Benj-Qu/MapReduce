@@ -60,6 +60,8 @@ class Worker:
             "worker_host": self.host,
             "worker_port": self.port,
         }
+
+        
         mapreduce.utils.send_TCP_message(self.manager_host, self.manager_port, info)
 
     def heartbeat(self):
