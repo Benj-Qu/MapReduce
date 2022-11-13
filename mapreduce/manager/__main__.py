@@ -34,7 +34,7 @@ class Manager:
         thread1.start()
         # Create any additional threads or setup you think you may need. 
         # Another thread for fault tolerance could be helpful.
-        thread2 = threading.Thread(target=self.fault_tolerance)
+        thread2 = threading.Thread(target=self.fault_tolerance, args=(host, port,))
         threads.append(thread2)
         thread2.start()
         # Create a new TCP socket on the given port and call the listen() function. 
@@ -89,32 +89,46 @@ class Manager:
                     message_bytes = sock.recv(4096)
                 except socket.timeout:
                     continue
-
                 message_str = message_bytes.decode("utf-8")
                 message_dict = json.loads(message_str)
                 print(message_dict)
 
 
-    def fault_tolerance(self):
+    def fault_tolerance(self, host, port):
         # TODO: IMPLEMENT THIS
-        pass
+        # Listen for UDP heartbeat messages from the workers
+        # Create an INET, DGRAM socket, this is UDP
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
+
+            # Bind the UDP socket to the server
+            sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            sock.bind((host, port))
+            sock.settimeout(1)
+
+            # No sock.listen() since UDP doesn't establish connections like TCP
+
+            # TODO: IMPLEMENT THIS
+            # Receive incoming UDP messages
+            while self.working:
+                try:
+                    message_bytes = sock.recv(4096)
+                except socket.timeout:
+                    continue
+                message_str = message_bytes.decode("utf-8")
+                message_dict = json.loads(message_str)
+                print(message_dict)
 
 
     def shutdown(self, message_dict):
         # TODO: IMPLEMENT THIS
         # Forward this message to all of the living Workers
         # that have registered with it
-        for worker in self.workers.keys():
-            mapreduce.utils.send_TCP_message(worker["worker_port"], message_dict)
+        for host, port in self.workers.keys():
+            mapreduce.utils.send_TCP_message(host, port, message_dict)
 
 
     def register(self, message_dict):
         # Register a worker
-        # {
-        #   "message_type" : "register",
-        #   "worker_host" : string,
-        #   "worker_port" : int,
-        # }
         self.workers[(message_dict["worker_host"], message_dict["worker_port"])] = "ready"
 
 
