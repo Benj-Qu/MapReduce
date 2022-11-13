@@ -20,18 +20,15 @@ class Manager:
 
     def __init__(self, host, port):
         """Construct a Manager instance and start listening for messages."""
-
         LOGGER.info(
             "Starting manager host=%s port=%s pwd=%s",
             host, port, os.getcwd(),
         )
-
         self.workers = {}
         self.working = True
         self.jobs = [] # job queue, add by append, remove by self.jobs.pop(0)
         self.num_jobs = 0 # assign job id
         self.is_running_job = False
-
         # Create a new thread, which will listen for UDP heartbeat messages from the Workers.
         threads = []
         thread1 = threading.Thread(target=self.listen_worker_heartbeat, args=(host, port,))
@@ -44,37 +41,53 @@ class Manager:
         thread2.start()
         # Create a new TCP socket on the given port and call the listen() function. 
         # Note: only one listen() thread should remain open for the whole lifetime of the Manager.
-        while self.working:
-            message_dict = mapreduce.utils.create_TCP(host, port)
-            if message_dict["message_type"] == "shutdown":
-                self.shutdown(message_dict)
-                self.working = False
-            elif message_dict["message_type"] == "register":
-                self.register(message_dict)
-            elif message_dict["message_type"] == "new_manager_job":
-                self.new_manager_job(message_dict)
-            elif message_dict["message_type"] == "finished":
-                self.finished(message_dict)
-            elif message_dict["message_type"] == "heartbeat":
-                self.heartbeat(message_dict)
-            if not self.is_running_job:
-                self.run_job()
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            sock.bind((host, port))
+            sock.listen()
+            sock.settimeout(1)
+
+            while self.working:
+                try:
+                    clientsocket, address = sock.accept()
+                except socket.timeout:
+                    continue
+                print("Connection from", address[0])
+                clientsocket.settimeout(1)
+                with clientsocket:
+                    message_chunks = []
+                    while True:
+                        try:
+                            data = clientsocket.recv(4096)
+                        except socket.timeout:
+                            continue
+                        if not data:
+                            break
+                        message_chunks.append(data)
+                message_bytes = b''.join(message_chunks)
+                message_str = message_bytes.decode("utf-8")
+
+                try:
+                    message_dict = json.loads(message_str)
+                except json.JSONDecodeError:
+                    continue
+
+                if message_dict["message_type"] == "shutdown":
+                    self.shutdown(message_dict)
+                    self.working = False
+                elif message_dict["message_type"] == "register":
+                    self.register(message_dict)
+                elif message_dict["message_type"] == "new_manager_job":
+                    self.new_manager_job(message_dict)
+                elif message_dict["message_type"] == "finished":
+                    self.finished(message_dict)
+                elif message_dict["message_type"] == "heartbeat":
+                    self.heartbeat(message_dict)
+                if not self.is_running_job:
+                    self.run_job()
 
         thread1.join()
         thread2.join()
-
-        # This is a fake message to demonstrate pretty printing with logging
-        # message_dict = {
-        #     "message_type": "register",
-        #     "worker_host": "localhost",
-        #     "worker_port": 6001,
-        # }
-        # LOGGER.debug("TCP recv\n%s", json.dumps(message_dict, indent=2))
-
-        # # TODO: you should remove this. This is just so the program doesn't
-        # # exit immediately!
-        # LOGGER.debug("IMPLEMENT ME!")
-        # time.sleep(120)
 
 
     def listen_worker_heartbeat(self, host, port):
@@ -160,18 +173,18 @@ class Manager:
 
 
     def run_job(self):
-        self.is_running_job = True
-        new_job = self.jobs.pop(0)
-        prefix = f"mapreduce-shared-job{new_job['job_id']:05d}-"
-        with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
-            LOGGER.info("Created tmpdir %s", tmpdir)
-            # FIXME: Change this loop so that it runs either until shutdown 
-            # or when the job is completed.
-            # while self.working:
-                
+        if self.jobs:
+            new_job = self.jobs.pop(0)
+            self.is_running_job = True
+            prefix = f"mapreduce-shared-job{new_job['job_id']:05d}-"
+            with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
+                LOGGER.info("Created tmpdir %s", tmpdir)
+                # FIXME: Change this loop so that it runs either until shutdown 
+                # or when the job is completed.
+                # while self.working:
 
-        LOGGER.info("Cleaned up tmpdir %s", tmpdir)
-        self.is_running_job = False
+            LOGGER.info("Cleaned up tmpdir %s", tmpdir)
+            self.is_running_job = False
 
 
     def finished(self, message_dict):

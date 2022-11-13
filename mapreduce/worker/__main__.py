@@ -12,7 +12,6 @@ import socket
 # Configure logging
 LOGGER = logging.getLogger(__name__)
 
-
 class Worker:
     """A class representing a Worker node in a MapReduce cluster."""
     def __init__(self, host, port, manager_host, manager_port):
@@ -31,34 +30,61 @@ class Worker:
         self.manager_host = manager_host
         self.manager_port = manager_port
         self.registered = False
-        self.isWorking = True
+        self.working = True
 
-        self.thread = threading.Thread(target=self.heartbeat)
+        thread1 = threading.Thread(target=self.heartbeat)
 
-        register_message = {
-            "message_type": "register",
-            "worker_host": self.host,
-            "worker_port": self.port,   
-        }
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            sock.bind((host, port))
+            sock.listen()
+            
+            register_message = {
+                "message_type": "register",
+                "worker_host": self.host,
+                "worker_port": self.port,   
+            }
+            mapreduce.utils.send_TCP_message(self.manager_host, self.manager_port, register_message)
+            sock.settimeout(1)
+            
+            while self.working:
+                try:
+                    clientsocket, address = sock.accept()
+                except socket.timeout:
+                    continue
+                print("Connection from", address[0])
+                clientsocket.settimeout(1)
+                with clientsocket:
+                    message_chunks = []
+                    while True:
+                        try:
+                            data = clientsocket.recv(4096)
+                        except socket.timeout:
+                            continue
+                        if not data:
+                            break
+                        message_chunks.append(data)
+                message_bytes = b''.join(message_chunks)
+                message_str = message_bytes.decode("utf-8")
 
-        mapreduce.utils.create_TCP(self.host, self.port, self.handler, self.working ,self.manager_host, self.manager_port, register_message)
+                try:
+                    message_dict = json.loads(message_str)
+                except json.JSONDecodeError:
+                    continue
 
+                thread1 = threading.Thread(target=self.heartbeat,)
+                if message_dict["message_type"] == "shutdown":
+                    self.working = False
+                elif message_dict["message_type"] == "register_ack":
+                    self.registered = True
+                    thread1.start()
+                elif message_dict["message_type"] == "new_map_task":
+                    self.mapping(message_dict)
+                elif message_dict["message_type"] == "new_reduce_task":
+                    self.reducing(message_dict)
         if self.registered:
-            self.thread.join()
+            thread1.join()
 
-    def working(self):
-        return self.isWorking
-
-    def handler(self, message_dict):
-        if message_dict["message_type"] == "shutdown":
-            self.working = False
-        elif message_dict["message_type"] == "register_ack":
-            self.registered = True
-            self.thread.start()
-        elif message_dict["message_type"] == "new_map_task":
-            self.mapping(message_dict)
-        elif message_dict["message_type"] == "new_reduce_task":
-            self.reducing(message_dict)
 
     def heartbeat(self):
         while self.working:
@@ -74,6 +100,7 @@ class Worker:
     def mapping(self):
         ## TODO ##
         return
+
 
     def reducing(self):
         ## TODO ##
