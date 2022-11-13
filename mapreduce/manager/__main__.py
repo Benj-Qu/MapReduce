@@ -9,6 +9,7 @@ import mapreduce.utils
 import threading
 import socket
 from pathlib import Path
+from collections import defaultdict
 
 
 # Configure logging
@@ -67,8 +68,6 @@ class Manager:
             self.heartbeat(message_dict)
         if not self.is_running_job:
             self.run_job()
-
-
 
 
     def listen_worker_heartbeat(self, host, port):
@@ -148,9 +147,34 @@ class Manager:
         output_directory_path.mkdir()
 
 
-    def partition(self, directory):
-        p = Path(directory).glob('**/*')
-        files = [x for x in p if x.is_file()]
+    def input_partitioning(self, message_dict):
+        # p = Path(directory).glob('**/*')
+        # files = [x for x in p if x.is_file()]
+        input_dir_path = Path(message_dict["input_directory"])
+        files = list(input_dir_path.glob('**/*')).sort()
+        partitioned_files = defaultdict(list)
+        cur_task_id = 0
+        for file in files:
+            partitioned_files[cur_task_id].append(file)
+            cur_task_id = (cur_task_id + 1) % message_dict["num_mappers"]
+        task_id = 0
+        for host, port in self.workers.keys():
+            if self.workers[(host, port)] == "ready":
+                new_message = {
+                    "message_type": "new_map_task",
+                    "task_id": task_id,
+                    "input_paths": partitioned_files[task_id],
+                    "executable": message_dict["mapper_executable"],
+                    "output_directory": message_dict["output_directory"],
+                    "num_partitions": message_dict["num_reducers"],
+                    "worker_host": host,
+                    "worker_port": port,
+                }
+                mapreduce.utils.send_TCP_message(host, port, new_message)
+                task_id += 1
+                self.workers[(host, port)] = "busy"
+                if task_id > len(partitioned_files.keys()):
+                    break
 
 
     def run_job(self):
@@ -158,14 +182,16 @@ class Manager:
             new_job = self.jobs.pop(0)
             self.is_running_job = True
             prefix = f"mapreduce-shared-job{new_job['job_id']:05d}-"
+            
             with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
                 LOGGER.info("Created tmpdir %s", tmpdir)
                 # FIXME: Change this loop so that it runs either until shutdown 
                 # or when the job is completed.
-                # while self.working:
+                while self.working:
+                    time.sleep(0.1)
 
             LOGGER.info("Cleaned up tmpdir %s", tmpdir)
-            self.is_running_job = False
+            # self.is_running_job = False
 
 
     def finished(self, message_dict):
