@@ -142,8 +142,8 @@ class Manager:
 
     def new_manager_job(self, message_dict):
         # Assign a job_id which starts from zero and increments.
-        self.cur_job_message = message_dict
         message_dict["job_id"] = self.num_jobs
+        self.cur_job_message = message_dict
         self.num_jobs += 1
         # Add the job to a queue.
         self.jobs.append(message_dict)
@@ -187,20 +187,20 @@ class Manager:
 
 
     def run_job(self):
-        while self.working and self.jobs:
-            print(self.cur_job_message)
-            print("hi\n")
+        while self.working:
             time.sleep(0.1)
-            new_job = self.jobs.pop(0)
-            prefix = f"mapreduce-shared-job{new_job['job_id']:05d}-"
-            with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
-                LOGGER.info("Created tmpdir %s", tmpdir)
-                # FIXME: Change this loop so that it runs either until shutdown 
-                # or when the job is completed.
-                self.input_partitioning(tmpdir)
-                while self.working:
-                    time.sleep(0.1)
-            LOGGER.info("Cleaned up tmpdir %s", tmpdir)
+            if self.jobs:
+                new_job = self.jobs.pop(0)
+                prefix = f"mapreduce-shared-job{new_job['job_id']:05d}-"
+                print(prefix)
+                with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
+                    LOGGER.info("Created tmpdir %s", tmpdir)
+                    # FIXME: Change this loop so that it runs either until shutdown 
+                    # or when the job is completed.
+                    while self.working:
+                        time.sleep(0.1)
+                    # self.input_partitioning(tmpdir)
+                LOGGER.info("Cleaned up tmpdir %s", tmpdir)
 
 
     def finished(self, message_dict):
