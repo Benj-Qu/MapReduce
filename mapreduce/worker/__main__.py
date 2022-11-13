@@ -97,9 +97,9 @@ class Worker:
 
     def reducing(self, message_dict):
         ## TODO ##
-        executable = # reduce executable
-        instream = # merged input files
-        outfile = # open output file
+        executable = message_dict["executable"]
+        instream = ... # merged input files
+        outfile = ... # open output file
         with subprocess.Popen(
             [executable],
             text=True,

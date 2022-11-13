@@ -57,26 +57,26 @@ class Manager:
         thread2.join()
 
     def handler(self, message_dict):
-        with self.lock:
-            if message_dict["message_type"] == "shutdown":
-                print("about shutdown")
-                self.shutdown(message_dict)
+        if message_dict["message_type"] == "shutdown":
+            print("about shutdown")
+            self.shutdown(message_dict)
+            with self.lock:
                 self.working = False
-            elif message_dict["message_type"] == "register":
-                print("about register")
-                self.register(message_dict)
-            elif message_dict["message_type"] == "new_manager_job":
-                print("about new_manager_job")
-                self.new_manager_job(message_dict)
-            elif message_dict["message_type"] == "finished":
-                print("about finished")
-                self.finished(message_dict)
-            elif message_dict["message_type"] == "heartbeat":
-                print("about heartbeat")
-                self.heartbeat(message_dict)
-            if not self.is_running_job:
-                print("about running job")
-                self.run_job()
+        elif message_dict["message_type"] == "register":
+            print("about register")
+            self.register(message_dict)
+        elif message_dict["message_type"] == "new_manager_job":
+            print("about new_manager_job")
+            self.new_manager_job(message_dict)
+        elif message_dict["message_type"] == "finished":
+            print("about finished")
+            self.finished(message_dict)
+        elif message_dict["message_type"] == "heartbeat":
+            print("about heartbeat")
+            self.heartbeat(message_dict)
+        if not self.is_running_job:
+            print("about running job")
+            self.run_job()
 
 
     def listen_worker_heartbeat(self, host, port):
