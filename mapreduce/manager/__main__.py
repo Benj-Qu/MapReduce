@@ -25,6 +25,7 @@ class Manager:
         )
 
         self.workers = {}
+        self.working = True
 
         # Create a new thread, which will listen for UDP heartbeat messages from the Workers.
         threads = []
@@ -38,11 +39,11 @@ class Manager:
         thread2.start()
         # Create a new TCP socket on the given port and call the listen() function. 
         # Note: only one listen() thread should remain open for the whole lifetime of the Manager.
-        while True:
+        while self.working:
             message_dict = mapreduce.utils.create_TCP(port)
             if message_dict["message_type"] == "shutdown":
+                self.working = False
                 self.shutdown(message_dict)
-                break
             elif message_dict["message_type"] == "register":
                 self.register(message_dict)
             elif message_dict["message_type"] == "new_manager_job":
@@ -83,12 +84,12 @@ class Manager:
 
             # TODO: IMPLEMENT THIS
             # Receive incoming UDP messages
-            while True:
+            while self.working:
                 try:
                     message_bytes = sock.recv(4096)
                 except socket.timeout:
                     continue
-                
+
                 message_str = message_bytes.decode("utf-8")
                 message_dict = json.loads(message_str)
                 print(message_dict)
