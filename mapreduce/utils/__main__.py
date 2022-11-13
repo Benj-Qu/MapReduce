@@ -4,7 +4,7 @@ import threading
 import json
 
 
-def create_TCP(host, port, handle, working, server_host, server_port, send_msg):
+def create_TCP(self, send_msg):
     """Create a new TCP socket on the given port 
         and call the listen() function."""
 
@@ -15,17 +15,17 @@ def create_TCP(host, port, handle, working, server_host, server_port, send_msg):
 
         # Bind the socket to the server
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        sock.bind((host, port))
+        sock.bind((self.host, self.port))
         sock.listen()
 
         if send_msg is not None:
-            send_TCP_message(server_host, server_port, send_msg)
+            send_TCP_message(self.server_host, self.server_port, send_msg)
 
         # Socket accept() will block for a maximum of 1 second.  If you
         # omit this, it blocks indefinitely, waiting for a connection.
         sock.settimeout(1)
 
-        while working():
+        while self.working:
             # Wait for a connection for 1s.  The socket library avoids consuming
             # CPU while waiting for a connection.
             try:
@@ -63,7 +63,7 @@ def create_TCP(host, port, handle, working, server_host, server_port, send_msg):
                 message_dict = json.loads(message_str)
             except json.JSONDecodeError:
                 continue
-            handle(message_dict)
+            self.handler(message_dict)
 
 
 

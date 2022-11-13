@@ -26,11 +26,16 @@ class Manager:
             host, port, os.getcwd(),
         )
 
+        self.host = host
+        self.port = port
+
         self.workers = {}
         self.working = True
         self.jobs = [] # job queue, add by append, remove by self.jobs.pop(0)
         self.num_jobs = 0 # assign job id
         self.is_running_job = False
+
+        self.create_TCP = mapreduce.utils.create_TCP
 
         # Create a new thread, which will listen for UDP heartbeat messages from the Workers.
         threads = []
@@ -44,21 +49,8 @@ class Manager:
         thread2.start()
         # Create a new TCP socket on the given port and call the listen() function. 
         # Note: only one listen() thread should remain open for the whole lifetime of the Manager.
-        while self.working:
-            message_dict = mapreduce.utils.create_TCP(host, port)
-            if message_dict["message_type"] == "shutdown":
-                self.shutdown(message_dict)
-                self.working = False
-            elif message_dict["message_type"] == "register":
-                self.register(message_dict)
-            elif message_dict["message_type"] == "new_manager_job":
-                self.new_manager_job(message_dict)
-            elif message_dict["message_type"] == "finished":
-                self.finished(message_dict)
-            elif message_dict["message_type"] == "heartbeat":
-                self.heartbeat(message_dict)
-            if not self.is_running_job:
-                self.run_job()
+        self.create_TCP(self, None)
+            
 
         thread1.join()
         thread2.join()
@@ -75,6 +67,23 @@ class Manager:
         # # exit immediately!
         # LOGGER.debug("IMPLEMENT ME!")
         # time.sleep(120)
+
+    def handler(self, message_dict):
+        if message_dict["message_type"] == "shutdown":
+            self.shutdown(message_dict)
+            self.working = False
+        elif message_dict["message_type"] == "register":
+            self.register(message_dict)
+        elif message_dict["message_type"] == "new_manager_job":
+            self.new_manager_job(message_dict)
+        elif message_dict["message_type"] == "finished":
+            self.finished(message_dict)
+        elif message_dict["message_type"] == "heartbeat":
+            self.heartbeat(message_dict)
+        if not self.is_running_job:
+            self.run_job()
+
+
 
 
     def listen_worker_heartbeat(self, host, port):

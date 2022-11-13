@@ -28,10 +28,12 @@ class Worker:
 
         self.host = host
         self.port = port
-        self.manager_host = manager_host
-        self.manager_port = manager_port
+        self.server_host = manager_host
+        self.server_port = manager_port
         self.registered = False
-        self.isWorking = True
+        self.working = True
+
+        self.create_TCP = mapreduce.utils.create_TCP
 
         self.thread = threading.Thread(target=self.heartbeat)
 
@@ -41,13 +43,10 @@ class Worker:
             "worker_port": self.port,   
         }
 
-        mapreduce.utils.create_TCP(self.host, self.port, self.handler, self.working ,self.manager_host, self.manager_port, register_message)
+        self.create_TCP(self, register_message)
 
         if self.registered:
             self.thread.join()
-
-    def working(self):
-        return self.isWorking
 
     def handler(self, message_dict):
         if message_dict["message_type"] == "shutdown":
