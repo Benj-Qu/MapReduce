@@ -24,45 +24,49 @@ class Worker:
             manager_host, manager_port,
         )
 
-        working =  True
+        self.host = host
+        self.port = port
+        self.manager_host = manager_host
+        self.manager_port = manager_port
 
-        info = {
-            "message_type": "register_ack",
-            "worker_host": host,
-            "worker_port": port,
-        }
-        mapreduce.utils.send_TCP_message(host, port, info)
-
-        # Create a new thread, which will listen for UDP heartbeat messages from the Workers.
-        threads = []
-        thread1 = threading.Thread(target=self.send_heartbeat, args=(port,))
-        threads.append(thread1)
-        thread1.start()
+        self.working =  True
 
         # Create a new TCP socket on the given port and call the listen() function. 
         # Note: only one listen() thread should remain open for the whole lifetime of the Manager.
-        
-        message_dict = mapreduce.utils.create_TCP(manager_host, manager_port)
 
-        while working:
+        while self.working:
             message_dict = mapreduce.utils.create_TCP(manager_host, manager_port)
             if message_dict["message_type"] == "shutdown":
-                working = False
+                self.working = False
             elif message_dict["message_type"] == "register_ack":
-                self.register(message_dict)
+                thread1 = threading.Thread(target=self.heartbeat())
+                thread1.start()
             elif message_dict["message_type"] == "new_map_task":
                 self.mapping(message_dict)
             elif message_dict["message_type"] == "new_reduce_task":
                 self.reducing(message_dict)
 
         thread1.join()
+        return
 
-    def send_heartbeat(self):
-        ## TODO ##
+    def heartbeat(self):
+        while self.working:
+            heartbeat = {
+                "message_type": "heartbeat",
+                "worker_host": self.host,
+                "worker_port": self.port,
+            }
+            mapreduce.utils.send_UDP_message(self.manager_host, self.manager_port, heartbeat)
+            time.sleep(2000)
         return
 
     def register(self):
-        ## TODO ##
+        info = {
+            "message_type": "register",
+            "worker_host": self.host,
+            "worker_port": self.port,
+        }
+        mapreduce.utils.send_TCP_message(self.manager_host, self.manager_port, info)
         return
 
     def mapping(self):
