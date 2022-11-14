@@ -125,7 +125,7 @@ class Manager:
         host = msg_dict["worker_host"]
         port = msg_dict["worker_port"]
         with self.lock:
-            self.workers[(host, port)].birth = time.time()
+            self.workers[host, port].birth = time.time()
 
 
     def fault_tolerance(self):
@@ -261,9 +261,11 @@ class Manager:
     def finished(self, message_dict):
         worker_host = message_dict["worker_host"]
         worker_port = message_dict["worker_port"]
-        self.workers[(worker_host, worker_port)].status = Status.READY
-        self.ready_workers.append((worker_host, worker_port))
-        self.num_finished += 1
+        worker = (worker_host, worker_port)
+        with self.lock:
+            self.workers[worker].status = Status.READY
+            self.ready_workers.append(worker)
+            self.num_finished += 1
 
 
 @click.command()
