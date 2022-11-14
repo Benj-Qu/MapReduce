@@ -10,6 +10,8 @@ import socket
 import hashlib
 import subprocess
 import tempfile
+import shutil
+import heapq
 from pathlib import Path
 from contextlib import ExitStack
 
@@ -133,18 +135,39 @@ class Worker:
     def reducing(self, message_dict):
         ## TODO ##
         executable = message_dict["executable"]
-        instream = ... # merged input files
-        outfile = ... # open output file
-        with subprocess.Popen(
-            [executable],
-            text=True,
-            stdin=subprocess.PIPE,
-            stdout=outfile,
-        ) as reduce_process:
-            # Pipe input to reduce_process
-            for line in instream:
-                reduce_process.stdin.write(line)
-        return
+        input_path = message_dict["input_path"]
+        output_directory = message_dict["output_directory"]
+        task_id = message_dict["task_id"]
+
+        prefix = f"mapreduce-local-task{task_id:05d}-"
+        with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
+            with ExitStack() as stack:
+                files = [stack.enter_context(open(fname, "a", encoding="utf8")) for fname in input_path]
+            instream = heapq.merge(*files)
+
+            outfile = f"part-{task_id:05d}"
+            with subprocess.Popen(
+                [executable],
+                text=True,
+                stdin=subprocess.PIPE,
+                stdout=outfile,
+            ) as reduce_process:
+                # Pipe input to reduce_process
+                for line in instream:
+                    reduce_process.stdin.write(line)
+
+            tmpdir_path = Path(tmpdir)
+            shutil.copytree(tmpdir_path, output_directory)
+
+            message = {
+                "message_type": "finished",
+                "task_id": task_id,
+                "worker_host": self.host,
+                "worker_port": self.port
+            }
+            mapreduce.utils.send_TCP_message(self.server_host, self.server_port, message)
+
+            return
 
 
 @click.command()
