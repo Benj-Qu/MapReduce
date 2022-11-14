@@ -65,6 +65,7 @@ class Manager:
         self.ready_workers = []
         self.working = True
         self.jobs = [] # job queue, add by append, remove by self.jobs.pop(0)
+        self.tasks = [] # task queue, add by append, remove by self.tasks.pop(0)
         self.num_jobs = 0 # assign job id
 
         # Create a new thread, which will listen for UDP heartbeat messages from the Workers.
@@ -78,7 +79,7 @@ class Manager:
         threads.append(thread2)
         thread2.start()
 
-        thread3 = threading.Thread(target=self.run_job,)
+        thread3 = threading.Thread(target=self.run_job)
         threads.append(thread3)
         thread3.start()
         # Create a new TCP socket on the given port and call the listen() function. 
@@ -118,8 +119,9 @@ class Manager:
                             ## TODO: Give its job to another worker
                             self.workers[worker].status = Status.DEAD
                         elif self.workers[worker].status == Status.READY:
+                            self.ready_workers.remove(worker)
                             self.workers[worker].status = Status.DEAD
-        time.sleep(1)
+        time.sleep(0.5)
                 
         # TODO: IMPLEMENT THIS
         # Listen for UDP heartbeat messages from the workers
