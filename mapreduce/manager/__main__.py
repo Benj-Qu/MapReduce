@@ -232,6 +232,7 @@ class Manager:
 
 
     def input_partitioning(self):
+        self.mapping_task = True
         input_dir_path = Path(self.cur_job_message["input_directory"])
         files = list(input_dir_path.glob('**/*'))
         for idx, file in enumerate(files):
@@ -246,6 +247,7 @@ class Manager:
         self.tasks = list(range(num_mappers))
         # Mapping
         self.mapping_task = True
+        self.num_finished = 0
         while self.get_working():
             time.sleep(0.1)
             with self.lock:
@@ -253,7 +255,6 @@ class Manager:
                     break
                 for taskid in self.tasks:
                     self.assign_task(taskid)
-        # Reducing
 
 
     def run_job(self):
@@ -276,44 +277,24 @@ class Manager:
 
 
     def run_reducing(self):
+        self.mapping_task = False
         tmp_dir_path = Path(self.tmpdir)
         files = list(tmp_dir_path.glob('**/*'))
         for idx, file in enumerate(files):
             files[idx] = str(file)
-        
+        self.task_content = defaultdict(list)
         for file in files:
             partition = int(file[-5:])
-
-        self.task_content = defaultdict(list)
-        cur_task_id = 0
-        num_mappers = self.cur_job_message["num_mappers"]
-        for file in files:
-            self.task_content[cur_task_id].append(file)
-            cur_task_id = (cur_task_id + 1) % num_mappers
-        self.tasks = list(range(num_mappers))
+            self.task_content[partition].append(file)
+        self.tasks = list(range(self.cur_job_message["num_reducers"]))
         # Mapping
+        self.num_finished = 0
         while self.get_working():
             time.sleep(0.1)
-            if self.num_finished == num_mappers:
+            if self.num_finished == self.cur_job_message["num_reducers"]:
                 break
             for taskid in self.tasks:
                 self.assign_task(taskid)
-
-
-        while self.get_working():
-            time.sleep(0.1)
-        
-            # new_message = {
-            #     "message_type": "new_reduce_task",
-            #     "task_id": int,
-            #     "executable": self.cur_job_message["reducer_executable"]
-            #     "input_paths": [list of strings],
-            #     "output_directory": string,
-            #     "worker_host": string,
-            #     "worker_port": int
-            # }
-
-        pass
 
 
     def finished(self, message_dict):
