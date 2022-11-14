@@ -72,12 +72,12 @@ class Worker:
 
     def heartbeat(self):
         while self.working:
-            heartbeat = {
+            heartbeat_msg = {
                 "message_type": "heartbeat",
                 "worker_host": self.host,
                 "worker_port": self.port,
             }
-            mapreduce.utils.send_UDP_message(self.server_host, self.server_port, heartbeat)
+            mapreduce.utils.send_UDP_message(self.server_host, self.server_port, heartbeat_msg)
             time.sleep(2)
         return
 
