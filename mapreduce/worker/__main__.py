@@ -10,6 +10,8 @@ import socket
 import hashlib
 import subprocess
 import tempfile
+from pathlib import Path
+from contextlib import ExitStack
 
 
 # Configure logging
@@ -74,11 +76,11 @@ class Worker:
 
 
     def mapping(self, message_dict):
-        ## TODO ##
         task_id = message_dict["task_id"]
         prefix = f"mapreduce-local-task{task_id:05d}-"
         with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
             LOGGER.info("Created tmpdir %s", tmpdir)
+            """ Mapping to temporary directory """
             for input_path in message_dict["input_paths"]:
                 with open(input_path) as infile:
                     with subprocess.Popen(
@@ -96,6 +98,13 @@ class Worker:
                             filename = f"maptask{task_id:05d}-part{partition:05d}"
                             with open(filename, 'a+') as outfile:
                                 outfile.write(line)
+            """ Sort each file in the temporary directory """
+            tmpdir_path = Path(tmpdir)
+            with ExitStack() as stack:
+                files = [stack.enter_context(open(file, "a", encoding="utf8")) for file in list(tmpdir_path.glob('**/*'))]
+
+
+
         LOGGER.info("Cleaned up tmpdir %s", tmpdir)
 
     def reducing(self, message_dict):
