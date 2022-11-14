@@ -156,7 +156,9 @@ class Manager:
         # Forward this message to all of the living Workers
         # that have registered with it
         for host, port in self.workers.keys():
-            mapreduce.utils.send_TCP_message(host, port, message_dict)
+            send_TCP_success = mapreduce.utils.send_TCP_message(host, port, message_dict)
+            if not send_TCP_success:
+                self.deal_dead_workers(host, port)
 
 
     def register(self, message_dict):
@@ -173,7 +175,9 @@ class Manager:
             self.workers[worker] = WorkerInfo()
             self.ready_workers.append(worker)
         message_dict["message_type"] = "register_ack"
-        mapreduce.utils.send_TCP_message(host, port, message_dict)
+        send_TCP_success = mapreduce.utils.send_TCP_message(host, port, message_dict)
+        if not send_TCP_success:
+            self.deal_dead_workers(host, port)
         with self.lock:
             if self.tasks:
                 taskid = self.tasks.pop(0)
@@ -222,13 +226,23 @@ class Manager:
                     "worker_host": worker_host,
                     "worker_port": worker_port,
                 }
-            mapreduce.utils.send_TCP_message(worker_host, worker_port, new_message)
+            send_TCP_success = mapreduce.utils.send_TCP_message(worker_host, worker_port, new_message)
+            if not send_TCP_success:
+                self.deal_dead_workers(worker_host, worker_port)
             # If successfully assign the task
             self.tasks.remove(taskid)
         else:
             # No ready workers, add this task to tasks list
             if taskid not in self.tasks:
                 self.tasks.append(taskid)
+
+    def deal_dead_workers(self, worker_host, worker_port):
+        worker = (worker_host, worker_port)
+        if self.workers[worker].status == Status.BUSY:
+            self.assign_task(self.workers[worker].taskid)
+        elif self.workers[worker].status == Status.READY:
+            self.ready_workers.remove(worker)
+        self.workers[(worker_host, worker_port)].status = Status.DEAD
 
 
     def input_partitioning(self):

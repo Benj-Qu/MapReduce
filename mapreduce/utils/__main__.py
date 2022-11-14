@@ -69,13 +69,15 @@ def send_TCP_message(host, port, message_dict):
     """Test TCP Socket Client."""
     # create an INET, STREAMing socket, this is TCP
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-
-        # connect to the server
-        sock.connect((host, port))
-
-        # send a message
-        message = json.dumps(message_dict)
-        sock.sendall(message.encode('utf-8'))
+        try:
+            # connect to the server
+            sock.connect((host, port))
+            # send a message
+            message = json.dumps(message_dict)
+            sock.sendall(message.encode('utf-8'))
+        except ConnectionRefusedError:
+            return False
+    return True
 
 
 def create_UDP(self, host, port):
