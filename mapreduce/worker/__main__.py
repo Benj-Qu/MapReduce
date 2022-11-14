@@ -32,6 +32,8 @@ class Worker:
             "manager_host=%s manager_port=%s",
             manager_host, manager_port,
         )
+        
+        self.lock = threading.Lock()
 
         self.host = host
         self.port = port
