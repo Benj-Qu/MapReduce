@@ -112,7 +112,8 @@ def send_UDP_message(host, port, message_dict):
         # Send a message
         message = json.dumps(message_dict)
         sock.sendall(message.encode('utf-8'))
-        
+
+
 def get_working(self):
     with self.lock:
         working = self.working

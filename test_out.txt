@@ -1,0 +1,28 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.10.7, pytest-7.2.0, pluggy-1.0.0 -- /Users/cjy/eecs485/p4-mapreduce/env/bin/python3.10
+cachedir: .pytest_cache
+rootdir: /Users/cjy/eecs485/p4-mapreduce
+plugins: mock-3.10.0
+collecting ... collected 1 item
+
+tests/test_manager_02.py::test_map 
+-------------------------------- live log call ---------------------------------
+INFO     mapreduce.manager.__main__:__main__.py:64 Starting manager host=localhost port=6000 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.manager.__main__:__main__.py:109 register
+INFO     mapreduce.manager.__main__:__main__.py:109 new_manager_job
+INFO     mapreduce.manager.__main__:__main__.py:289 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-39/test_map0/mapreduce-shared-job00000-ag_kkg6e
+INFO     mapreduce.manager.__main__:__main__.py:227 enter input_partitioning
+[0, 1]
+INFO     mapreduce.manager.__main__:__main__.py:216 enter assign task 0
+[1]
+INFO     mapreduce.manager.__main__:__main__.py:109 finished
+[1]
+INFO     mapreduce.manager.__main__:__main__.py:216 enter assign task 1
+[]
+INFO     mapreduce.manager.__main__:__main__.py:109 finished
+INFO     mapreduce.manager.__main__:__main__.py:109 shutdown
+INFO     mapreduce.manager.__main__:__main__.py:244 FINISHED!!
+INFO     mapreduce.manager.__main__:__main__.py:296 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-39/test_map0/mapreduce-shared-job00000-ag_kkg6e
+PASSED
+
+============================== 1 passed in 4.04s ===============================

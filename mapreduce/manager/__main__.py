@@ -26,7 +26,7 @@ class WorkerInfo:
         self._birth = time.time()
         self._status = Status.READY
         self._taskid = -1
-    
+
     @property
     def birth(self):
         return self._birth
@@ -51,9 +51,10 @@ class WorkerInfo:
     def taskid(self, value):
         self._taskid = value
 
+
 class Manager:
     """Represent a MapReduce framework Manager node."""
-    
+
     get_working = mapreduce.utils.get_working
     create_TCP = mapreduce.utils.create_TCP
     create_UDP = mapreduce.utils.create_UDP
@@ -67,6 +68,7 @@ class Manager:
 
         self.host = host
         self.port = port
+        self.tmpdir = None
         self.cur_job_message = None
         self.lock = threading.Lock()
 
@@ -102,7 +104,9 @@ class Manager:
         thread2.join()
         thread3.join()
 
+
     def TCP_handler(self, message_dict):
+        # LOGGER.info(message_dict["message_type"])
         if message_dict["message_type"] == "shutdown":
             self.shutdown(message_dict)
             with self.lock:
@@ -116,11 +120,13 @@ class Manager:
         else:
             print("Undedfined message!")
 
+
     def UDP_handler(self, msg_dict):
         host = msg_dict["worker_host"]
         port = msg_dict["worker_port"]
         with self.lock:
-            self.workers[host, port].birth = time.time()
+            self.workers[(host, port)].birth = time.time()
+
 
     def fault_tolerance(self):
         while self.get_working():
@@ -134,11 +140,13 @@ class Manager:
                             self.ready_workers.remove(worker)
                         self.workers[worker].status = Status.DEAD
             time.sleep(0.5)
-            
+
+
     def tasks_isempty(self):
         with self.lock:
             return (len(self.tasks) == 0)
-        
+
+
     def jobs_isempty(self):
         with self.lock:
             return (len(self.jobs) == 0)
@@ -169,6 +177,7 @@ class Manager:
                 taskid = self.tasks.pop(0)
                 self.assign_task(taskid)
 
+
     def new_manager_job(self, message_dict):
         # Assign a job_id which starts from zero and increments.
         message_dict["job_id"] = self.num_jobs
@@ -182,19 +191,39 @@ class Manager:
         if output_directory_path.exists():
             output_directory_path.rmdir()
         output_directory_path.mkdir()
-        # if self.jobs and self.is_running_job is False:
-        #     self.run_job(message_dict)
-    
+
+
     def assign_task(self, taskid):
         ### TODO: assign task with taskid to ready worker, or add to tasks list
         ### NO NEED TO LOCK! LOCK BEFORE THE FUNCTION!
-        pass
+        if self.ready_workers:
+            # Assign the taks with taskid to ready worker
+            worker_host, worker_port = self.ready_workers.pop(0)
+            new_message = {
+                "message_type": "new_map_task",
+                "task_id": taskid,
+                "input_paths": self.task_content[taskid],
+                "executable": self.cur_job_message["mapper_executable"],
+                "output_directory": self.tmpdir,
+                "num_partitions": self.cur_job_message["num_reducers"],
+                "worker_host": worker_host,
+                "worker_port": worker_port,
+            }
+            mapreduce.utils.send_TCP_message(worker_host, worker_port, new_message)
+            # If successfully assign the task
+            self.tasks.remove(taskid)
+        else:
+            # No ready workers, add this task to tasks list
+            if taskid not in self.tasks:
+                self.tasks.append(taskid)
 
-    def input_partitioning(self, tmpdir):
-        # p = Path(directory).glob('**/*')
-        # files = [x for x in p if x.is_file()]
+
+    def input_partitioning(self):
         input_dir_path = Path(self.cur_job_message["input_directory"])
-        files = list(input_dir_path.glob('**/*')).sort()
+        files = list(input_dir_path.glob('**/*'))
+        for idx, file in enumerate(files):
+            files[idx] = str(file)
+        files.sort()
         self.task_content = defaultdict(list)
         cur_task_id = 0
         num_mappers = self.cur_job_message["num_mappers"]
@@ -202,38 +231,14 @@ class Manager:
             self.task_content[cur_task_id].append(file)
             cur_task_id = (cur_task_id + 1) % num_mappers
         self.tasks = list(range(num_mappers))
-        # mapping
-        ## basic idea: 
-        ## first assign all tasks (note there is the assign-task method)
-        ## then whileb loop and wait, until all tasks are finished
-        ## if meanwhile, tasks list become non-empty
-        ## send the tasks and keep waiting
-        while True:
+        # Mapping
+        while self.get_working():
             time.sleep(0.1)
-            with self.lock:
-                if len(self.ready_workers) != 0:
-                    worker = self.ready_workers[0]
-                    self.ready_workers.pop(0)
-                    self.workers[worker].status = Status.BUSY
-                else:
-                    continue
-
-            new_message = {
-                "message_type": "new_map_task",
-                "task_id": task_id,
-                "input_paths": self.task_content[task_id],
-                "executable": self.cur_job_message["mapper_executable"],
-                "output_directory": tmpdir,
-                "num_partitions": self.cur_job_message["num_reducers"],
-                "worker_host": worker[0],
-                "worker_port": worker[1],
-            }
-
-            mapreduce.utils.send_TCP_message(host, port, new_message)
-            task_id += 1
-            if task_id >= len(self.task_content.keys()):
+            if self.num_finished == num_mappers:
                 break
-        # TODO: reducing
+            for taskid in self.tasks:
+                self.assign_task(taskid)
+
 
     def run_job(self):
         while self.get_working():
@@ -242,19 +247,24 @@ class Manager:
                 with self.lock:
                     job = self.jobs.pop(0)
                 prefix = f"mapreduce-shared-job{job['job_id']:05d}-"
-                print(prefix)
                 with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
                     LOGGER.info("Created tmpdir %s", tmpdir)
                     # FIXME: Change this loop so that it runs either until shutdown 
                     # or when the job is completed.
-                    while self.get_working():
-                        time.sleep(0.1)
-                    # self.input_partitioning(tmpdir)
+                    # while self.get_working():
+                    #     time.sleep(0.1)
+                    self.tmpdir = tmpdir
+                    self.input_partitioning()
                 LOGGER.info("Cleaned up tmpdir %s", tmpdir)
 
+
     def finished(self, message_dict):
-        # TODO: IMPLEMENT THIS
-        pass
+        worker_host = message_dict["worker_host"]
+        worker_port = message_dict["worker_port"]
+        self.workers[(worker_host, worker_port)].status = Status.READY
+        self.ready_workers.append((worker_host, worker_port))
+        self.num_finished += 1
+
 
 @click.command()
 @click.option("--host", "host", default="localhost")
@@ -277,6 +287,7 @@ def main(host, port, logfile, loglevel, shared_dir):
     root_logger.addHandler(handler)
     root_logger.setLevel(loglevel.upper())
     Manager(host, port)
+
 
 if __name__ == "__main__":
     main()
