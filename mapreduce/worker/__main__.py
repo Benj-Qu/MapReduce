@@ -75,7 +75,7 @@ class Worker:
                 "worker_host": self.host,
                 "worker_port": self.port,
             }
-            mapreduce.utils.send_UDP_message(self.manager_host, self.manager_port, heartbeat)
+            mapreduce.utils.send_UDP_message(self.server_host, self.server_port, heartbeat)
             time.sleep(2000)
 
 
@@ -137,7 +137,7 @@ class Worker:
     def reducing(self, message_dict):
         ## TODO ##
         executable = message_dict["executable"]
-        input_path = message_dict["input_path"]
+        input_path = message_dict["input_paths"]
         output_directory = message_dict["output_directory"]
         task_id = message_dict["task_id"]
 
