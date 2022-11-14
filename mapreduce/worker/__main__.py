@@ -76,7 +76,7 @@ class Worker:
                 "worker_port": self.port,
             }
             mapreduce.utils.send_UDP_message(self.server_host, self.server_port, heartbeat)
-            time.sleep(2000)
+            time.sleep(2)
 
 
     def mapping(self, message_dict):
