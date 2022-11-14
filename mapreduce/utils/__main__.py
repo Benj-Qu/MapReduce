@@ -28,7 +28,6 @@ def create_TCP(self, send_msg):
             with self.lock:
                 working =  self.working
             if not working:
-                print("Stopped")
                 break
             # Wait for a connection for 1s.  The socket library avoids consuming
             # CPU while waiting for a connection.
@@ -36,7 +35,6 @@ def create_TCP(self, send_msg):
                 clientsocket, address = sock.accept()
             except socket.timeout:
                 continue
-            print("Connection from", address[0])
 
             # Socket recv() will block for a maximum of 1 second.  If you omit
             # this, it blocks indefinitely, waiting for packets.
@@ -68,7 +66,6 @@ def create_TCP(self, send_msg):
             except json.JSONDecodeError:
                 continue
             self.handler(message_dict)
-    print("Stopped!")
 
 
 
