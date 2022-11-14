@@ -151,11 +151,13 @@ class Manager:
         with self.lock:
             return (len(self.jobs) == 0)
 
+
     def shutdown(self, message_dict):
         # Forward this message to all of the living Workers
         # that have registered with it
         for host, port in self.workers.keys():
             mapreduce.utils.send_TCP_message(host, port, message_dict)
+
 
     def register(self, message_dict):
         # Register a worker
@@ -194,8 +196,8 @@ class Manager:
 
 
     def assign_task(self, taskid):
-        ### TODO: assign task with taskid to ready worker, or add to tasks list
-        ### NO NEED TO LOCK! LOCK BEFORE THE FUNCTION!
+        # Assign task with taskid to ready worker, or add to tasks list
+        # NO NEED TO LOCK! LOCK BEFORE THE FUNCTION!
         if self.mapping_task:
             if self.ready_workers:
                 # Assign the taks with taskid to ready worker
@@ -273,7 +275,49 @@ class Manager:
                     #     time.sleep(0.1)
                     self.tmpdir = tmpdir
                     self.input_partitioning()
+                    self.run_reducing()
                 LOGGER.info("Cleaned up tmpdir %s", tmpdir)
+
+
+    def run_reducing(self):
+        tmp_dir_path = Path(self.tmpdir)
+        files = list(tmp_dir_path.glob('**/*'))
+        for idx, file in enumerate(files):
+            files[idx] = str(file)
+        
+        for file in files:
+            partition = int(file[-5:])
+
+        self.task_content = defaultdict(list)
+        cur_task_id = 0
+        num_mappers = self.cur_job_message["num_mappers"]
+        for file in files:
+            self.task_content[cur_task_id].append(file)
+            cur_task_id = (cur_task_id + 1) % num_mappers
+        self.tasks = list(range(num_mappers))
+        # Mapping
+        while self.get_working():
+            time.sleep(0.1)
+            if self.num_finished == num_mappers:
+                break
+            for taskid in self.tasks:
+                self.assign_task(taskid)
+
+
+        while self.get_working():
+            time.sleep(0.1)
+        
+            # new_message = {
+            #     "message_type": "new_reduce_task",
+            #     "task_id": int,
+            #     "executable": self.cur_job_message["reducer_executable"]
+            #     "input_paths": [list of strings],
+            #     "output_directory": string,
+            #     "worker_host": string,
+            #     "worker_port": int
+            # }
+
+        pass
 
 
     def finished(self, message_dict):
