@@ -23,11 +23,31 @@ class Status(Enum):
 
 class WorkerInfo:
     def __init__(self):
-        self._status = Status.READY
         self._birth = time.time()
+        self._status = Status.READY
+    
+    @property
+    def birth(self):
+        return self._birth
+    
+    @birth.setter
+    def birth(self, value):
+        self._birth = value
+    
+    @property
+    def status(self):
+        return self._status
+    
+    @status.setter
+    def status(self, value):
+        self._status = value
 
 class Manager:
     """Represent a MapReduce framework Manager node."""
+    
+    get_working = mapreduce.utils.get_working
+    create_TCP = mapreduce.utils.create_TCP
+    create_UDP = mapreduce.utils.create_UDP
 
     def __init__(self, host, port):
         """Construct a Manager instance and start listening for messages."""
@@ -42,20 +62,19 @@ class Manager:
         self.lock = threading.Lock()
 
         self.workers = {}
+        self.ready_workers = []
         self.working = True
         self.jobs = [] # job queue, add by append, remove by self.jobs.pop(0)
         self.num_jobs = 0 # assign job id
 
-        self.create_TCP = mapreduce.utils.create_TCP
-
         # Create a new thread, which will listen for UDP heartbeat messages from the Workers.
         threads = []
-        thread1 = threading.Thread(target=self.listen_worker_heartbeat, args=(host, port,))
+        thread1 = threading.Thread(target=self.create_UDP, args=(host, port,))
         threads.append(thread1)
         thread1.start()
         # Create any additional threads or setup you think you may need. 
         # Another thread for fault tolerance could be helpful.
-        thread2 = threading.Thread(target=self.fault_tolerance, args=(host, port,))
+        thread2 = threading.Thread(target=self.fault_tolerance)
         threads.append(thread2)
         thread2.start()
 
@@ -64,13 +83,13 @@ class Manager:
         thread3.start()
         # Create a new TCP socket on the given port and call the listen() function. 
         # Note: only one listen() thread should remain open for the whole lifetime of the Manager.
-        self.create_TCP(self, None)
+        self.create_TCP(None)
 
         thread1.join()
         thread2.join()
         thread3.join()
 
-    def handler(self, message_dict):
+    def TCP_handler(self, message_dict):
         if message_dict["message_type"] == "shutdown":
             self.shutdown(message_dict)
             with self.lock:
@@ -81,36 +100,27 @@ class Manager:
             self.new_manager_job(message_dict)
         elif message_dict["message_type"] == "finished":
             self.finished(message_dict)
-        elif message_dict["message_type"] == "heartbeat":
-            self.heartbeat(message_dict)
+        else:
+            print("Undedfined message!")
 
+    def UDP_handler(self, msg_dict):
+        host = msg_dict["worker_host"]
+        port = msg_dict["worker_port"]
+        with self.lock:
+            self.workers[host, port].birth = time.time()
 
-    def listen_worker_heartbeat(self, host, port):
-        # Listen for UDP heartbeat messages from the workers
-        # Create an INET, DGRAM socket, this is UDP
-        # with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
-
-        #     # Bind the UDP socket to the server
-        #     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        #     sock.bind((host, port))
-        #     sock.settimeout(1)
-
-        #     # No sock.listen() since UDP doesn't establish connections like TCP
-
-        #     # TODO: IMPLEMENT THIS
-        #     # Receive incoming UDP messages
-        #     while self.working:
-        #         try:
-        #             message_bytes = sock.recv(4096)
-        #         except socket.timeout:
-        #             continue
-        #         message_str = message_bytes.decode("utf-8")
-        #         message_dict = json.loads(message_str)
-        #         print(message_dict)
-        pass
-
-
-    def fault_tolerance(self, host, port):
+    def fault_tolerance(self):
+        while self.get_working():
+            with self.lock:
+                for worker in self.workers.keys():
+                    if time.time() - self.workers[worker].birth > 10:
+                        if self.workers[worker].status == Status.BUSY:
+                            ## TODO: Give its job to another worker
+                            self.workers[worker].status = Status.DEAD
+                        elif self.workers[worker].status == Status.READY:
+                            self.workers[worker].status = Status.DEAD
+        time.sleep(1)
+                
         # TODO: IMPLEMENT THIS
         # Listen for UDP heartbeat messages from the workers
         # Create an INET, DGRAM socket, this is UDP
@@ -145,10 +155,14 @@ class Manager:
 
     def register(self, message_dict):
         # Register a worker
+        host = message_dict["worker_host"]
+        port = message_dict["worker_port"]
+        worker = (host, port)
         with self.lock:
-            self.workers[(message_dict["worker_host"], message_dict["worker_port"])] = WorkerInfo()
+            self.workers[worker] = WorkerInfo()
+            self.ready_workers.append(worker)
         message_dict["message_type"] = "register_ack"
-        mapreduce.utils.send_TCP_message(message_dict["worker_host"], message_dict["worker_port"], message_dict)
+        mapreduce.utils.send_TCP_message(host, port, message_dict)
         # check job queue
 
 
@@ -200,10 +214,7 @@ class Manager:
 
 
     def run_job(self):
-        while True:
-            with self.lock:
-                if not self.working:
-                    break
+        while self.get_working():
             time.sleep(0.1)
             with self.lock:
                 jobs = self.jobs
@@ -216,21 +227,13 @@ class Manager:
                     LOGGER.info("Created tmpdir %s", tmpdir)
                     # FIXME: Change this loop so that it runs either until shutdown 
                     # or when the job is completed.
-                    while True:
-                        with self.lock:
-                            if self.working:
-                                break
+                    while self.get_working():
                         time.sleep(0.1)
                     # self.input_partitioning(tmpdir)
                 LOGGER.info("Cleaned up tmpdir %s", tmpdir)
 
 
     def finished(self, message_dict):
-        # TODO: IMPLEMENT THIS
-        pass
-
-
-    def heartbeat(self, message_dict):
         # TODO: IMPLEMENT THIS
         pass
 

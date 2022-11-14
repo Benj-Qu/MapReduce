@@ -21,6 +21,10 @@ LOGGER = logging.getLogger(__name__)
 
 
 class Worker:
+    
+    get_working = mapreduce.utils.get_working
+    create_TCP = mapreduce.utils.create_TCP
+    
     """A class representing a Worker node in a MapReduce cluster."""
     def __init__(self, host, port, manager_host, manager_port):
         """Construct a Worker instance and start listening for messages."""
@@ -42,8 +46,6 @@ class Worker:
         self.registered = False
         self.working = True
 
-        self.create_TCP = mapreduce.utils.create_TCP
-
         self.thread = threading.Thread(target=self.heartbeat)
 
         register_message = {
@@ -52,12 +54,12 @@ class Worker:
             "worker_port": self.port,   
         }
 
-        self.create_TCP(self, register_message)
+        self.create_TCP(register_message)
         
         if self.registered:
             self.thread.join()
 
-    def handler(self, message_dict):
+    def TCP_handler(self, message_dict):
         if message_dict["message_type"] == "shutdown":
             self.working = False
         elif message_dict["message_type"] == "register_ack":

@@ -24,11 +24,7 @@ def create_TCP(self, send_msg):
         # omit this, it blocks indefinitely, waiting for a connection.
         sock.settimeout(1)
 
-        while True:
-            with self.lock:
-                working =  self.working
-            if not working:
-                break
+        while self.get_working():
             # Wait for a connection for 1s.  The socket library avoids consuming
             # CPU while waiting for a connection.
             try:
@@ -65,7 +61,7 @@ def create_TCP(self, send_msg):
                 message_dict = json.loads(message_str)
             except json.JSONDecodeError:
                 continue
-            self.handler(message_dict)
+            self.TCP_handler(message_dict)
 
 
 
@@ -82,7 +78,7 @@ def send_TCP_message(host, port, message_dict):
         sock.sendall(message.encode('utf-8'))
 
 
-def create_UDP(host, port):
+def create_UDP(self, host, port):
     """Test UDP Socket Server."""
     # Create an INET, DGRAM socket, this is UDP
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
@@ -95,14 +91,14 @@ def create_UDP(host, port):
         # No sock.listen() since UDP doesn't establish connections like TCP
 
         # Receive incoming UDP messages
-        while True:
+        while self.get_working():
             try:
                 message_bytes = sock.recv(4096)
             except socket.timeout:
                 continue
             message_str = message_bytes.decode("utf-8")
             message_dict = json.loads(message_str)
-            return message_dict
+            self.UDP_handler(message_dict)
 
 
 def send_UDP_message(host, port, message_dict):
@@ -116,3 +112,8 @@ def send_UDP_message(host, port, message_dict):
         # Send a message
         message = json.dumps(message_dict)
         sock.sendall(message.encode('utf-8'))
+        
+def get_working(self):
+    with self.lock:
+        working = self.working
+    return working
