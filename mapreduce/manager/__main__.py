@@ -196,26 +196,41 @@ class Manager:
     def assign_task(self, taskid):
         ### TODO: assign task with taskid to ready worker, or add to tasks list
         ### NO NEED TO LOCK! LOCK BEFORE THE FUNCTION!
-        if self.ready_workers:
-            # Assign the taks with taskid to ready worker
-            worker_host, worker_port = self.ready_workers.pop(0)
-            new_message = {
-                "message_type": "new_map_task",
-                "task_id": taskid,
-                "input_paths": self.task_content[taskid],
-                "executable": self.cur_job_message["mapper_executable"],
-                "output_directory": self.tmpdir,
-                "num_partitions": self.cur_job_message["num_reducers"],
-                "worker_host": worker_host,
-                "worker_port": worker_port,
-            }
-            mapreduce.utils.send_TCP_message(worker_host, worker_port, new_message)
-            # If successfully assign the task
-            self.tasks.remove(taskid)
+        if self.mapping_task:
+            if self.ready_workers:
+                # Assign the taks with taskid to ready worker
+                worker_host, worker_port = self.ready_workers.pop(0)
+                new_message = {
+                    "message_type": "new_map_task",
+                    "task_id": taskid,
+                    "input_paths": self.task_content[taskid],
+                    "executable": self.cur_job_message["mapper_executable"],
+                    "output_directory": self.tmpdir,
+                    "num_partitions": self.cur_job_message["num_reducers"],
+                    "worker_host": worker_host,
+                    "worker_port": worker_port,
+                }
+                mapreduce.utils.send_TCP_message(worker_host, worker_port, new_message)
+                # If successfully assign the task
+                self.tasks.remove(taskid)
+            else:
+                # No ready workers, add this task to tasks list
+                if taskid not in self.tasks:
+                    self.tasks.append(taskid)
         else:
-            # No ready workers, add this task to tasks list
-            if taskid not in self.tasks:
-                self.tasks.append(taskid)
+            if self.ready_workers:
+                # assign reduce task
+                worker_host, worker_port = self.ready_workers.pop(0)
+                new_message = {
+                    
+                }
+                mapreduce.utils.send_TCP_message(worker_host, worker_port, new_message)
+                # If successfully assign the task
+                self.tasks.remove(taskid)
+            else:
+                # No ready workers, add this task to tasks list
+                if taskid not in self.tasks:
+                    self.tasks.append(taskid)
 
 
     def input_partitioning(self):
@@ -232,12 +247,15 @@ class Manager:
             cur_task_id = (cur_task_id + 1) % num_mappers
         self.tasks = list(range(num_mappers))
         # Mapping
+        self.mapping_task = True
         while self.get_working():
             time.sleep(0.1)
-            if self.num_finished == num_mappers:
-                break
-            for taskid in self.tasks:
-                self.assign_task(taskid)
+            with self.lock:
+                if self.num_finished == num_mappers:
+                    break
+                for taskid in self.tasks:
+                    self.assign_task(taskid)
+        # Reducing
 
 
     def run_job(self):
