@@ -190,10 +190,10 @@ class Manager:
         # files = [x for x in p if x.is_file()]
         input_dir_path = Path(self.cur_job_message["input_directory"])
         files = list(input_dir_path.glob('**/*')).sort()
-        partitioned_files = defaultdict(list)
+        self.tasks = defaultdict(list)
         cur_task_id = 0
         for file in files:
-            partitioned_files[cur_task_id].append(file)
+            self.tasks[cur_task_id].append(file)
             cur_task_id = (cur_task_id + 1) % self.cur_job_message["num_mappers"]
         task_id = 0
         # mapping
@@ -210,7 +210,7 @@ class Manager:
             new_message = {
                 "message_type": "new_map_task",
                 "task_id": task_id,
-                "input_paths": partitioned_files[task_id],
+                "input_paths": self.tasks[task_id],
                 "executable": self.cur_job_message["mapper_executable"],
                 "output_directory": tmpdir,
                 "num_partitions": self.cur_job_message["num_reducers"],
@@ -220,7 +220,7 @@ class Manager:
 
             mapreduce.utils.send_TCP_message(host, port, new_message)
             task_id += 1
-            if task_id >= len(partitioned_files.keys()):
+            if task_id >= len(self.tasks.keys()):
                 break
         # TODO: reducing
 
