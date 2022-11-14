@@ -196,23 +196,33 @@ class Manager:
             partitioned_files[cur_task_id].append(file)
             cur_task_id = (cur_task_id + 1) % self.cur_job_message["num_mappers"]
         task_id = 0
-        for host, port in self.workers.keys():
-            if self.workers[(host, port)].status == Status.READY:
-                new_message = {
-                    "message_type": "new_map_task",
-                    "task_id": task_id,
-                    "input_paths": partitioned_files[task_id],
-                    "executable": self.cur_job_message["mapper_executable"],
-                    "output_directory": tmpdir,
-                    "num_partitions": self.cur_job_message["num_reducers"],
-                    "worker_host": host,
-                    "worker_port": port,
-                }
-                mapreduce.utils.send_TCP_message(host, port, new_message)
-                task_id += 1
-                self.workers[(host, port)].status = Status.BUSY
-                if task_id > len(partitioned_files.keys()):
-                    break
+        # mapping
+        while True:
+            time.sleep(0.1)
+            with self.lock:
+                if len(self.ready_workers) != 0:
+                    worker = self.ready_workers[0]
+                    self.ready_workers.pop(0)
+                    self.workers[worker].status = Status.BUSY
+                else:
+                    continue
+
+            new_message = {
+                "message_type": "new_map_task",
+                "task_id": task_id,
+                "input_paths": partitioned_files[task_id],
+                "executable": self.cur_job_message["mapper_executable"],
+                "output_directory": tmpdir,
+                "num_partitions": self.cur_job_message["num_reducers"],
+                "worker_host": host,
+                "worker_port": port,
+            }
+
+            mapreduce.utils.send_TCP_message(host, port, new_message)
+            task_id += 1
+            if task_id >= len(partitioned_files.keys()):
+                break
+        # TODO: reducing
 
 
     def run_job(self):
