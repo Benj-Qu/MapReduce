@@ -73,15 +73,15 @@ class Worker:
             self.reducing(message_dict)
 
     def heartbeat(self):
-        # while self.working:
-        #     heartbeat = {
-        #         "message_type": "heartbeat",
-        #         "worker_host": self.host,
-        #         "worker_port": self.port,
-        #     }
-        #     mapreduce.utils.send_UDP_message(self.server_host, self.server_port, heartbeat)
-        #     print("heartbeat sent")
-        #     time.sleep(2000)
+        while self.working:
+            heartbeat = {
+                "message_type": "heartbeat",
+                "worker_host": self.host,
+                "worker_port": self.port,
+            }
+            mapreduce.utils.send_UDP_message(self.server_host, self.server_port, heartbeat)
+            print("heartbeat sent")
+            time.sleep(2)
         return
 
 
