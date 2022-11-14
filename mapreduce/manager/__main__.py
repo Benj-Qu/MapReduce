@@ -214,8 +214,8 @@ class Manager:
                 "executable": self.cur_job_message["mapper_executable"],
                 "output_directory": tmpdir,
                 "num_partitions": self.cur_job_message["num_reducers"],
-                "worker_host": host,
-                "worker_port": port,
+                "worker_host": worker[0],
+                "worker_port": worker[1],
             }
 
             mapreduce.utils.send_TCP_message(host, port, new_message)
