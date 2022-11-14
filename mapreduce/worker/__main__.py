@@ -146,22 +146,23 @@ class Worker:
         prefix = f"mapreduce-local-task{task_id:05d}-"
         with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
             with ExitStack() as stack:
-                files = [stack.enter_context(open(fname, "a", encoding="utf8")) for fname in input_path]
-            instream = heapq.merge(*files)
+                files = [stack.enter_context(open(fname, "r+", encoding="utf8")) for fname in input_path]
+                instream = heapq.merge(*files)
 
-            outfile = f"part-{task_id:05d}"
-            with subprocess.Popen(
-                [executable],
-                text=True,
-                stdin=subprocess.PIPE,
-                stdout=outfile,
-            ) as reduce_process:
-                # Pipe input to reduce_process
-                for line in instream:
-                    reduce_process.stdin.write(line)
+                tmpdir_path = Path(tmpdir)
+                outfile_path =  tmpdir_path / f"part-{task_id:05d}"
+                with open(outfile_path, "a+") as outfile:
+                    with subprocess.Popen(
+                        [executable],
+                        text=True,
+                        stdin=subprocess.PIPE,
+                        stdout=outfile,
+                    ) as reduce_process:
+                        # Pipe input to reduce_process
+                        for line in instream:
+                            reduce_process.stdin.write(line)
 
-            tmpdir_path = Path(tmpdir)
-            shutil.copytree(tmpdir_path, output_directory)
+            shutil.copytree(tmpdir_path, output_directory, dirs_exist_ok=True)
 
             message = {
                 "message_type": "finished",
