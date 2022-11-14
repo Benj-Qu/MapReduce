@@ -65,7 +65,7 @@ class Manager:
         self.ready_workers = []
         self.working = True
         self.jobs = [] # job queue, add by append, remove by self.jobs.pop(0)
-        self.tasks = [] # task queue, add by append, remove by self.tasks.pop(0)
+        self.tasks = None # task queue, add by append, remove by self.tasks.pop(0)
         self.num_jobs = 0 # assign job id
 
         # Create a new thread, which will listen for UDP heartbeat messages from the Workers.
