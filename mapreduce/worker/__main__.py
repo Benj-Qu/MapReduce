@@ -53,15 +53,19 @@ class Worker:
         }
 
         self.create_TCP(self, register_message)
-
+        
         if self.registered:
+            print("YEAH?")
             self.thread.join()
+        print("YEAH!!")
 
     def handler(self, message_dict):
         if message_dict["message_type"] == "shutdown":
             self.working = False
+            print("Stop working")
         elif message_dict["message_type"] == "register_ack":
             self.registered = True
+            print("registered")
             self.thread.start()
         elif message_dict["message_type"] == "new_map_task":
             self.mapping(message_dict)
@@ -69,14 +73,16 @@ class Worker:
             self.reducing(message_dict)
 
     def heartbeat(self):
-        while self.working:
-            heartbeat = {
-                "message_type": "heartbeat",
-                "worker_host": self.host,
-                "worker_port": self.port,
-            }
-            mapreduce.utils.send_UDP_message(self.server_host, self.server_port, heartbeat)
-            time.sleep(2000)
+        # while self.working:
+        #     heartbeat = {
+        #         "message_type": "heartbeat",
+        #         "worker_host": self.host,
+        #         "worker_port": self.port,
+        #     }
+        #     mapreduce.utils.send_UDP_message(self.server_host, self.server_port, heartbeat)
+        #     print("heartbeat sent")
+        #     time.sleep(2000)
+        return
 
 
     def mapping(self, message_dict):
@@ -128,10 +134,6 @@ class Worker:
                 "worker_port": self.port,
             }
             mapreduce.utils.send_TCP_message(self.server_host, self.server_port, finish_msg)
-
-
-
-
         LOGGER.info("Cleaned up tmpdir %s", tmpdir)
 
     def reducing(self, message_dict):

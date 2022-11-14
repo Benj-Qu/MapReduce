@@ -26,8 +26,10 @@ def create_TCP(self, send_msg):
 
         while True:
             with self.lock:
-                if not self.working:
-                    break
+                working =  self.working
+            if not working:
+                print("Stopped")
+                break
             # Wait for a connection for 1s.  The socket library avoids consuming
             # CPU while waiting for a connection.
             try:
@@ -66,6 +68,7 @@ def create_TCP(self, send_msg):
             except json.JSONDecodeError:
                 continue
             self.handler(message_dict)
+    print("Stopped!")
 
 
 

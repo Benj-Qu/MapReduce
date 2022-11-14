@@ -10,11 +10,21 @@ import threading
 import socket
 from pathlib import Path
 from collections import defaultdict
+from enum import Enum
 
 
 # Configure logging
 LOGGER = logging.getLogger(__name__)
 
+class Status(Enum):
+    READY = 1
+    BUSY = 2
+    DEAD = 3
+
+class WorkerInfo:
+    def __init__(self):
+        self._status = Status.READY
+        self._birth = time.time()
 
 class Manager:
     """Represent a MapReduce framework Manager node."""
@@ -136,7 +146,7 @@ class Manager:
     def register(self, message_dict):
         # Register a worker
         with self.lock:
-            self.workers[(message_dict["worker_host"], message_dict["worker_port"])] = "ready"
+            self.workers[(message_dict["worker_host"], message_dict["worker_port"])] = WorkerInfo()
         message_dict["message_type"] = "register_ack"
         mapreduce.utils.send_TCP_message(message_dict["worker_host"], message_dict["worker_port"], message_dict)
         # check job queue
@@ -171,7 +181,7 @@ class Manager:
             cur_task_id = (cur_task_id + 1) % self.cur_job_message["num_mappers"]
         task_id = 0
         for host, port in self.workers.keys():
-            if self.workers[(host, port)] == "ready":
+            if self.workers[(host, port)].status == Status.READY:
                 new_message = {
                     "message_type": "new_map_task",
                     "task_id": task_id,
@@ -184,7 +194,7 @@ class Manager:
                 }
                 mapreduce.utils.send_TCP_message(host, port, new_message)
                 task_id += 1
-                self.workers[(host, port)] = "busy"
+                self.workers[(host, port)].status = Status.BUSY
                 if task_id > len(partitioned_files.keys()):
                     break
 
