@@ -77,10 +77,12 @@ class Worker:
 
     def mapping(self, message_dict):
         task_id = message_dict["task_id"]
+        num_partitons = message_dict["num_partitions"]
         prefix = f"mapreduce-local-task{task_id:05d}-"
         with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
             LOGGER.info("Created tmpdir %s", tmpdir)
             """ Mapping to temporary directory """
+            tmpdir_path = Path(tmpdir)
             for input_path in message_dict["input_paths"]:
                 with open(input_path) as infile:
                     with subprocess.Popen(
@@ -93,15 +95,36 @@ class Worker:
                             key = line.split("\t")[0]
                             hexdigest = hashlib.md5(key.encode("utf-8")).hexdigest()
                             keyhash = int(hexdigest, base=16)
-                            partition = keyhash % message_dict["num_partitions"]
+                            partition = keyhash % num_partitons
                             # correct partiton output file
-                            filename = f"maptask{task_id:05d}-part{partition:05d}"
+                            filename = tmpdir_path / f"maptask{task_id:05d}-part{partition:05d}"
                             with open(filename, 'a+') as outfile:
                                 outfile.write(line)
             """ Sort each file in the temporary directory """
-            tmpdir_path = Path(tmpdir)
+            output_dir = Path(message_dict["output_directory"])
+            output_files = [ 
+                            output_dir / f"maptask{task_id:05d}-part{partition:05d}" 
+                            for partition in range(num_partitons)
+                            ]
             with ExitStack() as stack:
-                files = [stack.enter_context(open(file, "a", encoding="utf8")) for file in list(tmpdir_path.glob('**/*'))]
+                output_files = [ 
+                         stack.enter_context(open(file, "a", encoding="utf8")) 
+                         for file in output_files
+                         ]
+                for partition in range(num_partitons):
+                    filename = tmpdir_path / f"maptask{task_id:05d}-part{partition:05d}"
+                    with open(filename) as input_file:
+                        lines = sorted(input_file.readlines())
+                    for line in lines:
+                        output_files[partition].write(line)
+            finish_msg = {
+                "message_type": "finished",
+                "task_id": task_id,
+                "worker_host": self.host,
+                "worker_port": self.port,
+            }
+            mapreduce.utils.send_TCP_message(self.server_host, self.server_port, finish_msg)
+
 
 
 
