@@ -41,7 +41,6 @@ class Worker:
         self.registered = False
         self.working = True
         self.thread = threading.Thread(target=self.heartbeat)
-        # self.thread.start()
         register_message = {
             "message_type": "register",
             "worker_host": self.host,
@@ -97,15 +96,13 @@ class Worker:
                             keyhash = int(hexdigest, base=16)
                             partition = keyhash % message_dict['num_partitions']
                             # correct partiton output file
-                            filename = tmpdir_path / f"maptask{message_dict['task_id']:05d} \
-                                                        -part{partition:05d}"
+                            filename = tmpdir_path / f"maptask{message_dict['task_id']:05d}-part{partition:05d}"
                             with open(filename, 'a+', encoding='utf-8') as outfile:
                                 outfile.write(line)
             # Sort each file in the temporary directory
             output_dir = Path(message_dict["output_directory"])
             output_files = [
-                            output_dir / f"maptask{message_dict['task_id']:05d} \
-                                                    -part{partition:05d}"
+                            output_dir / f"maptask{message_dict['task_id']:05d}-part{partition:05d}"
                             for partition in range(message_dict['num_partitions'])
                             ]
             with ExitStack() as stack:
@@ -114,8 +111,7 @@ class Worker:
                                 for file in output_files
                                 ]
                 for partition in range(message_dict['num_partitions']):
-                    filename = tmpdir_path / f"maptask{message_dict['task_id']:05d} \
-                                                -part{partition:05d}"
+                    filename = tmpdir_path / f"maptask{message_dict['task_id']:05d}-part{partition:05d}"
                     with open(filename, encoding='utf-8') as input_file:
                         lines = sorted(input_file.readlines())
                     for line in lines:
