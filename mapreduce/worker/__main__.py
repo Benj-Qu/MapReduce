@@ -47,7 +47,7 @@ class Worker:
         self.working = True
 
         self.thread = threading.Thread(target=self.heartbeat)
-        self.thread.start()
+        # self.thread.start()
 
         register_message = {
             "message_type": "register",
