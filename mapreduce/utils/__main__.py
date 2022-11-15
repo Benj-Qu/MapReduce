@@ -5,8 +5,7 @@ import time
 
 
 def create_tcp(self, send_msg):
-    """Create a new tcp socket on the given port
-    and call the listen() function."""
+    """Create a new tcp socket on the given port."""
     # Create an INET, STREAMing socket, this is tcp
     # Note: context manager syntax allows for sockets to automatically be
     # closed when an exception is raised or control flow returns.
@@ -17,15 +16,17 @@ def create_tcp(self, send_msg):
         sock.listen()
 
         if send_msg is not None:
-            send_tcp_message(self.vars['manager_host'], self.vars['manager_port'], send_msg)
+            send_tcp_message(
+                self.vars['manager_host'],
+                self.vars['manager_port'],
+                send_msg
+                )
 
         # Socket accept() will block for a maximum of 1 second.  If you
         # omit this, it blocks indefinitely, waiting for a connection.
         sock.settimeout(1)
 
         while self.get_working():
-            # Wait for a connection for 1s.  The socket library avoids consuming
-            # CPU while waiting for a connection.
             try:
                 clientsocket, _ = sock.accept()
             except socket.timeout:
