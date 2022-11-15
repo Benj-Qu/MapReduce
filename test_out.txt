@@ -61,27 +61,26 @@ PASSED
 tests/test_manager_01.py::test_new_job 
 -------------------------------- live log call ---------------------------------
 INFO     mapreduce.manager.__main__:__main__.py:70 Starting manager host=localhost port=6000 pwd=/Users/cjy/eecs485/p4-mapreduce
-INFO     mapreduce.manager.__main__:__main__.py:306 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_new_job0/mapreduce-shared-job00000-odt3n65i
-INFO     mapreduce.manager.__main__:__main__.py:310 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_new_job0/mapreduce-shared-job00000-odt3n65i
+INFO     mapreduce.manager.__main__:__main__.py:308 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_new_job0/mapreduce-shared-job00000-fqtx4_9n
+INFO     mapreduce.manager.__main__:__main__.py:312 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_new_job0/mapreduce-shared-job00000-fqtx4_9n
 PASSED
 tests/test_manager_02.py::test_map 
 -------------------------------- live log call ---------------------------------
 INFO     mapreduce.manager.__main__:__main__.py:70 Starting manager host=localhost port=6000 pwd=/Users/cjy/eecs485/p4-mapreduce
-INFO     mapreduce.manager.__main__:__main__.py:306 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_map0/mapreduce-shared-job00000-65xa2glv
-INFO     mapreduce.manager.__main__:__main__.py:310 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_map0/mapreduce-shared-job00000-65xa2glv
+INFO     mapreduce.manager.__main__:__main__.py:308 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_map0/mapreduce-shared-job00000-h94nujqt
+INFO     mapreduce.manager.__main__:__main__.py:312 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_map0/mapreduce-shared-job00000-h94nujqt
 PASSED
 tests/test_manager_03.py::test_finish 
 -------------------------------- live log call ---------------------------------
 INFO     mapreduce.manager.__main__:__main__.py:70 Starting manager host=localhost port=6000 pwd=/Users/cjy/eecs485/p4-mapreduce
-INFO     mapreduce.manager.__main__:__main__.py:306 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_finish0/mapreduce-shared-job00000-pnrtqfg1
-INFO     mapreduce.manager.__main__:__main__.py:310 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_finish0/mapreduce-shared-job00000-pnrtqfg1
+INFO     mapreduce.manager.__main__:__main__.py:308 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_finish0/mapreduce-shared-job00000-pui4tlnr
+INFO     mapreduce.manager.__main__:__main__.py:312 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_finish0/mapreduce-shared-job00000-pui4tlnr
 PASSED
 tests/test_manager_05.py::test_dead_worker 
 -------------------------------- live log call ---------------------------------
 INFO     mapreduce.manager.__main__:__main__.py:70 Starting manager host=localhost port=6000 pwd=/Users/cjy/eecs485/p4-mapreduce
-INFO     mapreduce.manager.__main__:__main__.py:306 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-shared-job00000-zt6uhma3
-INFO     mapreduce.manager.__main__:__main__.py:310 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-shared-job00000-zt6uhma3
-PASSED
+INFO     mapreduce.manager.__main__:__main__.py:308 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-shared-job00000-2xyayljl
+FAILED
 tests/test_style.py::test_pycodestyle mapreduce/utils/__main__.py:20:80: E501 line too long (92 > 79 characters)
 mapreduce/utils/__main__.py:27:80: E501 line too long (80 > 79 characters)
 mapreduce/manager/__main__.py:17:1: E302 expected 2 blank lines, found 1
@@ -99,46 +98,51 @@ mapreduce/manager/__main__.py:145:5: E129 visually indented line with same inden
 mapreduce/manager/__main__.py:150:5: E303 too many blank lines (2)
 mapreduce/manager/__main__.py:156:5: E303 too many blank lines (2)
 mapreduce/manager/__main__.py:162:5: E303 too many blank lines (2)
-mapreduce/manager/__main__.py:169:80: E501 line too long (97 > 79 characters)
-mapreduce/manager/__main__.py:174:5: E303 too many blank lines (2)
-mapreduce/manager/__main__.py:182:5: E129 visually indented line with same indent as next logical line
-mapreduce/manager/__main__.py:189:80: E501 line too long (85 > 79 characters)
-mapreduce/manager/__main__.py:200:5: E303 too many blank lines (2)
-mapreduce/manager/__main__.py:209:80: E501 line too long (80 > 79 characters)
-mapreduce/manager/__main__.py:216:5: E303 too many blank lines (2)
-mapreduce/manager/__main__.py:231:80: E501 line too long (84 > 79 characters)
-mapreduce/manager/__main__.py:233:80: E501 line too long (83 > 79 characters)
-mapreduce/manager/__main__.py:241:80: E501 line too long (85 > 79 characters)
-mapreduce/manager/__main__.py:243:80: E501 line too long (89 > 79 characters)
-mapreduce/manager/__main__.py:259:5: E303 too many blank lines (2)
-mapreduce/manager/__main__.py:269:5: E303 too many blank lines (2)
-mapreduce/manager/__main__.py:297:5: E303 too many blank lines (2)
-mapreduce/manager/__main__.py:313:5: E303 too many blank lines (2)
-mapreduce/manager/__main__.py:325:80: E501 line too long (86 > 79 characters)
-mapreduce/manager/__main__.py:331:80: E501 line too long (93 > 79 characters)
-mapreduce/manager/__main__.py:338:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:169:80: E501 line too long (82 > 79 characters)
+mapreduce/manager/__main__.py:170:80: E501 line too long (82 > 79 characters)
+mapreduce/manager/__main__.py:171:80: E501 line too long (85 > 79 characters)
+mapreduce/manager/__main__.py:176:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:184:5: E129 visually indented line with same indent as next logical line
+mapreduce/manager/__main__.py:191:80: E501 line too long (85 > 79 characters)
+mapreduce/manager/__main__.py:202:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:211:80: E501 line too long (80 > 79 characters)
+mapreduce/manager/__main__.py:218:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:233:80: E501 line too long (84 > 79 characters)
+mapreduce/manager/__main__.py:235:80: E501 line too long (83 > 79 characters)
+mapreduce/manager/__main__.py:243:80: E501 line too long (85 > 79 characters)
+mapreduce/manager/__main__.py:245:80: E501 line too long (89 > 79 characters)
+mapreduce/manager/__main__.py:261:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:271:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:299:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:315:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:327:80: E501 line too long (86 > 79 characters)
+mapreduce/manager/__main__.py:333:80: E501 line too long (93 > 79 characters)
+mapreduce/manager/__main__.py:340:5: E303 too many blank lines (2)
 mapreduce/worker/__main__.py:27:5: E303 too many blank lines (2)
 mapreduce/worker/__main__.py:62:5: E303 too many blank lines (2)
 mapreduce/worker/__main__.py:75:5: E303 too many blank lines (2)
 mapreduce/worker/__main__.py:91:5: E303 too many blank lines (2)
-mapreduce/worker/__main__.py:94:80: E501 line too long (113 > 79 characters)
-mapreduce/worker/__main__.py:106:80: E501 line too long (102 > 79 characters)
-mapreduce/worker/__main__.py:107:80: E501 line too long (114 > 79 characters)
-mapreduce/worker/__main__.py:108:80: E501 line too long (147 > 79 characters)
-mapreduce/worker/__main__.py:110:80: E501 line too long (113 > 79 characters)
-mapreduce/worker/__main__.py:111:80: E501 line too long (83 > 79 characters)
-mapreduce/worker/__main__.py:116:80: E501 line too long (128 > 79 characters)
+mapreduce/worker/__main__.py:93:48: E251 unexpected spaces around keyword / parameter equals
+mapreduce/worker/__main__.py:93:50: E251 unexpected spaces around keyword / parameter equals
+mapreduce/worker/__main__.py:93:80: E501 line too long (115 > 79 characters)
+mapreduce/worker/__main__.py:104:80: E501 line too long (92 > 79 characters)
+mapreduce/worker/__main__.py:105:80: E501 line too long (99 > 79 characters)
+mapreduce/worker/__main__.py:108:80: E501 line too long (81 > 79 characters)
+mapreduce/worker/__main__.py:110:80: E501 line too long (83 > 79 characters)
+mapreduce/worker/__main__.py:116:29: E128 continuation line under-indented for visual indent
+mapreduce/worker/__main__.py:116:80: E501 line too long (90 > 79 characters)
 mapreduce/worker/__main__.py:117:80: E501 line too long (82 > 79 characters)
 mapreduce/worker/__main__.py:121:80: E501 line too long (85 > 79 characters)
-mapreduce/worker/__main__.py:125:80: E501 line too long (105 > 79 characters)
-mapreduce/worker/__main__.py:136:80: E501 line too long (110 > 79 characters)
-mapreduce/worker/__main__.py:140:5: E303 too many blank lines (2)
-mapreduce/worker/__main__.py:145:80: E501 line too long (80 > 79 characters)
-mapreduce/worker/__main__.py:146:25: E128 continuation line under-indented for visual indent
-mapreduce/worker/__main__.py:150:31: E222 multiple spaces after operator
-mapreduce/worker/__main__.py:150:80: E501 line too long (83 > 79 characters)
-mapreduce/worker/__main__.py:162:80: E501 line too long (94 > 79 characters)
-mapreduce/worker/__main__.py:170:80: E501 line too long (107 > 79 characters)
+mapreduce/worker/__main__.py:126:80: E501 line too long (94 > 79 characters)
+mapreduce/worker/__main__.py:138:49: E127 continuation line over-indented for visual indent
+mapreduce/worker/__main__.py:138:80: E501 line too long (86 > 79 characters)
+mapreduce/worker/__main__.py:142:5: E303 too many blank lines (2)
+mapreduce/worker/__main__.py:147:80: E501 line too long (80 > 79 characters)
+mapreduce/worker/__main__.py:148:25: E128 continuation line under-indented for visual indent
+mapreduce/worker/__main__.py:152:31: E222 multiple spaces after operator
+mapreduce/worker/__main__.py:152:80: E501 line too long (83 > 79 characters)
+mapreduce/worker/__main__.py:164:80: E501 line too long (94 > 79 characters)
+mapreduce/worker/__main__.py:173:45: E128 continuation line under-indented for visual indent
 FAILED
 tests/test_style.py::test_pydocstyle mapreduce/utils/__main__.py:8 in public function `create_tcp`:
         D205: 1 blank line required between summary line and description (found 0)
@@ -152,97 +156,173 @@ mapreduce/manager/__main__.py:24 in public class `WorkerInfo`:
         D204: 1 blank line required after class docstring (found 0)
 mapreduce/manager/__main__.py:25 in public method `__init__`:
         D107: Missing docstring in __init__
-mapreduce/manager/__main__.py:217 in public method `assign_task`:
+mapreduce/manager/__main__.py:219 in public method `assign_task`:
         D205: 1 blank line required between summary line and description (found 0)
-mapreduce/manager/__main__.py:217 in public method `assign_task`:
+mapreduce/manager/__main__.py:219 in public method `assign_task`:
         D209: Multi-line docstring closing quotes should be on a separate line
-mapreduce/manager/__main__.py:217 in public method `assign_task`:
+mapreduce/manager/__main__.py:219 in public method `assign_task`:
         D400: First line should end with a period (not ',')
 mapreduce/worker/__main__.py:22 in public class `Worker`:
         D204: 1 blank line required after class docstring (found 0)
 mapreduce/worker/__main__.py:92 in public method `mapping`:
         D401: First line should be in imperative mood (perhaps 'Map', not 'Mapping')
 FAILED
-tests/test_style.py::test_pylint ************* Module mapreduce.manager.__main__
-mapreduce/manager/__main__.py:135:25: C0201: Consider iterating the dictionary directly instead of calling .keys() (consider-iterating-dictionary)
-mapreduce/manager/__main__.py:143:30: C0201: Consider iterating the dictionary directly instead of calling .keys() (consider-iterating-dictionary)
-mapreduce/manager/__main__.py:167:30: C0201: Consider iterating the dictionary directly instead of calling .keys() (consider-iterating-dictionary)
-mapreduce/manager/__main__.py:181:26: C0201: Consider iterating the dictionary directly instead of calling .keys() (consider-iterating-dictionary)
-mapreduce/manager/__main__.py:344:25: C0201: Consider iterating the dictionary directly instead of calling .keys() (consider-iterating-dictionary)
-************* Module mapreduce.worker.__main__
-mapreduce/worker/__main__.py:94:0: C0301: Line too long (113/100) (line-too-long)
-mapreduce/worker/__main__.py:106:0: C0301: Line too long (102/100) (line-too-long)
-mapreduce/worker/__main__.py:107:0: C0301: Line too long (114/100) (line-too-long)
-mapreduce/worker/__main__.py:108:0: C0301: Line too long (147/100) (line-too-long)
-mapreduce/worker/__main__.py:110:0: C0301: Line too long (113/100) (line-too-long)
-mapreduce/worker/__main__.py:116:0: C0301: Line too long (128/100) (line-too-long)
-mapreduce/worker/__main__.py:125:0: C0301: Line too long (105/100) (line-too-long)
-mapreduce/worker/__main__.py:136:0: C0301: Line too long (110/100) (line-too-long)
-mapreduce/worker/__main__.py:170:0: C0301: Line too long (107/100) (line-too-long)
+tests/test_style.py::test_pylint ************* Module mapreduce.worker.__main__
+mapreduce/worker/__main__.py:93:0: C0301: Line too long (115/100) (line-too-long)
 
-------------------------------------------------------------------
-Your code has been rated at 9.66/10 (previous run: 9.66/10, +0.00)
+-------------------------------------------------------------------
+Your code has been rated at 9.98/10 (previous run: 10.00/10, -0.02)
 
 FAILED
 tests/test_worker_00.py::test_shutdown 
 -------------------------------- live log call ---------------------------------
 INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
 INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
-PASSED
+FAILED
 tests/test_worker_01.py::test_register 
 -------------------------------- live log call ---------------------------------
 INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
 INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
-PASSED
+FAILED
 tests/test_worker_02.py::test_heartbeat 
 -------------------------------- live log call ---------------------------------
 INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
 INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
-PASSED
+FAILED
 tests/test_worker_03.py::test_finish_task_messages 
 -------------------------------- live log call ---------------------------------
 INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
 INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
-INFO     mapreduce.worker.__main__:__main__.py:95 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00000-lrfu4lps
-INFO     mapreduce.worker.__main__:__main__.py:137 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00000-lrfu4lps
-PASSED
+INFO     mapreduce.worker.__main__:__main__.py:94 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-local-task00000-t8v6gww4
+INFO     mapreduce.worker.__main__:__main__.py:139 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-local-task00000-t8v6gww4
+FAILED
 tests/test_worker_04.py::test_finish_task_output 
 -------------------------------- live log call ---------------------------------
 INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
 INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
-INFO     mapreduce.worker.__main__:__main__.py:95 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00000-uayvjb4y
-INFO     mapreduce.worker.__main__:__main__.py:137 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00000-uayvjb4y
-PASSED
+INFO     mapreduce.worker.__main__:__main__.py:94 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-local-task00000-whlxw80o
+INFO     mapreduce.worker.__main__:__main__.py:139 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-local-task00000-whlxw80o
+FAILED
 tests/test_worker_05.py::test_two_input_map 
 -------------------------------- live log call ---------------------------------
 INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
 INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
-INFO     mapreduce.worker.__main__:__main__.py:95 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00000-sf2a0d4f
-INFO     mapreduce.worker.__main__:__main__.py:137 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00000-sf2a0d4f
-PASSED
+INFO     mapreduce.worker.__main__:__main__.py:94 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-local-task00000-f1l_30sh
+INFO     mapreduce.worker.__main__:__main__.py:139 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-local-task00000-f1l_30sh
+FAILED
 tests/test_worker_07.py::test_reduce_two_inputs 
 -------------------------------- live log call ---------------------------------
 INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
 INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
-PASSED
+FAILED
 tests/test_worker_08.py::test_map_reduce 
 -------------------------------- live log call ---------------------------------
 INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
 INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
-INFO     mapreduce.worker.__main__:__main__.py:95 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00000-jhjqcigc
-INFO     mapreduce.worker.__main__:__main__.py:137 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00000-jhjqcigc
-INFO     mapreduce.worker.__main__:__main__.py:95 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00001-yupw5p9e
-INFO     mapreduce.worker.__main__:__main__.py:137 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00001-yupw5p9e
-PASSED
+INFO     mapreduce.worker.__main__:__main__.py:94 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-local-task00000-75q97_2o
+INFO     mapreduce.worker.__main__:__main__.py:139 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-local-task00000-75q97_2o
+INFO     mapreduce.worker.__main__:__main__.py:94 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-local-task00001-8w3psksu
+INFO     mapreduce.worker.__main__:__main__.py:139 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-local-task00001-8w3psksu
+FAILED
 tests/test_worker_11.py::test_map_memory 
 -------------------------------- live log call ---------------------------------
 INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
 INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
-INFO     mapreduce.worker.__main__:__main__.py:95 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00000-6xqkfeg1
-INFO     mapreduce.worker.__main__:__main__.py:137 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00000-6xqkfeg1
+INFO     mapreduce.worker.__main__:__main__.py:94 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-local-task00000-xi_ny5uk
+INFO     mapreduce.worker.__main__:__main__.py:139 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-local-task00000-xi_ny5uk
 FAILED
 
 =================================== FAILURES ===================================
+_______________________________ test_dead_worker _______________________________
+
+mocker = <pytest_mock.plugin.MockerFixture object at 0x105aa67d0>
+tmp_path = PosixPath('/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0')
+
+    def test_dead_worker(mocker, tmp_path):
+        """Verify Manager handles a dead Worker.
+    
+        In this test, the dead Worker does not respond to network requests.
+    
+        Note: 'mocker' is a fixture function provided the the pytest-mock package.
+        This fixture lets us override a library function with a temporary fake
+        function that returns a hardcoded value while testing.
+    
+        See https://github.com/pytest-dev/pytest-mock/ for more info.
+    
+        Note: 'tmp_path' is a fixture provided by the pytest-mock package.
+        This fixture creates a temporary directory for use within this test.
+    
+        See https://docs.pytest.org/en/6.2.x/tmpdir.html for more info.
+    
+        """
+        # Mock the socket library socket class
+        mock_socket = mocker.patch("socket.socket")
+    
+        # sendall() records messages
+        mock_sendall = mock_socket.return_value.__enter__.return_value.sendall
+    
+        # accept() returns a mock client socket
+        mock_clientsocket = mocker.MagicMock()
+        mock_accept = mock_socket.return_value.__enter__.return_value.accept
+        mock_accept.return_value = (mock_clientsocket, ("127.0.0.1", 10000))
+    
+        # TCP recv() returns values generated by worker_message_generator()
+        mock_recv = mock_clientsocket.recv
+        mock_recv.side_effect = worker_message_generator(mock_sendall, tmp_path)
+    
+        # UDP recv() returns heartbeat messages
+        mock_udp_recv = mock_socket.return_value.__enter__.return_value.recv
+        mock_udp_recv.side_effect = worker_heartbeat_generator()
+    
+        # Set the location where the Manager's temporary directory
+        # will be created.
+        tempfile.tempdir = tmp_path
+    
+        # Spy on tempfile.TemporaryDirectory so that we can determine the name
+        # of the directory that was created.
+        mock_tmpdir = mocker.spy(tempfile.TemporaryDirectory, "__init__")
+    
+        # Run student Manager code.  When student Manager calls recv(), it will
+        # return the faked responses configured above.
+        try:
+>           mapreduce.manager.Manager("localhost", 6000)
+
+tests/test_manager_05.py:187: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+mapreduce/manager/__main__.py:106: in __init__
+    self.create_tcp(None)
+mapreduce/utils/__main__.py:48: in create_tcp
+    data = clientsocket.recv(4096)
+/usr/local/Cellar/python@3.10/3.10.7/Frameworks/Python.framework/Versions/3.10/lib/python3.10/unittest/mock.py:1104: in __call__
+    return self._mock_call(*args, **kwargs)
+/usr/local/Cellar/python@3.10/3.10.7/Frameworks/Python.framework/Versions/3.10/lib/python3.10/unittest/mock.py:1108: in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+/usr/local/Cellar/python@3.10/3.10.7/Frameworks/Python.framework/Versions/3.10/lib/python3.10/unittest/mock.py:1165: in _execute_mock_call
+    result = next(effect)
+tests/test_manager_05.py:83: in worker_message_generator
+    for _ in utils.wait_for_map_messages(mock_sendall, num=3):
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+function = <function is_map_message at 0x1055596c0>
+mock_sendall = <MagicMock name='socket().__enter__().sendall' id='4389295616'>
+num = 3
+
+    def wait_for_messages(function, mock_sendall, num=1):
+        """Yield every 1s, return when function()==True on num messages."""
+        for _ in range(TIMEOUT_LONG):
+            messages = get_messages(mock_sendall)
+            n_true_messages = sum(function(m) for m in messages)
+            if n_true_messages == num:
+                return
+            yield
+            time.sleep(1)
+>       raise Exception(f"Expected {num} messages, got {n_true_messages}.")
+E       Exception: Expected 3 messages, got 2.
+
+tests/utils/__init__.py:188: Exception
+------------------------------ Captured log call -------------------------------
+INFO     mapreduce.manager.__main__:__main__.py:70 Starting manager host=localhost port=6000 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.manager.__main__:__main__.py:308 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-shared-job00000-2xyayljl
 _______________________________ test_pycodestyle _______________________________
 
     def test_pycodestyle():
@@ -505,10 +585,529 @@ stdout = None, stderr = None, retcode = 16
 E               subprocess.CalledProcessError: Command '['pylint', '--rcfile', PosixPath('/Users/cjy/eecs485/p4-mapreduce/tests/testdata/pylintrc'), '--disable=no-value-for-parameter', '--disable=method-hidden', '--unsafe-load-any-extension=y', '--max-args=6', '--min-public-methods=1', 'mapreduce']' returned non-zero exit status 16.
 
 /usr/local/Cellar/python@3.10/3.10.7/Frameworks/Python.framework/Versions/3.10/lib/python3.10/subprocess.py:524: CalledProcessError
+________________________________ test_shutdown _________________________________
+
+mocker = <pytest_mock.plugin.MockerFixture object at 0x105b812d0>
+
+    def test_shutdown(mocker):
+        """Verify Worker shuts down.
+    
+        Note: 'mocker' is a fixture function provided the the pytest-mock package.
+        This fixture lets us override a library function with a temporary fake
+        function that returns a hardcoded value while testing.
+    
+        See https://github.com/pytest-dev/pytest-mock/ for more info.
+        """
+        # Mock the socket library socket class
+        mock_socket = mocker.patch("socket.socket")
+    
+        # accept() returns a mock client socket
+        mock_clientsocket = mocker.MagicMock()
+        mock_accept = mock_socket.return_value.__enter__.return_value.accept
+        mock_accept.return_value = (mock_clientsocket, ("127.0.0.1", 10000))
+    
+        # recv() returns a sequence of hardcoded values.  When the student Worker
+        # calls recv(), it will receive a shutdown message.
+        mock_recv = mock_clientsocket.recv
+        mock_recv.side_effect = [
+            json.dumps({"message_type": "shutdown"}).encode("utf-8"),
+            None,  # None value terminates while recv loop
+        ]
+    
+        # Run student Worker code.  When student Worker calls recv(), it will
+        # return the faked responses configured above.  When the student code calls
+        # sys.exit(0), it triggers a SystemExit exception, which we'll catch.
+        try:
+            mapreduce.worker.Worker(
+                host="localhost",
+                port=6001,
+                manager_host="localhost",
+                manager_port=6000,
+            )
+>           utils.wait_for_threads()
+
+tests/test_worker_00.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+num = 1
+
+    def wait_for_threads(num=1):
+        """Return after the total number of threads is num."""
+        for _ in range(TIMEOUT):
+            if len(threading.enumerate()) == num:
+                return
+            time.sleep(1)
+>       raise Exception("Failed to close threads.")
+E       Exception: Failed to close threads.
+
+tests/utils/__init__.py:222: Exception
+------------------------------ Captured log call -------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
+________________________________ test_register _________________________________
+
+mocker = <pytest_mock.plugin.MockerFixture object at 0x105c2bcd0>
+
+    def test_register(mocker):
+        """Verify Worker registers with Manager.
+    
+        Note: 'mocker' is a fixture function provided the the pytest-mock package.
+        This fixture lets us override a library function with a temporary fake
+        function that returns a hardcoded value while testing.
+    
+        See https://github.com/pytest-dev/pytest-mock/ for more info.
+        """
+        # Mock the socket library socket class
+        mock_socket = mocker.patch("socket.socket")
+    
+        # sendall() records messages
+        mock_sendall = mock_socket.return_value.__enter__.return_value.sendall
+    
+        # accept() returns a mock client socket
+        mock_clientsocket = mocker.MagicMock()
+        mock_accept = mock_socket.return_value.__enter__.return_value.accept
+        mock_accept.return_value = (mock_clientsocket, ("127.0.0.1", 10000))
+    
+        # recv() returns values generated by manager_message_generator()
+        mock_recv = mock_clientsocket.recv
+        mock_recv.side_effect = manager_message_generator(mock_sendall)
+    
+        # Run student Worker code.  When student Worker calls recv(), it will
+        # return the faked responses configured above.  When the student code calls
+        # sys.exit(0), it triggers a SystemExit exception, which we'll catch.
+        try:
+            mapreduce.worker.Worker(
+                host="localhost",
+                port=6001,
+                manager_host="localhost",
+                manager_port=6000,
+            )
+>           utils.wait_for_threads()
+
+tests/test_worker_01.py:67: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+num = 1
+
+    def wait_for_threads(num=1):
+        """Return after the total number of threads is num."""
+        for _ in range(TIMEOUT):
+            if len(threading.enumerate()) == num:
+                return
+            time.sleep(1)
+>       raise Exception("Failed to close threads.")
+E       Exception: Failed to close threads.
+
+tests/utils/__init__.py:222: Exception
+------------------------------ Captured log call -------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
+________________________________ test_heartbeat ________________________________
+
+mocker = <pytest_mock.plugin.MockerFixture object at 0x105cc2f20>
+
+    def test_heartbeat(mocker):
+        """Verify Worker sends heartbeat messages to the Manager.
+    
+        Note: 'mocker' is a fixture function provided the the pytest-mock package.
+        This fixture lets us override a library function with a temporary fake
+        function that returns a hardcoded value while testing.
+    
+        See https://github.com/pytest-dev/pytest-mock/ for more info.
+        """
+        # Mock the socket library socket class
+        mock_socket = mocker.patch("socket.socket")
+    
+        # sendall() records messages
+        mock_sendall = mock_socket.return_value.__enter__.return_value.sendall
+    
+        # accept() returns a mock client socket
+        mock_clientsocket = mocker.MagicMock()
+        mock_accept = mock_socket.return_value.__enter__.return_value.accept
+        mock_accept.return_value = (mock_clientsocket, ("127.0.0.1", 10000))
+    
+        # recv() returns values generated by manager_message_generator()
+        mock_recv = mock_clientsocket.recv
+        mock_recv.side_effect = manager_message_generator(mock_sendall)
+    
+        # Run student Worker code.  When student Worker calls recv(), it will
+        # return the faked responses configured above.  When the student code calls
+        # sys.exit(0), it triggers a SystemExit exception, which we'll catch.
+        try:
+            mapreduce.worker.Worker(
+                host="localhost",
+                port=6001,
+                manager_host="localhost",
+                manager_port=6000,
+            )
+>           utils.wait_for_threads()
+
+tests/test_worker_02.py:71: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+num = 1
+
+    def wait_for_threads(num=1):
+        """Return after the total number of threads is num."""
+        for _ in range(TIMEOUT):
+            if len(threading.enumerate()) == num:
+                return
+            time.sleep(1)
+>       raise Exception("Failed to close threads.")
+E       Exception: Failed to close threads.
+
+tests/utils/__init__.py:222: Exception
+------------------------------ Captured log call -------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
+__________________________ test_finish_task_messages ___________________________
+
+mocker = <pytest_mock.plugin.MockerFixture object at 0x105bc3df0>
+tmp_path = PosixPath('/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_finish_task_messages0')
+
+    def test_finish_task_messages(mocker, tmp_path):
+        """Verify Worker finishes a task, checks messages only.
+    
+        Note: 'mocker' is a fixture function provided the the pytest-mock package.
+        This fixture lets us override a library function with a temporary fake
+        function that returns a hardcoded value while testing.
+    
+        See https://github.com/pytest-dev/pytest-mock/ for more info.
+    
+        Note: 'tmp_path' is a fixture provided by the pytest-mock package.
+        This fixture creates a temporary directory for use within this test.
+    
+        See https://docs.pytest.org/en/6.2.x/tmpdir.html for more info.
+        """
+        # Mock the socket library socket class
+        mock_socket = mocker.patch("socket.socket")
+    
+        # sendall() records messages
+        mock_sendall = mock_socket.return_value.__enter__.return_value.sendall
+    
+        # accept() returns a mock client socket
+        mock_clientsocket = mocker.MagicMock()
+        mock_accept = mock_socket.return_value.__enter__.return_value.accept
+        mock_accept.return_value = (mock_clientsocket, ("127.0.0.1", 10000))
+    
+        # recv() returns values generated by manager_message_generator()
+        mock_recv = mock_clientsocket.recv
+        mock_recv.side_effect = manager_message_generator(mock_sendall, tmp_path)
+    
+        # Run student Worker
+        try:
+            mapreduce.worker.Worker(
+                host="localhost",
+                port=6001,
+                manager_host="localhost",
+                manager_port=6000,
+            )
+>           utils.wait_for_threads()
+
+tests/test_worker_03.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+num = 1
+
+    def wait_for_threads(num=1):
+        """Return after the total number of threads is num."""
+        for _ in range(TIMEOUT):
+            if len(threading.enumerate()) == num:
+                return
+            time.sleep(1)
+>       raise Exception("Failed to close threads.")
+E       Exception: Failed to close threads.
+
+tests/utils/__init__.py:222: Exception
+------------------------------ Captured log call -------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
+INFO     mapreduce.worker.__main__:__main__.py:94 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-local-task00000-t8v6gww4
+INFO     mapreduce.worker.__main__:__main__.py:139 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-local-task00000-t8v6gww4
+___________________________ test_finish_task_output ____________________________
+
+mocker = <pytest_mock.plugin.MockerFixture object at 0x105cc37c0>
+tmp_path = PosixPath('/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_finish_task_output0')
+
+    def test_finish_task_output(mocker, tmp_path):
+        """Verify Worker finishes a task an gets the right answer.
+    
+        Note: 'mocker' is a fixture function provided the the pytest-mock package.
+        This fixture lets us override a library function with a temporary fake
+        function that returns a hardcoded value while testing.
+    
+        See https://github.com/pytest-dev/pytest-mock/ for more info.
+    
+        Note: 'tmp_path' is a fixture provided by the pytest-mock package.
+        This fixture creates a temporary directory for use within this test.
+    
+        See https://docs.pytest.org/en/6.2.x/tmpdir.html for more info.
+        """
+        # Mock the socket library socket class
+        mock_socket = mocker.patch("socket.socket")
+    
+        # sendall() records messages
+        mock_sendall = mock_socket.return_value.__enter__.return_value.sendall
+    
+        # accept() returns a mock client socket
+        mock_clientsocket = mocker.MagicMock()
+        mock_accept = mock_socket.return_value.__enter__.return_value.accept
+        mock_accept.return_value = (mock_clientsocket, ("127.0.0.1", 10000))
+    
+        # recv() returns values generated by manager_message_generator()
+        mock_recv = mock_clientsocket.recv
+        mock_recv.side_effect = manager_message_generator(mock_sendall, tmp_path)
+    
+        # Run student Worker code.  When student Worker calls recv(), it will
+        # return the faked responses configured above.  When the student code calls
+        # sys.exit(0), it triggers a SystemExit exception, which we'll catch.
+        try:
+            mapreduce.worker.Worker(
+                host="localhost",
+                port=6001,
+                manager_host="localhost",
+                manager_port=6000,
+            )
+>           utils.wait_for_threads()
+
+tests/test_worker_04.py:94: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+num = 1
+
+    def wait_for_threads(num=1):
+        """Return after the total number of threads is num."""
+        for _ in range(TIMEOUT):
+            if len(threading.enumerate()) == num:
+                return
+            time.sleep(1)
+>       raise Exception("Failed to close threads.")
+E       Exception: Failed to close threads.
+
+tests/utils/__init__.py:222: Exception
+------------------------------ Captured log call -------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
+INFO     mapreduce.worker.__main__:__main__.py:94 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-local-task00000-whlxw80o
+INFO     mapreduce.worker.__main__:__main__.py:139 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-local-task00000-whlxw80o
+______________________________ test_two_input_map ______________________________
+
+mocker = <pytest_mock.plugin.MockerFixture object at 0x105cefd30>
+tmp_path = PosixPath('/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_two_input_map0')
+
+    def test_two_input_map(mocker, tmp_path):
+        """Verify Worker correctly completes the Map Stage with two input files.
+    
+        Note: 'mocker' is a fixture function provided the the pytest-mock package.
+        This fixture lets us override a library function with a temporary fake
+        function that returns a hardcoded value while testing.
+    
+        See https://github.com/pytest-dev/pytest-mock/ for more info.
+    
+        Note: 'tmp_path' is a fixture provided by the pytest-mock package.
+        This fixture creates a temporary directory for use within this test.
+    
+        See https://docs.pytest.org/en/6.2.x/tmpdir.html for more info.
+        """
+        # Mock the socket library socket class
+        mock_socket = mocker.patch("socket.socket")
+    
+        # sendall() records messages
+        mock_sendall = mock_socket.return_value.__enter__.return_value.sendall
+    
+        # accept() returns a mock client socket
+        mock_clientsocket = mocker.MagicMock()
+        mock_accept = mock_socket.return_value.__enter__.return_value.accept
+        mock_accept.return_value = (mock_clientsocket, ("127.0.0.1", 10000))
+    
+        # recv() returns values generated by manager_message_generator()
+        mock_recv = mock_clientsocket.recv
+        mock_recv.side_effect = manager_message_generator(mock_sendall, tmp_path)
+    
+        # Run student Worker code.  When student Worker calls recv(), it will
+        # return the faked responses configured above.  When the student code calls
+        # sys.exit(0), it triggers a SystemExit exception, which we'll catch.
+        try:
+            mapreduce.worker.Worker(
+                host="localhost",
+                port=6001,
+                manager_host="localhost",
+                manager_port=6000,
+            )
+>           utils.wait_for_threads()
+
+tests/test_worker_05.py:97: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+num = 1
+
+    def wait_for_threads(num=1):
+        """Return after the total number of threads is num."""
+        for _ in range(TIMEOUT):
+            if len(threading.enumerate()) == num:
+                return
+            time.sleep(1)
+>       raise Exception("Failed to close threads.")
+E       Exception: Failed to close threads.
+
+tests/utils/__init__.py:222: Exception
+------------------------------ Captured log call -------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
+INFO     mapreduce.worker.__main__:__main__.py:94 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-local-task00000-f1l_30sh
+INFO     mapreduce.worker.__main__:__main__.py:139 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-local-task00000-f1l_30sh
+____________________________ test_reduce_two_inputs ____________________________
+
+mocker = <pytest_mock.plugin.MockerFixture object at 0x105c85d20>
+tmp_path = PosixPath('/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_reduce_two_inputs0')
+
+    def test_reduce_two_inputs(mocker, tmp_path):
+        """Verify Worker correctly completes a reduce task with two input files.
+    
+        Note: 'mocker' is a fixture function provided the the pytest-mock package.
+        This fixture lets us override a library function with a temporary fake
+        function that returns a hardcoded value while testing.
+    
+        See https://github.com/pytest-dev/pytest-mock/ for more info.
+    
+        Note: 'tmp_path' is a fixture provided by the pytest-mock package.
+        This fixture creates a temporary directory for use within this test.
+    
+        See https://docs.pytest.org/en/6.2.x/tmpdir.html for more info.
+        """
+        shutil.copyfile(
+            TESTDATA_DIR/"test_worker_07/maptask00000-part00000",
+            f"{tmp_path}/maptask00000-part00000",
+        )
+        shutil.copyfile(
+            TESTDATA_DIR/"test_worker_07/maptask00001-part00000",
+            f"{tmp_path}/maptask00001-part00000",
+        )
+    
+        # Mock the socket library socket class
+        mock_socket = mocker.patch("socket.socket")
+    
+        # sendall() records messages
+        mock_sendall = mock_socket.return_value.__enter__.return_value.sendall
+    
+        # accept() returns a mock client socket
+        mock_clientsocket = mocker.MagicMock()
+        mock_accept = mock_socket.return_value.__enter__.return_value.accept
+        mock_accept.return_value = (mock_clientsocket, ("127.0.0.1", 10000))
+    
+        # recv() returns values generated by manager_message_generator()
+        mock_recv = mock_clientsocket.recv
+        mock_recv.side_effect = manager_message_generator(mock_sendall, tmp_path)
+    
+        # Run student Worker code.  When student Worker calls recv(), it will
+        # return the faked responses configured above.  When the student code calls
+        # sys.exit(0), it triggers a SystemExit exception, which we'll catch.
+        try:
+            mapreduce.worker.Worker(
+                host="localhost",
+                port=6001,
+                manager_host="localhost",
+                manager_port=6000,
+            )
+>           utils.wait_for_threads()
+
+tests/test_worker_07.py:106: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+num = 1
+
+    def wait_for_threads(num=1):
+        """Return after the total number of threads is num."""
+        for _ in range(TIMEOUT):
+            if len(threading.enumerate()) == num:
+                return
+            time.sleep(1)
+>       raise Exception("Failed to close threads.")
+E       Exception: Failed to close threads.
+
+tests/utils/__init__.py:222: Exception
+------------------------------ Captured log call -------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
+_______________________________ test_map_reduce ________________________________
+
+mocker = <pytest_mock.plugin.MockerFixture object at 0x105e9ba30>
+tmp_path = PosixPath('/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_map_reduce0')
+
+    def test_map_reduce(mocker, tmp_path):
+        """Verify Worker can map and reduce.
+    
+        Note: 'mocker' is a fixture function provided the the pytest-mock package.
+        This fixture lets us override a library function with a temporary fake
+        function that returns a hardcoded value while testing.
+    
+        See https://github.com/pytest-dev/pytest-mock/ for more info.
+    
+        Note: 'tmp_path' is a fixture provided by the pytest-mock package.
+        This fixture creates a temporary directory for use within this test.
+    
+        See https://docs.pytest.org/en/6.2.x/tmpdir.html for more info.
+        """
+        # We're using more variables for easier reading and debugging
+        # pylint: disable=too-many-locals
+    
+        # Mock the socket library socket class
+        mock_socket = mocker.patch("socket.socket")
+    
+        # sendall() records messages
+        mock_sendall = mock_socket.return_value.__enter__.return_value.sendall
+    
+        # accept() returns a mock client socket
+        mock_clientsocket = mocker.MagicMock()
+        mock_accept = mock_socket.return_value.__enter__.return_value.accept
+        mock_accept.return_value = (mock_clientsocket, ("127.0.0.1", 10000))
+    
+        # recv() returns values generated by manager_message_generator()
+        mock_recv = mock_clientsocket.recv
+        mock_recv.side_effect = manager_message_generator(mock_sendall, tmp_path)
+    
+        # Spy on tempfile.TemporaryDirectory so that we can ensure that it has
+        # the correct number of calls.
+        mock_tmpdir = mocker.spy(tempfile.TemporaryDirectory, "__init__")
+    
+        # Run student Worker code.  When student Worker calls recv(), it will
+        # return the faked responses configured above.  When the student code calls
+        # sys.exit(0), it triggers a SystemExit exception, which we'll catch.
+        try:
+            mapreduce.worker.Worker(
+                host="localhost",
+                port=6001,
+                manager_host="localhost",
+                manager_port=6000,
+            )
+>           utils.wait_for_threads()
+
+tests/test_worker_08.py:175: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+num = 1
+
+    def wait_for_threads(num=1):
+        """Return after the total number of threads is num."""
+        for _ in range(TIMEOUT):
+            if len(threading.enumerate()) == num:
+                return
+            time.sleep(1)
+>       raise Exception("Failed to close threads.")
+E       Exception: Failed to close threads.
+
+tests/utils/__init__.py:222: Exception
+------------------------------ Captured log call -------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
+INFO     mapreduce.worker.__main__:__main__.py:94 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-local-task00000-75q97_2o
+INFO     mapreduce.worker.__main__:__main__.py:139 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-local-task00000-75q97_2o
+INFO     mapreduce.worker.__main__:__main__.py:94 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-local-task00001-8w3psksu
+INFO     mapreduce.worker.__main__:__main__.py:139 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-local-task00001-8w3psksu
 _______________________________ test_map_memory ________________________________
 
-mocker = <pytest_mock.plugin.MockerFixture object at 0x108ac7250>
-tmp_path = PosixPath('/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_map_memory0')
+mocker = <pytest_mock.plugin.MockerFixture object at 0x105f3be50>
+tmp_path = PosixPath('/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_map_memory0')
 
     def test_map_memory(mocker, tmp_path):
         """Evaluate Worker's memory usage during Map Stage.
@@ -556,45 +1155,58 @@ tmp_path = PosixPath('/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/p
                 manager_host="localhost",
                 manager_port=6000,
             )
-            utils.wait_for_threads()
-        except SystemExit as error:
-            assert error.code == 0
-    
-        # Verify messages sent by the Worker
-        #
-        # Pro-tip: show log messages and detailed diffs with
-        #   $ pytest -vvs --log-cli-level=info tests/test_worker_X.py
-        all_messages = utils.get_messages(mock_sendall)
-        messages = utils.filter_not_heartbeat_messages(all_messages)
-        assert messages[:2] == [
-            {
-                "message_type": "register",
-                "worker_host": "localhost",
-                "worker_port": 6001,
-            },
-            {
-                "message_type": "finished",
-                "task_id": 0,
-                "worker_host": "localhost",
-                "worker_port": 6001,
-            },
-        ]
-    
-        # Verify time and memory constraints
-        map_time_seconds = memory_profiler.get_time_delta()
-        map_memory_bytes = memory_profiler.get_mem_delta()
->       assert map_memory_bytes < 55 * 1024 * 1024  # 55 MB
-E       assert 58568704 < ((55 * 1024) * 1024)
+>           utils.wait_for_threads()
 
-tests/test_worker_11.py:137: AssertionError
+tests/test_worker_11.py:110: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+num = 1
+
+    def wait_for_threads(num=1):
+        """Return after the total number of threads is num."""
+        for _ in range(TIMEOUT):
+            if len(threading.enumerate()) == num:
+                return
+            time.sleep(1)
+>       raise Exception("Failed to close threads.")
+E       Exception: Failed to close threads.
+
+tests/utils/__init__.py:222: Exception
 ------------------------------ Captured log call -------------------------------
 INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
 INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
-INFO     mapreduce.worker.__main__:__main__.py:95 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00000-6xqkfeg1
-INFO     mapreduce.worker.__main__:__main__.py:137 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00000-6xqkfeg1
+INFO     mapreduce.worker.__main__:__main__.py:94 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-local-task00000-xi_ny5uk
+INFO     mapreduce.worker.__main__:__main__.py:139 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-20/test_dead_worker0/mapreduce-local-task00000-xi_ny5uk
+=============================== warnings summary ===============================
+tests/test_manager_05.py::test_dead_worker
+  /Users/cjy/eecs485/p4-mapreduce/env/lib/python3.10/site-packages/_pytest/threadexception.py:73: PytestUnhandledThreadExceptionWarning: Exception in thread Thread-17 (fault_tolerance)
+  
+  Traceback (most recent call last):
+    File "/usr/local/Cellar/python@3.10/3.10.7/Frameworks/Python.framework/Versions/3.10/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+      self.run()
+    File "/usr/local/Cellar/python@3.10/3.10.7/Frameworks/Python.framework/Versions/3.10/lib/python3.10/threading.py", line 953, in run
+      self._target(*self._args, **self._kwargs)
+    File "/Users/cjy/eecs485/p4-mapreduce/mapreduce/manager/__main__.py", line 146, in fault_tolerance
+      self.deal_dead_workers(self.vars["workers"][worker])
+    File "/Users/cjy/eecs485/p4-mapreduce/mapreduce/manager/__main__.py", line 263, in deal_dead_workers
+      if self.vars["workers"][worker].status == Status.BUSY:
+  KeyError: <mapreduce.manager.__main__.WorkerInfo object at 0x1059ffa00>
+  
+    warnings.warn(pytest.PytestUnhandledThreadExceptionWarning(msg))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
 =========================== short test summary info ============================
+FAILED tests/test_manager_05.py::test_dead_worker - Exception: Expected 3 mes...
 FAILED tests/test_style.py::test_pycodestyle - subprocess.CalledProcessError:...
 FAILED tests/test_style.py::test_pydocstyle - subprocess.CalledProcessError: ...
 FAILED tests/test_style.py::test_pylint - subprocess.CalledProcessError: Comm...
-FAILED tests/test_worker_11.py::test_map_memory - assert 58568704 < ((55 * 10...
-=================== 4 failed, 19 passed in 170.99s (0:02:50) ===================
+FAILED tests/test_worker_00.py::test_shutdown - Exception: Failed to close th...
+FAILED tests/test_worker_01.py::test_register - Exception: Failed to close th...
+FAILED tests/test_worker_02.py::test_heartbeat - Exception: Failed to close t...
+FAILED tests/test_worker_03.py::test_finish_task_messages - Exception: Failed...
+FAILED tests/test_worker_04.py::test_finish_task_output - Exception: Failed t...
+FAILED tests/test_worker_05.py::test_two_input_map - Exception: Failed to clo...
+FAILED tests/test_worker_07.py::test_reduce_two_inputs - Exception: Failed to...
+FAILED tests/test_worker_08.py::test_map_reduce - Exception: Failed to close ...
+FAILED tests/test_worker_11.py::test_map_memory - Exception: Failed to close ...
+============= 13 failed, 10 passed, 1 warning in 280.87s (0:04:40) =============
