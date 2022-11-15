@@ -80,3 +80,521 @@ tests/test_manager_05.py::test_dead_worker
 -------------------------------- live log call ---------------------------------
 INFO     mapreduce.manager.__main__:__main__.py:70 Starting manager host=localhost port=6000 pwd=/Users/cjy/eecs485/p4-mapreduce
 INFO     mapreduce.manager.__main__:__main__.py:306 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-shared-job00000-zt6uhma3
+INFO     mapreduce.manager.__main__:__main__.py:310 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-shared-job00000-zt6uhma3
+PASSED
+tests/test_style.py::test_pycodestyle mapreduce/utils/__main__.py:20:80: E501 line too long (92 > 79 characters)
+mapreduce/utils/__main__.py:27:80: E501 line too long (80 > 79 characters)
+mapreduce/manager/__main__.py:17:1: E302 expected 2 blank lines, found 1
+mapreduce/manager/__main__.py:23:1: E302 expected 2 blank lines, found 1
+mapreduce/manager/__main__.py:89:80: E501 line too long (95 > 79 characters)
+mapreduce/manager/__main__.py:92:80: E501 line too long (98 > 79 characters)
+mapreduce/manager/__main__.py:93:80: E501 line too long (81 > 79 characters)
+mapreduce/manager/__main__.py:95:80: E501 line too long (93 > 79 characters)
+mapreduce/manager/__main__.py:104:80: E501 line too long (83 > 79 characters)
+mapreduce/manager/__main__.py:105:80: E501 line too long (98 > 79 characters)
+mapreduce/manager/__main__.py:112:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:129:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:139:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:145:5: E129 visually indented line with same indent as next logical line
+mapreduce/manager/__main__.py:150:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:156:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:162:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:169:80: E501 line too long (97 > 79 characters)
+mapreduce/manager/__main__.py:174:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:182:5: E129 visually indented line with same indent as next logical line
+mapreduce/manager/__main__.py:189:80: E501 line too long (85 > 79 characters)
+mapreduce/manager/__main__.py:200:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:209:80: E501 line too long (80 > 79 characters)
+mapreduce/manager/__main__.py:216:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:231:80: E501 line too long (84 > 79 characters)
+mapreduce/manager/__main__.py:233:80: E501 line too long (83 > 79 characters)
+mapreduce/manager/__main__.py:241:80: E501 line too long (85 > 79 characters)
+mapreduce/manager/__main__.py:243:80: E501 line too long (89 > 79 characters)
+mapreduce/manager/__main__.py:259:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:269:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:297:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:313:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:325:80: E501 line too long (86 > 79 characters)
+mapreduce/manager/__main__.py:331:80: E501 line too long (93 > 79 characters)
+mapreduce/manager/__main__.py:338:5: E303 too many blank lines (2)
+mapreduce/worker/__main__.py:27:5: E303 too many blank lines (2)
+mapreduce/worker/__main__.py:62:5: E303 too many blank lines (2)
+mapreduce/worker/__main__.py:75:5: E303 too many blank lines (2)
+mapreduce/worker/__main__.py:91:5: E303 too many blank lines (2)
+mapreduce/worker/__main__.py:94:80: E501 line too long (113 > 79 characters)
+mapreduce/worker/__main__.py:106:80: E501 line too long (102 > 79 characters)
+mapreduce/worker/__main__.py:107:80: E501 line too long (114 > 79 characters)
+mapreduce/worker/__main__.py:108:80: E501 line too long (147 > 79 characters)
+mapreduce/worker/__main__.py:110:80: E501 line too long (113 > 79 characters)
+mapreduce/worker/__main__.py:111:80: E501 line too long (83 > 79 characters)
+mapreduce/worker/__main__.py:116:80: E501 line too long (128 > 79 characters)
+mapreduce/worker/__main__.py:117:80: E501 line too long (82 > 79 characters)
+mapreduce/worker/__main__.py:121:80: E501 line too long (85 > 79 characters)
+mapreduce/worker/__main__.py:125:80: E501 line too long (105 > 79 characters)
+mapreduce/worker/__main__.py:136:80: E501 line too long (110 > 79 characters)
+mapreduce/worker/__main__.py:140:5: E303 too many blank lines (2)
+mapreduce/worker/__main__.py:145:80: E501 line too long (80 > 79 characters)
+mapreduce/worker/__main__.py:146:25: E128 continuation line under-indented for visual indent
+mapreduce/worker/__main__.py:150:31: E222 multiple spaces after operator
+mapreduce/worker/__main__.py:150:80: E501 line too long (83 > 79 characters)
+mapreduce/worker/__main__.py:162:80: E501 line too long (94 > 79 characters)
+mapreduce/worker/__main__.py:170:80: E501 line too long (107 > 79 characters)
+FAILED
+tests/test_style.py::test_pydocstyle mapreduce/utils/__main__.py:8 in public function `create_tcp`:
+        D205: 1 blank line required between summary line and description (found 0)
+mapreduce/utils/__main__.py:8 in public function `create_tcp`:
+        D209: Multi-line docstring closing quotes should be on a separate line
+mapreduce/utils/__main__.py:8 in public function `create_tcp`:
+        D400: First line should end with a period (not 't')
+mapreduce/manager/__main__.py:18 in public class `Status`:
+        D204: 1 blank line required after class docstring (found 0)
+mapreduce/manager/__main__.py:24 in public class `WorkerInfo`:
+        D204: 1 blank line required after class docstring (found 0)
+mapreduce/manager/__main__.py:25 in public method `__init__`:
+        D107: Missing docstring in __init__
+mapreduce/manager/__main__.py:217 in public method `assign_task`:
+        D205: 1 blank line required between summary line and description (found 0)
+mapreduce/manager/__main__.py:217 in public method `assign_task`:
+        D209: Multi-line docstring closing quotes should be on a separate line
+mapreduce/manager/__main__.py:217 in public method `assign_task`:
+        D400: First line should end with a period (not ',')
+mapreduce/worker/__main__.py:22 in public class `Worker`:
+        D204: 1 blank line required after class docstring (found 0)
+mapreduce/worker/__main__.py:92 in public method `mapping`:
+        D401: First line should be in imperative mood (perhaps 'Map', not 'Mapping')
+FAILED
+tests/test_style.py::test_pylint ************* Module mapreduce.manager.__main__
+mapreduce/manager/__main__.py:135:25: C0201: Consider iterating the dictionary directly instead of calling .keys() (consider-iterating-dictionary)
+mapreduce/manager/__main__.py:143:30: C0201: Consider iterating the dictionary directly instead of calling .keys() (consider-iterating-dictionary)
+mapreduce/manager/__main__.py:167:30: C0201: Consider iterating the dictionary directly instead of calling .keys() (consider-iterating-dictionary)
+mapreduce/manager/__main__.py:181:26: C0201: Consider iterating the dictionary directly instead of calling .keys() (consider-iterating-dictionary)
+mapreduce/manager/__main__.py:344:25: C0201: Consider iterating the dictionary directly instead of calling .keys() (consider-iterating-dictionary)
+************* Module mapreduce.worker.__main__
+mapreduce/worker/__main__.py:94:0: C0301: Line too long (113/100) (line-too-long)
+mapreduce/worker/__main__.py:106:0: C0301: Line too long (102/100) (line-too-long)
+mapreduce/worker/__main__.py:107:0: C0301: Line too long (114/100) (line-too-long)
+mapreduce/worker/__main__.py:108:0: C0301: Line too long (147/100) (line-too-long)
+mapreduce/worker/__main__.py:110:0: C0301: Line too long (113/100) (line-too-long)
+mapreduce/worker/__main__.py:116:0: C0301: Line too long (128/100) (line-too-long)
+mapreduce/worker/__main__.py:125:0: C0301: Line too long (105/100) (line-too-long)
+mapreduce/worker/__main__.py:136:0: C0301: Line too long (110/100) (line-too-long)
+mapreduce/worker/__main__.py:170:0: C0301: Line too long (107/100) (line-too-long)
+
+------------------------------------------------------------------
+Your code has been rated at 9.66/10 (previous run: 9.66/10, +0.00)
+
+FAILED
+tests/test_worker_00.py::test_shutdown 
+-------------------------------- live log call ---------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
+PASSED
+tests/test_worker_01.py::test_register 
+-------------------------------- live log call ---------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
+PASSED
+tests/test_worker_02.py::test_heartbeat 
+-------------------------------- live log call ---------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
+PASSED
+tests/test_worker_03.py::test_finish_task_messages 
+-------------------------------- live log call ---------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
+INFO     mapreduce.worker.__main__:__main__.py:95 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00000-lrfu4lps
+INFO     mapreduce.worker.__main__:__main__.py:137 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00000-lrfu4lps
+PASSED
+tests/test_worker_04.py::test_finish_task_output 
+-------------------------------- live log call ---------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
+INFO     mapreduce.worker.__main__:__main__.py:95 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00000-uayvjb4y
+INFO     mapreduce.worker.__main__:__main__.py:137 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00000-uayvjb4y
+PASSED
+tests/test_worker_05.py::test_two_input_map 
+-------------------------------- live log call ---------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
+INFO     mapreduce.worker.__main__:__main__.py:95 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00000-sf2a0d4f
+INFO     mapreduce.worker.__main__:__main__.py:137 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00000-sf2a0d4f
+PASSED
+tests/test_worker_07.py::test_reduce_two_inputs 
+-------------------------------- live log call ---------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
+PASSED
+tests/test_worker_08.py::test_map_reduce 
+-------------------------------- live log call ---------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
+INFO     mapreduce.worker.__main__:__main__.py:95 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00000-jhjqcigc
+INFO     mapreduce.worker.__main__:__main__.py:137 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00000-jhjqcigc
+INFO     mapreduce.worker.__main__:__main__.py:95 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00001-yupw5p9e
+INFO     mapreduce.worker.__main__:__main__.py:137 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00001-yupw5p9e
+PASSED
+tests/test_worker_11.py::test_map_memory 
+-------------------------------- live log call ---------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
+INFO     mapreduce.worker.__main__:__main__.py:95 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00000-6xqkfeg1
+INFO     mapreduce.worker.__main__:__main__.py:137 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00000-6xqkfeg1
+FAILED
+
+=================================== FAILURES ===================================
+_______________________________ test_pycodestyle _______________________________
+
+    def test_pycodestyle():
+        """Run pycodestyle."""
+        utils.assert_no_prohibited_terms("nopep8", "noqa", "pylint")
+>       subprocess.run(["pycodestyle", "mapreduce"], check=True)
+
+tests/test_style.py:9: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+input = None, capture_output = False, timeout = None, check = True
+popenargs = (['pycodestyle', 'mapreduce'],), kwargs = {}
+process = <Popen: returncode: 1 args: ['pycodestyle', 'mapreduce']>
+stdout = None, stderr = None, retcode = 1
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+    
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them.
+    
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output & stderr attributes if those streams
+        were captured.
+    
+        If timeout is given, and the process takes too long, a TimeoutExpired
+        exception will be raised.
+    
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+    
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+    
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+    
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+    
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+>               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['pycodestyle', 'mapreduce']' returned non-zero exit status 1.
+
+/usr/local/Cellar/python@3.10/3.10.7/Frameworks/Python.framework/Versions/3.10/lib/python3.10/subprocess.py:524: CalledProcessError
+_______________________________ test_pydocstyle ________________________________
+
+    def test_pydocstyle():
+        """Run pydocstyle."""
+        utils.assert_no_prohibited_terms("nopep8", "noqa", "pylint")
+>       subprocess.run(["pydocstyle", "mapreduce"], check=True)
+
+tests/test_style.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+input = None, capture_output = False, timeout = None, check = True
+popenargs = (['pydocstyle', 'mapreduce'],), kwargs = {}
+process = <Popen: returncode: 1 args: ['pydocstyle', 'mapreduce']>
+stdout = None, stderr = None, retcode = 1
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+    
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them.
+    
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output & stderr attributes if those streams
+        were captured.
+    
+        If timeout is given, and the process takes too long, a TimeoutExpired
+        exception will be raised.
+    
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+    
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+    
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+    
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+    
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+>               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['pydocstyle', 'mapreduce']' returned non-zero exit status 1.
+
+/usr/local/Cellar/python@3.10/3.10.7/Frameworks/Python.framework/Versions/3.10/lib/python3.10/subprocess.py:524: CalledProcessError
+_________________________________ test_pylint __________________________________
+
+    def test_pylint():
+        """Run pylint."""
+        utils.assert_no_prohibited_terms("nopep8", "noqa", "pylint")
+>       subprocess.run([
+            "pylint",
+            "--rcfile", utils.TESTDATA_DIR/"pylintrc",
+            "--disable=no-value-for-parameter",
+            "--disable=method-hidden",
+            "--unsafe-load-any-extension=y",
+            "--max-args=6",
+            "--min-public-methods=1",
+            "mapreduce",
+        ], check=True)
+
+tests/test_style.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+input = None, capture_output = False, timeout = None, check = True
+popenargs = (['pylint', '--rcfile', PosixPath('/Users/cjy/eecs485/p4-mapreduce/tests/testdata/pylintrc'), '--disable=no-value-for-parameter', '--disable=method-hidden', '--unsafe-load-any-extension=y', ...],)
+kwargs = {}
+process = <Popen: returncode: 16 args: ['pylint', '--rcfile', PosixPath('/Users/cjy/ee...>
+stdout = None, stderr = None, retcode = 16
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+    
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them.
+    
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output & stderr attributes if those streams
+        were captured.
+    
+        If timeout is given, and the process takes too long, a TimeoutExpired
+        exception will be raised.
+    
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+    
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+    
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+    
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+    
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+>               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['pylint', '--rcfile', PosixPath('/Users/cjy/eecs485/p4-mapreduce/tests/testdata/pylintrc'), '--disable=no-value-for-parameter', '--disable=method-hidden', '--unsafe-load-any-extension=y', '--max-args=6', '--min-public-methods=1', 'mapreduce']' returned non-zero exit status 16.
+
+/usr/local/Cellar/python@3.10/3.10.7/Frameworks/Python.framework/Versions/3.10/lib/python3.10/subprocess.py:524: CalledProcessError
+_______________________________ test_map_memory ________________________________
+
+mocker = <pytest_mock.plugin.MockerFixture object at 0x108ac7250>
+tmp_path = PosixPath('/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_map_memory0')
+
+    def test_map_memory(mocker, tmp_path):
+        """Evaluate Worker's memory usage during Map Stage.
+    
+        Note: 'mocker' is a fixture function provided by the pytest-mock package.
+        This fixture lets us override a library function with a temporary fake
+        function that returns a hardcoded value while testing.
+    
+        See https://github.com/pytest-dev/pytest-mock/ for more info.
+    
+        Note: 'tmp_path' is a fixture provided by the pytest-mock package.
+        This fixture creates a temporary directory for use within this test.
+    
+        See https://docs.pytest.org/en/6.2.x/tmpdir.html for more info.
+        """
+        # Mock the socket library socket class
+        mock_socket = mocker.patch("socket.socket")
+    
+        # sendall() records messages
+        mock_sendall = mock_socket.return_value.__enter__.return_value.sendall
+    
+        # accept() returns a mock client socket
+        mock_clientsocket = mocker.MagicMock()
+        mock_accept = mock_socket.return_value.__enter__.return_value.accept
+        mock_accept.return_value = (mock_clientsocket, ("127.0.0.1", 10000))
+    
+        # Initialize memory profiler, which tracks max memory usage
+        memory_profiler = MemoryProfiler()
+    
+        # recv() returns values generated by manager_message_generator()
+        mock_recv = mock_clientsocket.recv
+        mock_recv.side_effect = manager_message_generator(
+            mock_sendall,
+            memory_profiler,
+            tmp_path,
+        )
+    
+        # Run student Worker code.  When student Worker calls recv(), it will
+        # return the faked responses configured above.  When the student code calls
+        # sys.exit(0), it triggers a SystemExit exception, which we'll catch.
+        try:
+            mapreduce.worker.Worker(
+                host="localhost",
+                port=6001,
+                manager_host="localhost",
+                manager_port=6000,
+            )
+            utils.wait_for_threads()
+        except SystemExit as error:
+            assert error.code == 0
+    
+        # Verify messages sent by the Worker
+        #
+        # Pro-tip: show log messages and detailed diffs with
+        #   $ pytest -vvs --log-cli-level=info tests/test_worker_X.py
+        all_messages = utils.get_messages(mock_sendall)
+        messages = utils.filter_not_heartbeat_messages(all_messages)
+        assert messages[:2] == [
+            {
+                "message_type": "register",
+                "worker_host": "localhost",
+                "worker_port": 6001,
+            },
+            {
+                "message_type": "finished",
+                "task_id": 0,
+                "worker_host": "localhost",
+                "worker_port": 6001,
+            },
+        ]
+    
+        # Verify time and memory constraints
+        map_time_seconds = memory_profiler.get_time_delta()
+        map_memory_bytes = memory_profiler.get_mem_delta()
+>       assert map_memory_bytes < 55 * 1024 * 1024  # 55 MB
+E       assert 58568704 < ((55 * 1024) * 1024)
+
+tests/test_worker_11.py:137: AssertionError
+------------------------------ Captured log call -------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:30 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:34 manager_host=localhost manager_port=6000
+INFO     mapreduce.worker.__main__:__main__.py:95 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00000-6xqkfeg1
+INFO     mapreduce.worker.__main__:__main__.py:137 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-13/test_dead_worker0/mapreduce-local-task00000-6xqkfeg1
+=========================== short test summary info ============================
+FAILED tests/test_style.py::test_pycodestyle - subprocess.CalledProcessError:...
+FAILED tests/test_style.py::test_pydocstyle - subprocess.CalledProcessError: ...
+FAILED tests/test_style.py::test_pylint - subprocess.CalledProcessError: Comm...
+FAILED tests/test_worker_11.py::test_map_memory - assert 58568704 < ((55 * 10...
+=================== 4 failed, 19 passed in 170.99s (0:02:50) ===================

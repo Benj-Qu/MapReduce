@@ -91,7 +91,8 @@ class Worker:
     def mapping(self, message_dict):
         """Mapping for worker class."""
         # prefix = f"mapreduce-local-task{message_dict['task_id']:05d}-"
-        with tempfile.TemporaryDirectory(prefix=f"mapreduce-local-task{message_dict['task_id']:05d}-") as tmpdir:
+        with tempfile.TemporaryDirectory(prefix
+=f"mapreduce-local-task{message_dict['task_id']:05d}-")as tmpdir:
             LOGGER.info("Created tmpdir %s", tmpdir)
             for input_path in message_dict["input_paths"]:
                 with open(input_path, encoding='utf-8') as infile:
