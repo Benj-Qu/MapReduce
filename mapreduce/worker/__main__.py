@@ -146,7 +146,8 @@ class Worker:
                 for partition in range(message_dict['num_partitions']):
                     lines = input_files[partition].readlines()
                     lines.sort()
-                    output_files[partition].write(''.join(lines))
+                    for line in lines:
+                        output_files[partition].write(line)
             finish_msg = {
                 "message_type": "finished",
                 "task_id": message_dict['task_id'],
