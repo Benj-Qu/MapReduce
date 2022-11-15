@@ -298,6 +298,7 @@ class Manager:
         files = list(tmp_dir_path.glob('**/*'))
         for idx, file in enumerate(files):
             files[idx] = str(file)
+        files.sort()
         self.task_content = defaultdict(list)
         for file in files:
             partition = int(file[-5:])
