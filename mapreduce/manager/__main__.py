@@ -124,7 +124,6 @@ class Manager:
             self.new_manager_job(message_dict)
         elif message_dict["message_type"] == "finished":
             self.finished(message_dict)
-
         else:
             print("Undedfined message!")
 
@@ -133,8 +132,10 @@ class Manager:
         """UDP handler for manager class."""
         host = msg_dict["worker_host"]
         port = msg_dict["worker_port"]
+        worker = (host, port)
         with self.lock:
-            self.workers[host, port].birth = time.time()
+            if worker in self.workers.keys():
+                self.workers[worker].birth = time.time()
 
 
     def fault_tolerance(self):
@@ -342,10 +343,11 @@ class Manager:
         worker_port = message_dict["worker_port"]
         worker = (worker_host, worker_port)
         with self.lock:
-            self.workers[worker].status = Status.READY
-            self.workers[worker].taskid = -1
-            self.ready_workers.append(worker)
-            self.num_finished += 1
+            if worker in self.workers.keys():
+                self.workers[worker].status = Status.READY
+                self.workers[worker].taskid = -1
+                self.ready_workers.append(worker)
+                self.num_finished += 1
 
 
 @click.command()
