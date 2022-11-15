@@ -134,11 +134,7 @@ class Manager:
                 for worker in self.workers.keys():
                     if (self.workers[worker].status != Status.DEAD and 
                         time.time() - self.workers[worker].birth > 10):
-                        if self.workers[worker].status == Status.BUSY:
-                            self.assign_task(self.workers[worker].taskid)
-                        elif self.workers[worker].status == Status.READY:
-                            self.ready_workers.remove(worker)
-                        self.workers[worker].status = Status.DEAD
+                            self.deal_dead_workers(worker)
             time.sleep(0.5)
 
 
@@ -155,10 +151,11 @@ class Manager:
     def shutdown(self, message_dict):
         # Forward this message to all of the living Workers
         # that have registered with it
-        for host, port in self.workers.keys():
-            send_TCP_success = mapreduce.utils.send_TCP_message(host, port, message_dict)
-            if not send_TCP_success:
-                self.deal_dead_workers(host, port)
+        with self.lock:
+            for host, port in self.workers.keys():
+                send_TCP_success = mapreduce.utils.send_TCP_message(host, port, message_dict)
+                if not send_TCP_success:
+                    self.deal_dead_workers((host, port))
 
 
     def register(self, message_dict):
@@ -177,11 +174,13 @@ class Manager:
         message_dict["message_type"] = "register_ack"
         send_TCP_success = mapreduce.utils.send_TCP_message(host, port, message_dict)
         if not send_TCP_success:
-            self.deal_dead_workers(host, port)
-        with self.lock:
-            if self.tasks:
-                taskid = self.tasks.pop(0)
-                self.assign_task(taskid)
+            with self.lock:
+                self.deal_dead_workers(worker)
+        else:
+            with self.lock:
+                if self.tasks:
+                    taskid = self.tasks.pop(0)
+                    self.assign_task(taskid)
 
 
     def new_manager_job(self, message_dict):
@@ -203,8 +202,11 @@ class Manager:
         # Assign task with taskid to ready worker, or add to tasks list
         # NO NEED TO LOCK! LOCK BEFORE THE FUNCTION!
         if self.ready_workers:
-            # Assign the taks with taskid to ready worker
+            # Assign the tasks with taskid to ready worker
             worker_host, worker_port = self.ready_workers.pop(0)
+            worker = (worker_host, worker_port)
+            self.workers[worker].status = Status.BUSY
+            self.workers[worker].taskid = taskid
             if self.mapping_task:
                 new_message = {
                     "message_type": "new_map_task",
@@ -228,7 +230,8 @@ class Manager:
                 }
             send_TCP_success = mapreduce.utils.send_TCP_message(worker_host, worker_port, new_message)
             if not send_TCP_success:
-                self.deal_dead_workers(worker_host, worker_port)
+                with self.lock:
+                    self.deal_dead_workers((worker_host, worker_port))
             # If successfully assign the task
             self.tasks.remove(taskid)
         else:
@@ -236,13 +239,12 @@ class Manager:
             if taskid not in self.tasks:
                 self.tasks.append(taskid)
 
-    def deal_dead_workers(self, worker_host, worker_port):
-        worker = (worker_host, worker_port)
+    def deal_dead_workers(self, worker):
         if self.workers[worker].status == Status.BUSY:
             self.assign_task(self.workers[worker].taskid)
         elif self.workers[worker].status == Status.READY:
             self.ready_workers.remove(worker)
-        self.workers[(worker_host, worker_port)].status = Status.DEAD
+        self.workers[worker].status = Status.DEAD
 
 
     def input_partitioning(self):
@@ -305,10 +307,11 @@ class Manager:
         self.num_finished = 0
         while self.get_working():
             time.sleep(0.1)
-            if self.num_finished == self.cur_job_message["num_reducers"]:
-                break
-            for taskid in self.tasks:
-                self.assign_task(taskid)
+            with self.lock:
+                if self.num_finished == self.cur_job_message["num_reducers"]:
+                    break
+                for taskid in self.tasks:
+                    self.assign_task(taskid)
 
 
     def finished(self, message_dict):
@@ -317,6 +320,7 @@ class Manager:
         worker = (worker_host, worker_port)
         with self.lock:
             self.workers[worker].status = Status.READY
+            self.workers[worker].taskid = -1
             self.ready_workers.append(worker)
             self.num_finished += 1
 
