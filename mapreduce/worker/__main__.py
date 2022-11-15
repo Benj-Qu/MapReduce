@@ -91,19 +91,42 @@ class Worker:
                 prefix=f"mapreduce-local-task{message_dict['task_id']:05d}-"
                 ) as tmpdir:
             LOGGER.info("Created tmpdir %s", tmpdir)
-            tmp_files = [(
+            # tempfile names
+            tmp_paths = [(
                 Path(tmpdir) /
                 f"""maptask{
                 message_dict['task_id']:05d}-part{
                 partition:05d}""") for partition in range(
                     message_dict['num_partitions']
-                    )
+                    )]
+            # outputfile names
+            output_paths = [
+                (
+                    Path(message_dict["output_directory"]) /
+                    f"""maptask{
+                        message_dict['task_id']:05d}-part{
+                            partition:05d}"""
+                ) for partition in range(
+                    message_dict['num_partitions']
+                )
+            ]
+            with ExitStack() as stack:
+                # open tempfiles
+                tmp_files = [
+                    stack.enter_context(
+                        open(file, "w", encoding="utf8")
+                    ) for file in tmp_paths
                 ]
-            for input_path in message_dict["input_paths"]:
-                with open(input_path, encoding='utf-8') as infile:
+                # open inputfiles
+                input_files = [
+                    stack.enter_context(
+                        open(file, "r", encoding="utf8")
+                    ) for file in message_dict["input_paths"]
+                ]
+                for index in range(len(message_dict["input_paths"])):
                     with subprocess.Popen(
                         [message_dict["executable"]],
-                        stdin=infile,
+                        stdin=input_files[index],
                         stdout=subprocess.PIPE,
                         text=True,
                     ) as map_process:
@@ -114,37 +137,24 @@ class Worker:
                                     ).hexdigest(),
                                 base=16
                                 ) % message_dict['num_partitions']
-                            with open(
-                                    tmp_files[partition],
-                                    'a+',
-                                    encoding='utf-8') as outfile:
-                                outfile.write(line)
-            # Sort each file in the temporary directory
-            # output_dir = Path(message_dict["output_directory"])
-            output_files = [
-                            (
-                                Path(message_dict["output_directory"]) /
-                                f"""maptask{
-                                    message_dict['task_id']:05d}-part{
-                                        partition:05d}"""
-                                )
-                            for partition in range(
-                                message_dict['num_partitions']
-                                )
-                            ]
+                            tmp_files[partition].write(line)
             with ExitStack() as stack:
+                # open tempfiles
+                tmp_files = [
+                    stack.enter_context(
+                        open(file, "r", encoding="utf8")
+                    ) for file in tmp_paths
+                ]
+                # open outputfiles
                 output_files = [
                     stack.enter_context(
                         open(file, "w", encoding="utf8")
-                    ) for file in output_files
+                    ) for file in output_paths
                 ]
-                input_files = [
-                    stack.enter_context(
-                        open(file, "r", encoding="utf8")
-                    ) for file in tmp_files
-                ]
+                # Sort each file in the temporary directory
+                # output_dir = Path(message_dict["output_directory"])
                 for partition in range(message_dict['num_partitions']):
-                    lines = input_files[partition].readlines()
+                    lines = tmp_files[partition].readlines()
                     lines.sort()
                     output_files[partition].write(''.join(lines))
             finish_msg = {
