@@ -6,8 +6,7 @@ import time
 
 def create_tcp(self, send_msg):
     """Create a new tcp socket on the given port
-        and call the listen() function."""
-
+    and call the listen() function."""
     # Create an INET, STREAMing socket, this is tcp
     # Note: context manager syntax allows for sockets to automatically be
     # closed when an exception is raised or control flow returns.
