@@ -47,6 +47,7 @@ class Worker:
         self.working = True
 
         self.thread = threading.Thread(target=self.heartbeat)
+        self.thread.start()
 
         register_message = {
             "message_type": "register",
@@ -134,7 +135,6 @@ class Worker:
         LOGGER.info("Cleaned up tmpdir %s", tmpdir)
 
     def reducing(self, message_dict):
-        ## TODO ##
         executable = message_dict["executable"]
         input_path = message_dict["input_paths"]
         output_directory = message_dict["output_directory"]

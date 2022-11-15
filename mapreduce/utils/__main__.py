@@ -2,6 +2,7 @@
 import socket
 import threading
 import json
+import time
 
 
 def create_TCP(self, send_msg):
@@ -64,7 +65,6 @@ def create_TCP(self, send_msg):
             self.TCP_handler(message_dict)
 
 
-
 def send_TCP_message(host, port, message_dict):
     """Test TCP Socket Client."""
     # create an INET, STREAMing socket, this is TCP
@@ -94,23 +94,23 @@ def create_UDP(self, host, port):
 
         # Receive incoming UDP messages
         while self.get_working():
+            time.sleep(0.1)
             try:
                 message_bytes = sock.recv(4096)
             except socket.timeout:
                 continue
             message_str = message_bytes.decode("utf-8")
             message_dict = json.loads(message_str)
-            self.UDP_handler(message_dict)
+            if message_dict["message_type"] == "heartbeat":
+                self.UDP_handler(message_dict)
 
 
 def send_UDP_message(host, port, message_dict):
     """Test UDP Socket Client."""
     # Create an INET, DGRAM socket, this is UDP
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
-
         # Connect to the UDP socket on server
         sock.connect((host, port))
-
         # Send a message
         message = json.dumps(message_dict)
         sock.sendall(message.encode('utf-8'))

@@ -117,6 +117,7 @@ class Manager:
             self.new_manager_job(message_dict)
         elif message_dict["message_type"] == "finished":
             self.finished(message_dict)
+
         else:
             print("Undedfined message!")
 
@@ -134,7 +135,7 @@ class Manager:
                 for worker in self.workers.keys():
                     if (self.workers[worker].status != Status.DEAD and 
                         time.time() - self.workers[worker].birth > 10):
-                            self.deal_dead_workers(worker)
+                        self.deal_dead_workers(worker)
             time.sleep(0.5)
 
 
@@ -153,9 +154,10 @@ class Manager:
         # that have registered with it
         with self.lock:
             for host, port in self.workers.keys():
-                send_TCP_success = mapreduce.utils.send_TCP_message(host, port, message_dict)
-                if not send_TCP_success:
-                    self.deal_dead_workers((host, port))
+                if self.workers[(host, port)].status != Status.DEAD:
+                    send_TCP_success = mapreduce.utils.send_TCP_message(host, port, message_dict)
+                    if not send_TCP_success:
+                        self.deal_dead_workers((host, port))
 
 
     def register(self, message_dict):
@@ -241,10 +243,11 @@ class Manager:
 
     def deal_dead_workers(self, worker):
         if self.workers[worker].status == Status.BUSY:
+            self.workers[worker].status = Status.DEAD
             self.assign_task(self.workers[worker].taskid)
         elif self.workers[worker].status == Status.READY:
+            self.workers[worker].status = Status.DEAD
             self.ready_workers.remove(worker)
-        self.workers[worker].status = Status.DEAD
 
 
     def input_partitioning(self):
