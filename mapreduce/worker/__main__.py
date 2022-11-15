@@ -13,6 +13,7 @@ from contextlib import ExitStack
 import click
 import mapreduce.utils
 
+
 # Configure logging
 LOGGER = logging.getLogger(__name__)
 
@@ -21,6 +22,7 @@ class Worker:
     """Worker class."""
     get_working = mapreduce.utils.get_working
     create_tcp = mapreduce.utils.create_tcp
+
 
     """A class representing a Worker node in a MapReduce cluster."""
     def __init__(self, host, port, manager_host, manager_port):
@@ -34,17 +36,23 @@ class Worker:
             manager_host, manager_port,
         )
         self.lock = threading.Lock()
-        self.host = host
-        self.port = port
-        self.server_host = manager_host
-        self.server_port = manager_port
+        self.vars = {
+                    "host": host, "port": port,
+                    "manager_host": manager_host,
+                    "manager_port": manager_port,
+                    "working": True
+                    }
+        # self.vars['host'] = host
+        # self.vars['port'] = port
+        # self.vars['manager_host'] = manager_host
+        # self.vars['manager_port'] = manager_port
         self.registered = False
-        self.working = True
+        # self.vars["working"] = True
         self.thread = threading.Thread(target=self.heartbeat)
         register_message = {
             "message_type": "register",
-            "worker_host": self.host,
-            "worker_port": self.port,
+            "worker_host": self.vars['host'],
+            "worker_port": self.vars['port'],
         }
         self.create_tcp(register_message)
         if self.registered:
@@ -54,7 +62,7 @@ class Worker:
     def tcp_handler(self, message_dict):
         """TCP handler for worker class."""
         if message_dict["message_type"] == "shutdown":
-            self.working = False
+            self.vars["working"] = False
         elif message_dict["message_type"] == "register_ack":
             self.registered = True
             self.thread.start()
@@ -66,22 +74,25 @@ class Worker:
 
     def heartbeat(self):
         """Send heartbeat thread function for worker class."""
-        while self.working:
+        while self.vars["working"]:
             heartbeat_msg = {
                 "message_type": "heartbeat",
-                "worker_host": self.host,
-                "worker_port": self.port,
+                "worker_host": self.vars['host'],
+                "worker_port": self.vars['port'],
             }
-            mapreduce.utils.send_udp_message(self.server_host, self.server_port, heartbeat_msg)
+            mapreduce.utils.send_udp_message(
+                                            self.vars['manager_host'],
+                                            self.vars['manager_port'],
+                                            heartbeat_msg
+                                            )
             time.sleep(2)
 
 
     def mapping(self, message_dict):
         """Mapping for worker class."""
-        prefix = f"mapreduce-local-task{message_dict['task_id']:05d}-"
-        with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
+        # prefix = f"mapreduce-local-task{message_dict['task_id']:05d}-"
+        with tempfile.TemporaryDirectory(prefix=f"mapreduce-local-task{message_dict['task_id']:05d}-") as tmpdir:
             LOGGER.info("Created tmpdir %s", tmpdir)
-            tmpdir_path = Path(tmpdir)
             for input_path in message_dict["input_paths"]:
                 with open(input_path, encoding='utf-8') as infile:
                     with subprocess.Popen(
@@ -91,18 +102,18 @@ class Worker:
                         text=True,
                     ) as map_process:
                         for line in map_process.stdout:
-                            key = line.split("\t")[0]
-                            hexdigest = hashlib.md5(key.encode("utf-8")).hexdigest()
-                            keyhash = int(hexdigest, base=16)
-                            partition = keyhash % message_dict['num_partitions']
+                            # key = line.split("\t")[0]
+                            # hexdigest = hashlib.md5(line.split("\t")[0].encode("utf-8")).hexdigest()
+                            # keyhash = int(hashlib.md5(line.split("\t")[0].encode("utf-8")).hexdigest(), base=16)
+                            partition = int(hashlib.md5(line.split("\t")[0].encode("utf-8")).hexdigest(), base=16) % message_dict['num_partitions']
                             # correct partiton output file
-                            filename = tmpdir_path / f"maptask{message_dict['task_id']:05d}-part{partition:05d}"
+                            filename = Path(tmpdir) / f"maptask{message_dict['task_id']:05d}-part{partition:05d}"
                             with open(filename, 'a+', encoding='utf-8') as outfile:
                                 outfile.write(line)
             # Sort each file in the temporary directory
-            output_dir = Path(message_dict["output_directory"])
+            # output_dir = Path(message_dict["output_directory"])
             output_files = [
-                            output_dir / f"maptask{message_dict['task_id']:05d}-part{partition:05d}"
+                            Path(message_dict["output_directory"]) / f"maptask{message_dict['task_id']:05d}-part{partition:05d}"
                             for partition in range(message_dict['num_partitions'])
                             ]
             with ExitStack() as stack:
@@ -111,7 +122,7 @@ class Worker:
                                 for file in output_files
                                 ]
                 for partition in range(message_dict['num_partitions']):
-                    filename = tmpdir_path / f"maptask{message_dict['task_id']:05d}-part{partition:05d}"
+                    filename = Path(tmpdir) / f"maptask{message_dict['task_id']:05d}-part{partition:05d}"
                     with open(filename, encoding='utf-8') as input_file:
                         lines = sorted(input_file.readlines())
                     for line in lines:
@@ -119,10 +130,10 @@ class Worker:
             finish_msg = {
                 "message_type": "finished",
                 "task_id": message_dict['task_id'],
-                "worker_host": self.host,
-                "worker_port": self.port,
+                "worker_host": self.vars['host'],
+                "worker_port": self.vars['port'],
             }
-            mapreduce.utils.send_tcp_message(self.server_host, self.server_port, finish_msg)
+            mapreduce.utils.send_tcp_message(self.vars['manager_host'], self.vars['manager_port'], finish_msg)
         LOGGER.info("Cleaned up tmpdir %s", tmpdir)
 
 
@@ -153,10 +164,10 @@ class Worker:
             message = {
                 "message_type": "finished",
                 "task_id": message_dict['task_id'],
-                "worker_host": self.host,
-                "worker_port": self.port
+                "worker_host": self.vars['host'],
+                "worker_port": self.vars['port']
             }
-            mapreduce.utils.send_tcp_message(self.server_host, self.server_port, message)
+            mapreduce.utils.send_tcp_message(self.vars['manager_host'], self.vars['manager_port'], message)
 
 
 @click.command()

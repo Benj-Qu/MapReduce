@@ -13,11 +13,11 @@ def create_tcp(self, send_msg):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         # Bind the socket to the server
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        sock.bind((self.host, self.port))
+        sock.bind((self.vars['host'], self.vars['port']))
         sock.listen()
 
         if send_msg is not None:
-            send_tcp_message(self.server_host, self.server_port, send_msg)
+            send_tcp_message(self.vars['manager_host'], self.vars['manager_port'], send_msg)
 
         # Socket accept() will block for a maximum of 1 second.  If you
         # omit this, it blocks indefinitely, waiting for a connection.
@@ -117,5 +117,5 @@ def send_udp_message(host, port, message_dict):
 def get_working(self):
     """Get whether the class is working."""
     with self.lock:
-        working = self.working
+        working = self.vars["working"]
     return working
