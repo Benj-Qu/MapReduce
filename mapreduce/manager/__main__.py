@@ -252,8 +252,6 @@ class Manager:
             if not send_tcp_success:
                 with self.lock:
                     self.deal_dead_workers((worker_host, worker_port))
-            # If successfully assign the task
-            self.tasks.remove(taskid)
         else:
             # No ready workers, add this task to tasks list
             if taskid not in self.tasks:
@@ -293,7 +291,8 @@ class Manager:
             with self.lock:
                 if self.num_finished == num_mappers:
                     break
-                for taskid in self.tasks:
+                while self.ready_workers and self.tasks:
+                    taskid = self.tasks.pop(0)
                     self.assign_task(taskid)
 
 
@@ -326,14 +325,15 @@ class Manager:
             partition = int(file[-5:])
             self.task_content[partition].append(file)
         self.tasks = list(range(self.cur_job_message["num_reducers"]))
-        # Mapping
+        # Reducing
         self.num_finished = 0
         while self.get_working():
             time.sleep(0.1)
             with self.lock:
                 if self.num_finished == self.cur_job_message["num_reducers"]:
                     break
-                for taskid in self.tasks:
+                while self.ready_workers and self.tasks:
+                    taskid = self.tasks.pop(0)
                     self.assign_task(taskid)
 
 
