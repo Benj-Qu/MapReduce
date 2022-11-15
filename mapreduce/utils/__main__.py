@@ -1,15 +1,14 @@
 """UTILS functions for use in manager and worker classes."""
 import socket
-import threading
 import json
 import time
 
 
-def create_TCP(self, send_msg):
-    """Create a new TCP socket on the given port 
+def create_tcp(self, send_msg):
+    """Create a new tcp socket on the given port
         and call the listen() function."""
 
-    # Create an INET, STREAMing socket, this is TCP
+    # Create an INET, STREAMing socket, this is tcp
     # Note: context manager syntax allows for sockets to automatically be
     # closed when an exception is raised or control flow returns.
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
@@ -19,7 +18,7 @@ def create_TCP(self, send_msg):
         sock.listen()
 
         if send_msg is not None:
-            send_TCP_message(self.server_host, self.server_port, send_msg)
+            send_tcp_message(self.server_host, self.server_port, send_msg)
 
         # Socket accept() will block for a maximum of 1 second.  If you
         # omit this, it blocks indefinitely, waiting for a connection.
@@ -29,7 +28,7 @@ def create_TCP(self, send_msg):
             # Wait for a connection for 1s.  The socket library avoids consuming
             # CPU while waiting for a connection.
             try:
-                clientsocket, address = sock.accept()
+                clientsocket, _ = sock.accept()
             except socket.timeout:
                 continue
 
@@ -62,12 +61,12 @@ def create_TCP(self, send_msg):
                 message_dict = json.loads(message_str)
             except json.JSONDecodeError:
                 continue
-            self.TCP_handler(message_dict)
+            self.tcp_handler(message_dict)
 
 
-def send_TCP_message(host, port, message_dict):
-    """Test TCP Socket Client."""
-    # create an INET, STREAMing socket, this is TCP
+def send_tcp_message(host, port, message_dict):
+    """Test tcp Socket Client."""
+    # create an INET, STREAMing socket, this is tcp
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         try:
             # connect to the server
@@ -80,19 +79,19 @@ def send_TCP_message(host, port, message_dict):
     return True
 
 
-def create_UDP(self, host, port):
-    """Test UDP Socket Server."""
-    # Create an INET, DGRAM socket, this is UDP
+def create_udp(self, host, port):
+    """Test udp Socket Server."""
+    # Create an INET, DGRAM socket, this is udp
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
 
-        # Bind the UDP socket to the server
+        # Bind the udp socket to the server
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         sock.bind((host, port))
         sock.settimeout(1)
 
-        # No sock.listen() since UDP doesn't establish connections like TCP
+        # No sock.listen() since udp doesn't establish connections like tcp
 
-        # Receive incoming UDP messages
+        # Receive incoming udp messages
         while self.get_working():
             time.sleep(0.1)
             try:
@@ -102,14 +101,14 @@ def create_UDP(self, host, port):
             message_str = message_bytes.decode("utf-8")
             message_dict = json.loads(message_str)
             if message_dict["message_type"] == "heartbeat":
-                self.UDP_handler(message_dict)
+                self.udp_handler(message_dict)
 
 
-def send_UDP_message(host, port, message_dict):
-    """Test UDP Socket Client."""
-    # Create an INET, DGRAM socket, this is UDP
+def send_udp_message(host, port, message_dict):
+    """Test udp Socket Client."""
+    # Create an INET, DGRAM socket, this is udp
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
-        # Connect to the UDP socket on server
+        # Connect to the udp socket on server
         sock.connect((host, port))
         # Send a message
         message = json.dumps(message_dict)
@@ -117,6 +116,7 @@ def send_UDP_message(host, port, message_dict):
 
 
 def get_working(self):
+    """Get whether the class is working."""
     with self.lock:
         working = self.working
     return working

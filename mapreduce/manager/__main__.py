@@ -2,26 +2,26 @@
 import os
 import tempfile
 import logging
-import json
 import time
-import click
-import mapreduce.utils
 import threading
-import socket
 from pathlib import Path
 from collections import defaultdict
 from enum import Enum
+import click
+import mapreduce.utils
 
 
 # Configure logging
 LOGGER = logging.getLogger(__name__)
 
 class Status(Enum):
+    """Status for worker."""
     READY = 1
     BUSY = 2
     DEAD = 3
 
 class WorkerInfo:
+    """WorkerInfo class."""
     def __init__(self):
         self._birth = time.time()
         self._status = Status.READY
@@ -29,26 +29,32 @@ class WorkerInfo:
 
     @property
     def birth(self):
+        """Last heartbeat time."""
         return self._birth
-    
+
     @birth.setter
     def birth(self, value):
+        """Set last heartbeat time."""
         self._birth = value
-    
+
     @property
     def status(self):
+        """Worker status."""
         return self._status
-    
+
     @status.setter
     def status(self, value):
+        """Set worker status."""
         self._status = value
-        
+
     @property
     def taskid(self):
+        """Worker taskid."""
         return self._taskid
-    
+
     @taskid.setter
     def taskid(self, value):
+        """Set worker taskid."""
         self._taskid = value
 
 
@@ -56,8 +62,8 @@ class Manager:
     """Represent a MapReduce framework Manager node."""
 
     get_working = mapreduce.utils.get_working
-    create_TCP = mapreduce.utils.create_TCP
-    create_UDP = mapreduce.utils.create_UDP
+    create_tcp = mapreduce.utils.create_tcp
+    create_udp = mapreduce.utils.create_udp
 
     def __init__(self, host, port):
         """Construct a Manager instance and start listening for messages."""
@@ -82,12 +88,12 @@ class Manager:
         self.task_content = defaultdict(list) # task content dictionary
         self.num_finished = 0
 
-        # Create a new thread, which will listen for UDP heartbeat messages from the Workers.
+        # Create a new thread, which will listen for udp heartbeat messages from the Workers.
         threads = []
-        thread1 = threading.Thread(target=self.create_UDP, args=(host, port,))
+        thread1 = threading.Thread(target=self.create_udp, args=(host, port,))
         threads.append(thread1)
         thread1.start()
-        # Create any additional threads or setup you think you may need. 
+        # Create any additional threads or setup you think you may need.
         # Another thread for fault tolerance could be helpful.
         thread2 = threading.Thread(target=self.fault_tolerance)
         threads.append(thread2)
@@ -96,16 +102,17 @@ class Manager:
         thread3 = threading.Thread(target=self.run_job)
         threads.append(thread3)
         thread3.start()
-        # Create a new TCP socket on the given port and call the listen() function. 
+        # Create a new tcp socket on the given port and call the listen() function.
         # Note: only one listen() thread should remain open for the whole lifetime of the Manager.
-        self.create_TCP(None)
+        self.create_tcp(None)
 
         thread1.join()
         thread2.join()
         thread3.join()
 
 
-    def TCP_handler(self, message_dict):
+    def tcp_handler(self, message_dict):
+        """TCP handler for manager class."""
         # LOGGER.info(message_dict["message_type"])
         if message_dict["message_type"] == "shutdown":
             self.shutdown(message_dict)
@@ -122,7 +129,8 @@ class Manager:
             print("Undedfined message!")
 
 
-    def UDP_handler(self, msg_dict):
+    def udp_handler(self, msg_dict):
+        """UDP handler for manager class."""
         host = msg_dict["worker_host"]
         port = msg_dict["worker_port"]
         with self.lock:
@@ -130,43 +138,48 @@ class Manager:
 
 
     def fault_tolerance(self):
+        """Fault tolerance thread function."""
         while self.get_working():
             with self.lock:
                 for worker in self.workers.keys():
-                    if (self.workers[worker].status != Status.DEAD and 
+                    if (self.workers[worker].status != Status.DEAD and
                         time.time() - self.workers[worker].birth > 10):
                         self.deal_dead_workers(worker)
             time.sleep(0.5)
 
 
     def tasks_isempty(self):
+        """Get whether tasks are empty."""
         with self.lock:
-            return (len(self.tasks) == 0)
+            return len(self.tasks) == 0
 
 
     def jobs_isempty(self):
+        """Get whether jobs are empty."""
         with self.lock:
-            return (len(self.jobs) == 0)
+            return len(self.jobs) == 0
 
 
     def shutdown(self, message_dict):
+        """Handle shutdown messages."""
         # Forward this message to all of the living Workers
         # that have registered with it
         with self.lock:
             for host, port in self.workers.keys():
                 if self.workers[(host, port)].status != Status.DEAD:
-                    send_TCP_success = mapreduce.utils.send_TCP_message(host, port, message_dict)
-                    if not send_TCP_success:
+                    send_tcp_success = mapreduce.utils.send_tcp_message(host, port, message_dict)
+                    if not send_tcp_success:
                         self.deal_dead_workers((host, port))
 
 
     def register(self, message_dict):
+        """Handle register messages."""
         # Register a worker
         host = message_dict["worker_host"]
         port = message_dict["worker_port"]
         worker = (host, port)
         with self.lock:
-            if (worker in self.workers.keys() and 
+            if (worker in self.workers.keys() and
                 self.workers[worker].status == Status.BUSY):
                 self.workers[worker].status = Status.DEAD
                 self.assign_task(self.workers[worker].taskid)
@@ -174,8 +187,8 @@ class Manager:
             self.workers[worker] = WorkerInfo()
             self.ready_workers.append(worker)
         message_dict["message_type"] = "register_ack"
-        send_TCP_success = mapreduce.utils.send_TCP_message(host, port, message_dict)
-        if not send_TCP_success:
+        send_tcp_success = mapreduce.utils.send_tcp_message(host, port, message_dict)
+        if not send_tcp_success:
             with self.lock:
                 self.deal_dead_workers(worker)
         else:
@@ -186,6 +199,7 @@ class Manager:
 
 
     def new_manager_job(self, message_dict):
+        """If receive a new manager job."""
         # Assign a job_id which starts from zero and increments.
         message_dict["job_id"] = self.num_jobs
         with self.lock:
@@ -201,8 +215,9 @@ class Manager:
 
 
     def assign_task(self, taskid):
-        # Assign task with taskid to ready worker, or add to tasks list
-        # NO NEED TO LOCK! LOCK BEFORE THE FUNCTION!
+        """Assign task with taskid to ready worker,
+        or add to tasks list
+        NO NEED TO LOCK! LOCK BEFORE THE FUNCTION!"""
         if self.ready_workers:
             # Assign the tasks with taskid to ready worker
             worker_host, worker_port = self.ready_workers.pop(0)
@@ -230,8 +245,10 @@ class Manager:
                     "worker_host": worker_host,
                     "worker_port": worker_port,
                 }
-            send_TCP_success = mapreduce.utils.send_TCP_message(worker_host, worker_port, new_message)
-            if not send_TCP_success:
+            send_tcp_success = mapreduce.utils.send_tcp_message(worker_host,
+                                                                worker_port,
+                                                                new_message)
+            if not send_tcp_success:
                 with self.lock:
                     self.deal_dead_workers((worker_host, worker_port))
             # If successfully assign the task
@@ -241,7 +258,9 @@ class Manager:
             if taskid not in self.tasks:
                 self.tasks.append(taskid)
 
+
     def deal_dead_workers(self, worker):
+        """Deal with dead workers."""
         if self.workers[worker].status == Status.BUSY:
             self.workers[worker].status = Status.DEAD
             self.assign_task(self.workers[worker].taskid)
@@ -251,6 +270,7 @@ class Manager:
 
 
     def input_partitioning(self):
+        """Input partitioning."""
         self.mapping_task = True
         input_dir_path = Path(self.cur_job_message["input_directory"])
         files = list(input_dir_path.glob('**/*'))
@@ -277,6 +297,7 @@ class Manager:
 
 
     def run_job(self):
+        """Run job."""
         while self.get_working():
             time.sleep(0.1)
             if not self.jobs_isempty():
@@ -285,10 +306,6 @@ class Manager:
                 prefix = f"mapreduce-shared-job{job['job_id']:05d}-"
                 with tempfile.TemporaryDirectory(prefix=prefix) as tmpdir:
                     LOGGER.info("Created tmpdir %s", tmpdir)
-                    # FIXME: Change this loop so that it runs either until shutdown 
-                    # or when the job is completed.
-                    # while self.get_working():
-                    #     time.sleep(0.1)
                     self.tmpdir = tmpdir
                     self.input_partitioning()
                     self.run_reducing()
@@ -296,6 +313,7 @@ class Manager:
 
 
     def run_reducing(self):
+        """Run reducing job."""
         self.mapping_task = False
         tmp_dir_path = Path(self.tmpdir)
         files = list(tmp_dir_path.glob('**/*'))
@@ -319,6 +337,7 @@ class Manager:
 
 
     def finished(self, message_dict):
+        """Handle finished messages."""
         worker_host = message_dict["worker_host"]
         worker_port = message_dict["worker_port"]
         worker = (worker_host, worker_port)

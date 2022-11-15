@@ -3,25 +3,647 @@ platform darwin -- Python 3.10.7, pytest-7.2.0, pluggy-1.0.0 -- /Users/cjy/eecs4
 cachedir: .pytest_cache
 rootdir: /Users/cjy/eecs485/p4-mapreduce
 plugins: mock-3.10.0
-collecting ... collected 1 item
+collecting ... collected 23 items
 
+tests/test_check_submission_files.py::test_check_submission_files PASSED
+tests/test_integration_00.py::test_grep 
+-------------------------------- live log setup --------------------------------
+INFO     autograder:conftest.py:41 Setup test fixture 'mapreduce_client'
+INFO     autograder:conftest.py:58 Starting Manager
+INFO     autograder:conftest.py:69 Starting Worker
+INFO     autograder:conftest.py:69 Starting Worker
+INFO     autograder:conftest.py:69 Starting Worker
+PASSED
+------------------------------ live log teardown -------------------------------
+INFO     autograder:conftest.py:99 Teardown test fixture 'mapreduce_client'
+
+tests/test_integration_01.py::test_wordcount 
+-------------------------------- live log setup --------------------------------
+INFO     autograder:conftest.py:41 Setup test fixture 'mapreduce_client'
+INFO     autograder:conftest.py:58 Starting Manager
+INFO     autograder:conftest.py:69 Starting Worker
+INFO     autograder:conftest.py:69 Starting Worker
+INFO     autograder:conftest.py:69 Starting Worker
+PASSED
+------------------------------ live log teardown -------------------------------
+INFO     autograder:conftest.py:99 Teardown test fixture 'mapreduce_client'
+
+tests/test_integration_02.py::test_many_mappers 
+-------------------------------- live log setup --------------------------------
+INFO     autograder:conftest.py:41 Setup test fixture 'mapreduce_client'
+INFO     autograder:conftest.py:58 Starting Manager
+INFO     autograder:conftest.py:69 Starting Worker
+INFO     autograder:conftest.py:69 Starting Worker
+INFO     autograder:conftest.py:69 Starting Worker
+PASSED
+------------------------------ live log teardown -------------------------------
+INFO     autograder:conftest.py:99 Teardown test fixture 'mapreduce_client'
+
+tests/test_integration_03.py::test_many_mappers 
+-------------------------------- live log setup --------------------------------
+INFO     autograder:conftest.py:41 Setup test fixture 'mapreduce_client'
+INFO     autograder:conftest.py:58 Starting Manager
+INFO     autograder:conftest.py:69 Starting Worker
+INFO     autograder:conftest.py:69 Starting Worker
+INFO     autograder:conftest.py:69 Starting Worker
+PASSED
+------------------------------ live log teardown -------------------------------
+INFO     autograder:conftest.py:99 Teardown test fixture 'mapreduce_client'
+
+tests/test_manager_00.py::test_shutdown 
+-------------------------------- live log call ---------------------------------
+INFO     mapreduce.manager.__main__:__main__.py:64 Starting manager host=localhost port=6000 pwd=/Users/cjy/eecs485/p4-mapreduce
+PASSED
+tests/test_manager_00.py::test_shutdown_workers 
+-------------------------------- live log call ---------------------------------
+INFO     mapreduce.manager.__main__:__main__.py:64 Starting manager host=localhost port=6000 pwd=/Users/cjy/eecs485/p4-mapreduce
+PASSED
+tests/test_manager_01.py::test_new_job 
+-------------------------------- live log call ---------------------------------
+INFO     mapreduce.manager.__main__:__main__.py:64 Starting manager host=localhost port=6000 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.manager.__main__:__main__.py:287 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-1/test_new_job0/mapreduce-shared-job00000-o61qap7w
+INFO     mapreduce.manager.__main__:__main__.py:295 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-1/test_new_job0/mapreduce-shared-job00000-o61qap7w
+PASSED
+tests/test_manager_02.py::test_map 
+-------------------------------- live log call ---------------------------------
+INFO     mapreduce.manager.__main__:__main__.py:64 Starting manager host=localhost port=6000 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.manager.__main__:__main__.py:287 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-1/test_map0/mapreduce-shared-job00000-fnel00n2
+INFO     mapreduce.manager.__main__:__main__.py:295 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-1/test_map0/mapreduce-shared-job00000-fnel00n2
+PASSED
 tests/test_manager_03.py::test_finish 
 -------------------------------- live log call ---------------------------------
 INFO     mapreduce.manager.__main__:__main__.py:64 Starting manager host=localhost port=6000 pwd=/Users/cjy/eecs485/p4-mapreduce
-INFO     mapreduce.manager.__main__:__main__.py:282 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0/mapreduce-shared-job00000-25ts4a8r
-INFO     mapreduce.manager.__main__:__main__.py:290 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0/mapreduce-shared-job00000-25ts4a8r
+INFO     mapreduce.manager.__main__:__main__.py:287 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-1/test_finish0/mapreduce-shared-job00000-tz4js5tt
+INFO     mapreduce.manager.__main__:__main__.py:295 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-1/test_finish0/mapreduce-shared-job00000-tz4js5tt
+PASSED
+tests/test_manager_05.py::test_dead_worker 
+-------------------------------- live log call ---------------------------------
+INFO     mapreduce.manager.__main__:__main__.py:64 Starting manager host=localhost port=6000 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.manager.__main__:__main__.py:287 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-1/test_dead_worker0/mapreduce-shared-job00000-_fvhb43d
+INFO     mapreduce.manager.__main__:__main__.py:295 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-1/test_dead_worker0/mapreduce-shared-job00000-_fvhb43d
+PASSED
+tests/test_style.py::test_pycodestyle mapreduce/utils/__init__.py:5:80: E501 line too long (108 > 79 characters)
+mapreduce/utils/__main__.py:9:49: W291 trailing whitespace
+mapreduce/utils/__main__.py:29:80: E501 line too long (80 > 79 characters)
+mapreduce/manager/__main__.py:19:1: E302 expected 2 blank lines, found 1
+mapreduce/manager/__main__.py:24:1: E302 expected 2 blank lines, found 1
+mapreduce/manager/__main__.py:33:1: W293 blank line contains whitespace
+mapreduce/manager/__main__.py:37:1: W293 blank line contains whitespace
+mapreduce/manager/__main__.py:41:1: W293 blank line contains whitespace
+mapreduce/manager/__main__.py:45:1: W293 blank line contains whitespace
+mapreduce/manager/__main__.py:49:1: W293 blank line contains whitespace
+mapreduce/manager/__main__.py:78:23: E261 at least two spaces before inline comment
+mapreduce/manager/__main__.py:79:26: E261 at least two spaces before inline comment
+mapreduce/manager/__main__.py:81:24: E261 at least two spaces before inline comment
+mapreduce/manager/__main__.py:81:80: E501 line too long (80 > 79 characters)
+mapreduce/manager/__main__.py:82:46: E261 at least two spaces before inline comment
+mapreduce/manager/__main__.py:85:80: E501 line too long (93 > 79 characters)
+mapreduce/manager/__main__.py:90:73: W291 trailing whitespace
+mapreduce/manager/__main__.py:99:80: E501 line too long (83 > 79 characters)
+mapreduce/manager/__main__.py:99:84: W291 trailing whitespace
+mapreduce/manager/__main__.py:100:80: E501 line too long (98 > 79 characters)
+mapreduce/manager/__main__.py:108:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:125:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:132:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:136:71: W291 trailing whitespace
+mapreduce/manager/__main__.py:137:5: E129 visually indented line with same indent as next logical line
+mapreduce/manager/__main__.py:142:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:147:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:152:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:158:80: E501 line too long (97 > 79 characters)
+mapreduce/manager/__main__.py:163:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:169:50: W291 trailing whitespace
+mapreduce/manager/__main__.py:170:5: E129 visually indented line with same indent as next logical line
+mapreduce/manager/__main__.py:177:80: E501 line too long (85 > 79 characters)
+mapreduce/manager/__main__.py:188:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:196:80: E501 line too long (80 > 79 characters)
+mapreduce/manager/__main__.py:203:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:229:80: E501 line too long (81 > 79 characters)
+mapreduce/manager/__main__.py:233:80: E501 line too long (102 > 79 characters)
+mapreduce/manager/__main__.py:253:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:279:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:288:80: E501 line too long (83 > 79 characters)
+mapreduce/manager/__main__.py:288:84: W291 trailing whitespace
+mapreduce/manager/__main__.py:298:5: E303 too many blank lines (2)
+mapreduce/manager/__main__.py:321:5: E303 too many blank lines (2)
+mapreduce/worker/__main__.py:24:1: W293 blank line contains whitespace
+mapreduce/worker/__main__.py:27:1: W293 blank line contains whitespace
+mapreduce/worker/__main__.py:39:1: W293 blank line contains whitespace
+mapreduce/worker/__main__.py:55:38: W291 trailing whitespace
+mapreduce/worker/__main__.py:59:1: W293 blank line contains whitespace
+mapreduce/worker/__main__.py:81:80: E501 line too long (95 > 79 characters)
+mapreduce/worker/__main__.py:86:5: E303 too many blank lines (2)
+mapreduce/worker/__main__.py:104:80: E501 line too long (84 > 79 characters)
+mapreduce/worker/__main__.py:108:80: E501 line too long (96 > 79 characters)
+mapreduce/worker/__main__.py:113:29: W291 trailing whitespace
+mapreduce/worker/__main__.py:114:80: E501 line too long (84 > 79 characters)
+mapreduce/worker/__main__.py:114:85: W291 trailing whitespace
+mapreduce/worker/__main__.py:118:33: W291 trailing whitespace
+mapreduce/worker/__main__.py:119:79: W291 trailing whitespace
+mapreduce/worker/__main__.py:123:80: E501 line too long (88 > 79 characters)
+mapreduce/worker/__main__.py:134:80: E501 line too long (92 > 79 characters)
+mapreduce/worker/__main__.py:146:80: E501 line too long (105 > 79 characters)
+mapreduce/worker/__main__.py:150:31: E222 multiple spaces after operator
+mapreduce/worker/__main__.py:170:80: E501 line too long (89 > 79 characters)
+FAILED
+tests/test_style.py::test_pydocstyle mapreduce/utils/__main__.py:9 in public function `create_TCP`:
+        D202: No blank lines allowed after function docstring (found 1)
+mapreduce/utils/__main__.py:9 in public function `create_TCP`:
+        D205: 1 blank line required between summary line and description (found 0)
+mapreduce/utils/__main__.py:9 in public function `create_TCP`:
+        D208: Docstring is over-indented
+mapreduce/utils/__main__.py:9 in public function `create_TCP`:
+        D209: Multi-line docstring closing quotes should be on a separate line
+mapreduce/utils/__main__.py:9 in public function `create_TCP`:
+        D400: First line should end with a period (not ' ')
+mapreduce/utils/__main__.py:119 in public function `get_working`:
+        D103: Missing docstring in public function
+mapreduce/manager/__main__.py:19 in public class `Status`:
+        D101: Missing docstring in public class
+mapreduce/manager/__main__.py:24 in public class `WorkerInfo`:
+        D101: Missing docstring in public class
+mapreduce/manager/__main__.py:25 in public method `__init__`:
+        D107: Missing docstring in __init__
+mapreduce/manager/__main__.py:31 in public method `birth`:
+        D102: Missing docstring in public method
+mapreduce/manager/__main__.py:39 in public method `status`:
+        D102: Missing docstring in public method
+mapreduce/manager/__main__.py:47 in public method `taskid`:
+        D102: Missing docstring in public method
+mapreduce/manager/__main__.py:108 in public method `TCP_handler`:
+        D102: Missing docstring in public method
+mapreduce/manager/__main__.py:125 in public method `UDP_handler`:
+        D102: Missing docstring in public method
+mapreduce/manager/__main__.py:132 in public method `fault_tolerance`:
+        D102: Missing docstring in public method
+mapreduce/manager/__main__.py:142 in public method `tasks_isempty`:
+        D102: Missing docstring in public method
+mapreduce/manager/__main__.py:147 in public method `jobs_isempty`:
+        D102: Missing docstring in public method
+mapreduce/manager/__main__.py:152 in public method `shutdown`:
+        D102: Missing docstring in public method
+mapreduce/manager/__main__.py:163 in public method `register`:
+        D102: Missing docstring in public method
+mapreduce/manager/__main__.py:188 in public method `new_manager_job`:
+        D102: Missing docstring in public method
+mapreduce/manager/__main__.py:203 in public method `assign_task`:
+        D102: Missing docstring in public method
+mapreduce/manager/__main__.py:244 in public method `deal_dead_workers`:
+        D102: Missing docstring in public method
+mapreduce/manager/__main__.py:253 in public method `input_partitioning`:
+        D102: Missing docstring in public method
+mapreduce/manager/__main__.py:279 in public method `run_job`:
+        D102: Missing docstring in public method
+mapreduce/manager/__main__.py:298 in public method `run_reducing`:
+        D102: Missing docstring in public method
+mapreduce/manager/__main__.py:321 in public method `finished`:
+        D102: Missing docstring in public method
+mapreduce/worker/__main__.py:23 in public class `Worker`:
+        D101: Missing docstring in public class
+mapreduce/worker/__main__.py:63 in public method `TCP_handler`:
+        D102: Missing docstring in public method
+mapreduce/worker/__main__.py:74 in public method `heartbeat`:
+        D102: Missing docstring in public method
+mapreduce/worker/__main__.py:86 in public method `mapping`:
+        D102: Missing docstring in public method
+mapreduce/worker/__main__.py:137 in public method `reducing`:
+        D102: Missing docstring in public method
+FAILED
+tests/test_style.py::test_pylint ************* Module mapreduce.utils.__init__
+mapreduce/utils/__init__.py:5:0: C0301: Line too long (108/100) (line-too-long)
+************* Module mapreduce.utils.__main__
+mapreduce/utils/__main__.py:9:48: C0303: Trailing whitespace (trailing-whitespace)
+mapreduce/utils/__main__.py:8:0: C0103: Function name "create_TCP" doesn't conform to snake_case naming style (invalid-name)
+mapreduce/utils/__main__.py:32:30: W0612: Unused variable 'address' (unused-variable)
+mapreduce/utils/__main__.py:68:0: C0103: Function name "send_TCP_message" doesn't conform to snake_case naming style (invalid-name)
+mapreduce/utils/__main__.py:83:0: C0103: Function name "create_UDP" doesn't conform to snake_case naming style (invalid-name)
+mapreduce/utils/__main__.py:108:0: C0103: Function name "send_UDP_message" doesn't conform to snake_case naming style (invalid-name)
+mapreduce/utils/__main__.py:119:0: C0116: Missing function or method docstring (missing-function-docstring)
+mapreduce/utils/__main__.py:3:0: W0611: Unused import threading (unused-import)
+************* Module mapreduce.manager.__main__
+mapreduce/manager/__main__.py:33:0: C0303: Trailing whitespace (trailing-whitespace)
+mapreduce/manager/__main__.py:37:0: C0303: Trailing whitespace (trailing-whitespace)
+mapreduce/manager/__main__.py:41:0: C0303: Trailing whitespace (trailing-whitespace)
+mapreduce/manager/__main__.py:45:0: C0303: Trailing whitespace (trailing-whitespace)
+mapreduce/manager/__main__.py:49:0: C0303: Trailing whitespace (trailing-whitespace)
+mapreduce/manager/__main__.py:90:72: C0303: Trailing whitespace (trailing-whitespace)
+mapreduce/manager/__main__.py:99:83: C0303: Trailing whitespace (trailing-whitespace)
+mapreduce/manager/__main__.py:136:70: C0303: Trailing whitespace (trailing-whitespace)
+mapreduce/manager/__main__.py:144:0: C0325: Unnecessary parens after 'return' keyword (superfluous-parens)
+mapreduce/manager/__main__.py:149:0: C0325: Unnecessary parens after 'return' keyword (superfluous-parens)
+mapreduce/manager/__main__.py:169:49: C0303: Trailing whitespace (trailing-whitespace)
+mapreduce/manager/__main__.py:233:0: C0301: Line too long (102/100) (line-too-long)
+mapreduce/manager/__main__.py:288:83: C0303: Trailing whitespace (trailing-whitespace)
+mapreduce/manager/__main__.py:288:21: W0511: FIXME: Change this loop so that it runs either until shutdown  (fixme)
+mapreduce/manager/__main__.py:19:0: C0115: Missing class docstring (missing-class-docstring)
+mapreduce/manager/__main__.py:24:0: C0115: Missing class docstring (missing-class-docstring)
+mapreduce/manager/__main__.py:31:4: C0116: Missing function or method docstring (missing-function-docstring)
+mapreduce/manager/__main__.py:39:4: C0116: Missing function or method docstring (missing-function-docstring)
+mapreduce/manager/__main__.py:47:4: C0116: Missing function or method docstring (missing-function-docstring)
+mapreduce/manager/__main__.py:55:0: R0902: Too many instance attributes (14/7) (too-many-instance-attributes)
+mapreduce/manager/__main__.py:108:4: C0116: Missing function or method docstring (missing-function-docstring)
+mapreduce/manager/__main__.py:108:4: C0103: Method name "TCP_handler" doesn't conform to snake_case naming style (invalid-name)
+mapreduce/manager/__main__.py:125:4: C0116: Missing function or method docstring (missing-function-docstring)
+mapreduce/manager/__main__.py:125:4: C0103: Method name "UDP_handler" doesn't conform to snake_case naming style (invalid-name)
+mapreduce/manager/__main__.py:132:4: C0116: Missing function or method docstring (missing-function-docstring)
+mapreduce/manager/__main__.py:135:16: C0206: Consider iterating with .items() (consider-using-dict-items)
+mapreduce/manager/__main__.py:135:30: C0201: Consider iterating the dictionary directly instead of calling .keys() (consider-iterating-dictionary)
+mapreduce/manager/__main__.py:142:4: C0116: Missing function or method docstring (missing-function-docstring)
+mapreduce/manager/__main__.py:147:4: C0116: Missing function or method docstring (missing-function-docstring)
+mapreduce/manager/__main__.py:152:4: C0116: Missing function or method docstring (missing-function-docstring)
+mapreduce/manager/__main__.py:156:30: C0201: Consider iterating the dictionary directly instead of calling .keys() (consider-iterating-dictionary)
+mapreduce/manager/__main__.py:158:20: C0103: Variable name "send_TCP_success" doesn't conform to snake_case naming style (invalid-name)
+mapreduce/manager/__main__.py:163:4: C0116: Missing function or method docstring (missing-function-docstring)
+mapreduce/manager/__main__.py:169:26: C0201: Consider iterating the dictionary directly instead of calling .keys() (consider-iterating-dictionary)
+mapreduce/manager/__main__.py:177:8: C0103: Variable name "send_TCP_success" doesn't conform to snake_case naming style (invalid-name)
+mapreduce/manager/__main__.py:188:4: C0116: Missing function or method docstring (missing-function-docstring)
+mapreduce/manager/__main__.py:203:4: C0116: Missing function or method docstring (missing-function-docstring)
+mapreduce/manager/__main__.py:233:12: C0103: Variable name "send_TCP_success" doesn't conform to snake_case naming style (invalid-name)
+mapreduce/manager/__main__.py:244:4: C0116: Missing function or method docstring (missing-function-docstring)
+mapreduce/manager/__main__.py:253:4: C0116: Missing function or method docstring (missing-function-docstring)
+mapreduce/manager/__main__.py:279:4: C0116: Missing function or method docstring (missing-function-docstring)
+mapreduce/manager/__main__.py:298:4: C0116: Missing function or method docstring (missing-function-docstring)
+mapreduce/manager/__main__.py:321:4: C0116: Missing function or method docstring (missing-function-docstring)
+mapreduce/manager/__main__.py:9:0: C0411: standard import "import threading" should be placed before "import click" (wrong-import-order)
+mapreduce/manager/__main__.py:10:0: C0411: standard import "import socket" should be placed before "import click" (wrong-import-order)
+mapreduce/manager/__main__.py:11:0: C0411: standard import "from pathlib import Path" should be placed before "import click" (wrong-import-order)
+mapreduce/manager/__main__.py:12:0: C0411: standard import "from collections import defaultdict" should be placed before "import click" (wrong-import-order)
+mapreduce/manager/__main__.py:13:0: C0411: standard import "from enum import Enum" should be placed before "import click" (wrong-import-order)
+mapreduce/manager/__main__.py:5:0: W0611: Unused import json (unused-import)
+mapreduce/manager/__main__.py:10:0: W0611: Unused import socket (unused-import)
+************* Module mapreduce.worker.__main__
+mapreduce/worker/__main__.py:24:0: C0303: Trailing whitespace (trailing-whitespace)
+mapreduce/worker/__main__.py:27:0: C0303: Trailing whitespace (trailing-whitespace)
+mapreduce/worker/__main__.py:39:0: C0303: Trailing whitespace (trailing-whitespace)
+mapreduce/worker/__main__.py:55:37: C0303: Trailing whitespace (trailing-whitespace)
+mapreduce/worker/__main__.py:59:0: C0303: Trailing whitespace (trailing-whitespace)
+mapreduce/worker/__main__.py:113:28: C0303: Trailing whitespace (trailing-whitespace)
+mapreduce/worker/__main__.py:114:84: C0303: Trailing whitespace (trailing-whitespace)
+mapreduce/worker/__main__.py:118:32: C0303: Trailing whitespace (trailing-whitespace)
+mapreduce/worker/__main__.py:119:78: C0303: Trailing whitespace (trailing-whitespace)
+mapreduce/worker/__main__.py:146:0: C0301: Line too long (105/100) (line-too-long)
+mapreduce/worker/__main__.py:23:0: C0115: Missing class docstring (missing-class-docstring)
+mapreduce/worker/__main__.py:23:0: R0902: Too many instance attributes (8/7) (too-many-instance-attributes)
+mapreduce/worker/__main__.py:63:4: C0116: Missing function or method docstring (missing-function-docstring)
+mapreduce/worker/__main__.py:63:4: C0103: Method name "TCP_handler" doesn't conform to snake_case naming style (invalid-name)
+mapreduce/worker/__main__.py:74:4: C0116: Missing function or method docstring (missing-function-docstring)
+mapreduce/worker/__main__.py:74:4: R1711: Useless return at end of function or method (useless-return)
+mapreduce/worker/__main__.py:86:4: C0116: Missing function or method docstring (missing-function-docstring)
+mapreduce/worker/__main__.py:86:4: R0914: Too many local variables (23/15) (too-many-locals)
+mapreduce/worker/__main__.py:92:12: W0105: String statement has no effect (pointless-string-statement)
+mapreduce/worker/__main__.py:95:21: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+mapreduce/worker/__main__.py:109:33: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+mapreduce/worker/__main__.py:111:12: W0105: String statement has no effect (pointless-string-statement)
+mapreduce/worker/__main__.py:124:25: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+mapreduce/worker/__main__.py:137:4: C0116: Missing function or method docstring (missing-function-docstring)
+mapreduce/worker/__main__.py:137:4: R0914: Too many local variables (17/15) (too-many-locals)
+mapreduce/worker/__main__.py:151:21: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+mapreduce/worker/__main__.py:8:0: C0411: standard import "import threading" should be placed before "import click" (wrong-import-order)
+mapreduce/worker/__main__.py:9:0: C0411: standard import "import socket" should be placed before "import click" (wrong-import-order)
+mapreduce/worker/__main__.py:10:0: C0411: standard import "import hashlib" should be placed before "import click" (wrong-import-order)
+mapreduce/worker/__main__.py:11:0: C0411: standard import "import subprocess" should be placed before "import click" (wrong-import-order)
+mapreduce/worker/__main__.py:12:0: C0411: standard import "import tempfile" should be placed before "import click" (wrong-import-order)
+mapreduce/worker/__main__.py:13:0: C0411: standard import "import shutil" should be placed before "import click" (wrong-import-order)
+mapreduce/worker/__main__.py:14:0: C0411: standard import "import heapq" should be placed before "import click" (wrong-import-order)
+mapreduce/worker/__main__.py:15:0: C0411: standard import "from pathlib import Path" should be placed before "import click" (wrong-import-order)
+mapreduce/worker/__main__.py:16:0: C0411: standard import "from contextlib import ExitStack" should be placed before "import click" (wrong-import-order)
+mapreduce/worker/__main__.py:4:0: W0611: Unused import json (unused-import)
+mapreduce/worker/__main__.py:9:0: W0611: Unused import socket (unused-import)
+
+-----------------------------------
+Your code has been rated at 7.85/10
+
+FAILED
+tests/test_worker_00.py::test_shutdown 
+-------------------------------- live log call ---------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:31 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:35 manager_host=localhost manager_port=6000
+PASSED
+tests/test_worker_01.py::test_register 
+-------------------------------- live log call ---------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:31 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:35 manager_host=localhost manager_port=6000
+PASSED
+tests/test_worker_02.py::test_heartbeat 
+-------------------------------- live log call ---------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:31 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:35 manager_host=localhost manager_port=6000
+PASSED
+tests/test_worker_03.py::test_finish_task_messages 
+-------------------------------- live log call ---------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:31 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:35 manager_host=localhost manager_port=6000
+INFO     mapreduce.worker.__main__:__main__.py:91 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-1/test_dead_worker0/mapreduce-local-task00000-u9bcmwbn
+INFO     mapreduce.worker.__main__:__main__.py:135 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-1/test_dead_worker0/mapreduce-local-task00000-u9bcmwbn
+PASSED
+tests/test_worker_04.py::test_finish_task_output 
+-------------------------------- live log call ---------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:31 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:35 manager_host=localhost manager_port=6000
+INFO     mapreduce.worker.__main__:__main__.py:91 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-1/test_dead_worker0/mapreduce-local-task00000-d2napyg_
+INFO     mapreduce.worker.__main__:__main__.py:135 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-1/test_dead_worker0/mapreduce-local-task00000-d2napyg_
+PASSED
+tests/test_worker_05.py::test_two_input_map 
+-------------------------------- live log call ---------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:31 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:35 manager_host=localhost manager_port=6000
+INFO     mapreduce.worker.__main__:__main__.py:91 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-1/test_dead_worker0/mapreduce-local-task00000-hooh7dyp
+INFO     mapreduce.worker.__main__:__main__.py:135 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-1/test_dead_worker0/mapreduce-local-task00000-hooh7dyp
+PASSED
+tests/test_worker_07.py::test_reduce_two_inputs 
+-------------------------------- live log call ---------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:31 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:35 manager_host=localhost manager_port=6000
+PASSED
+tests/test_worker_08.py::test_map_reduce 
+-------------------------------- live log call ---------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:31 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:35 manager_host=localhost manager_port=6000
+INFO     mapreduce.worker.__main__:__main__.py:91 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-1/test_dead_worker0/mapreduce-local-task00000-ntahb2al
+INFO     mapreduce.worker.__main__:__main__.py:135 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-1/test_dead_worker0/mapreduce-local-task00000-ntahb2al
+INFO     mapreduce.worker.__main__:__main__.py:91 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-1/test_dead_worker0/mapreduce-local-task00001-f3b2z9ac
+INFO     mapreduce.worker.__main__:__main__.py:135 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-1/test_dead_worker0/mapreduce-local-task00001-f3b2z9ac
+PASSED
+tests/test_worker_11.py::test_map_memory 
+-------------------------------- live log call ---------------------------------
+INFO     mapreduce.worker.__main__:__main__.py:31 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:35 manager_host=localhost manager_port=6000
+INFO     mapreduce.worker.__main__:__main__.py:91 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-1/test_dead_worker0/mapreduce-local-task00000-5tqinupj
+INFO     mapreduce.worker.__main__:__main__.py:135 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-1/test_dead_worker0/mapreduce-local-task00000-5tqinupj
 FAILED
 
 =================================== FAILURES ===================================
-_________________________________ test_finish __________________________________
+_______________________________ test_pycodestyle _______________________________
 
-mocker = <pytest_mock.plugin.MockerFixture object at 0x10c8461a0>
-tmp_path = PosixPath('/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0')
+    def test_pycodestyle():
+        """Run pycodestyle."""
+        utils.assert_no_prohibited_terms("nopep8", "noqa", "pylint")
+>       subprocess.run(["pycodestyle", "mapreduce"], check=True)
 
-    def test_finish(mocker, tmp_path):
-        """Verify Manager finishes job correctly.
+tests/test_style.py:9: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+input = None, capture_output = False, timeout = None, check = True
+popenargs = (['pycodestyle', 'mapreduce'],), kwargs = {}
+process = <Popen: returncode: 1 args: ['pycodestyle', 'mapreduce']>
+stdout = None, stderr = None, retcode = 1
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
     
-        Note: 'mocker' is a fixture function provided the the pytest-mock package.
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them.
+    
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output & stderr attributes if those streams
+        were captured.
+    
+        If timeout is given, and the process takes too long, a TimeoutExpired
+        exception will be raised.
+    
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+    
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+    
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+    
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+    
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+>               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['pycodestyle', 'mapreduce']' returned non-zero exit status 1.
+
+/usr/local/Cellar/python@3.10/3.10.7/Frameworks/Python.framework/Versions/3.10/lib/python3.10/subprocess.py:524: CalledProcessError
+_______________________________ test_pydocstyle ________________________________
+
+    def test_pydocstyle():
+        """Run pydocstyle."""
+        utils.assert_no_prohibited_terms("nopep8", "noqa", "pylint")
+>       subprocess.run(["pydocstyle", "mapreduce"], check=True)
+
+tests/test_style.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+input = None, capture_output = False, timeout = None, check = True
+popenargs = (['pydocstyle', 'mapreduce'],), kwargs = {}
+process = <Popen: returncode: 1 args: ['pydocstyle', 'mapreduce']>
+stdout = None, stderr = None, retcode = 1
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+    
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them.
+    
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output & stderr attributes if those streams
+        were captured.
+    
+        If timeout is given, and the process takes too long, a TimeoutExpired
+        exception will be raised.
+    
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+    
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+    
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+    
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+    
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+>               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['pydocstyle', 'mapreduce']' returned non-zero exit status 1.
+
+/usr/local/Cellar/python@3.10/3.10.7/Frameworks/Python.framework/Versions/3.10/lib/python3.10/subprocess.py:524: CalledProcessError
+_________________________________ test_pylint __________________________________
+
+    def test_pylint():
+        """Run pylint."""
+        utils.assert_no_prohibited_terms("nopep8", "noqa", "pylint")
+>       subprocess.run([
+            "pylint",
+            "--rcfile", utils.TESTDATA_DIR/"pylintrc",
+            "--disable=no-value-for-parameter",
+            "--disable=method-hidden",
+            "--unsafe-load-any-extension=y",
+            "--max-args=6",
+            "--min-public-methods=1",
+            "mapreduce",
+        ], check=True)
+
+tests/test_style.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+input = None, capture_output = False, timeout = None, check = True
+popenargs = (['pylint', '--rcfile', PosixPath('/Users/cjy/eecs485/p4-mapreduce/tests/testdata/pylintrc'), '--disable=no-value-for-parameter', '--disable=method-hidden', '--unsafe-load-any-extension=y', ...],)
+kwargs = {}
+process = <Popen: returncode: 28 args: ['pylint', '--rcfile', PosixPath('/Users/cjy/ee...>
+stdout = None, stderr = None, retcode = 28
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+    
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them.
+    
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output & stderr attributes if those streams
+        were captured.
+    
+        If timeout is given, and the process takes too long, a TimeoutExpired
+        exception will be raised.
+    
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+    
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+    
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+    
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+    
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+>               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['pylint', '--rcfile', PosixPath('/Users/cjy/eecs485/p4-mapreduce/tests/testdata/pylintrc'), '--disable=no-value-for-parameter', '--disable=method-hidden', '--unsafe-load-any-extension=y', '--max-args=6', '--min-public-methods=1', 'mapreduce']' returned non-zero exit status 28.
+
+/usr/local/Cellar/python@3.10/3.10.7/Frameworks/Python.framework/Versions/3.10/lib/python3.10/subprocess.py:524: CalledProcessError
+_______________________________ test_map_memory ________________________________
+
+mocker = <pytest_mock.plugin.MockerFixture object at 0x10d447280>
+tmp_path = PosixPath('/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-1/test_map_memory0')
+
+    def test_map_memory(mocker, tmp_path):
+        """Evaluate Worker's memory usage during Map Stage.
+    
+        Note: 'mocker' is a fixture function provided by the pytest-mock package.
         This fixture lets us override a library function with a temporary fake
         function that returns a hardcoded value while testing.
     
@@ -43,146 +665,118 @@ tmp_path = PosixPath('/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/p
         mock_accept = mock_socket.return_value.__enter__.return_value.accept
         mock_accept.return_value = (mock_clientsocket, ("127.0.0.1", 10000))
     
-        # TCP recv() returns values generated by worker_message_generator()
+        # Initialize memory profiler, which tracks max memory usage
+        memory_profiler = MemoryProfiler()
+    
+        # recv() returns values generated by manager_message_generator()
         mock_recv = mock_clientsocket.recv
-        mock_recv.side_effect = worker_message_generator(mock_sendall, tmp_path)
+        mock_recv.side_effect = manager_message_generator(
+            mock_sendall,
+            memory_profiler,
+            tmp_path,
+        )
     
-        # UDP recv() returns heartbeat messages
-        mock_udp_recv = mock_socket.return_value.__enter__.return_value.recv
-        mock_udp_recv.side_effect = utils.worker_heartbeat_generator(3001)
-    
-        # Set the location where the Manager's temporary directory
-        # will be created.
-        tempfile.tempdir = tmp_path
-    
-        # Spy on tempfile.TemporaryDirectory so that we can determine the name
-        # of the directory that was created.
-        mock_tmpdir = mocker.spy(tempfile.TemporaryDirectory, "__init__")
-    
-        # Run student Manager code.  When student Manager calls recv(), it will
-        # return the faked responses configured above.
+        # Run student Worker code.  When student Worker calls recv(), it will
+        # return the faked responses configured above.  When the student code calls
+        # sys.exit(0), it triggers a SystemExit exception, which we'll catch.
         try:
-            mapreduce.manager.Manager("localhost", 6000)
+            mapreduce.worker.Worker(
+                host="localhost",
+                port=6001,
+                manager_host="localhost",
+                manager_port=6000,
+            )
             utils.wait_for_threads()
         except SystemExit as error:
             assert error.code == 0
     
-        # Verify that the correct number of TemporaryDirectories was used.
-        assert mock_tmpdir.call_count == 1, \
-            "Expected to see call to `tempfile.TemporaryDirectory(...)`"
-    
-        # Find the name of the temporary directory.
-        tmpdir_job0 = utils.get_tmpdir_name(mock_tmpdir)
-    
-        # Verify messages sent by the Manager
+        # Verify messages sent by the Worker
         #
         # Pro-tip: show log messages and detailed diffs with
-        #   $ pytest -vvs --log-cli-level=info tests/test_manager_X.py
-        messages = utils.get_messages(mock_sendall)
->       assert messages == [
+        #   $ pytest -vvs --log-cli-level=info tests/test_worker_X.py
+        all_messages = utils.get_messages(mock_sendall)
+        messages = utils.filter_not_heartbeat_messages(all_messages)
+        assert messages[:2] == [
             {
-                "message_type": "register_ack",
+                "message_type": "register",
                 "worker_host": "localhost",
-                "worker_port": 3001,
+                "worker_port": 6001,
             },
             {
-                "message_type": "new_map_task",
+                "message_type": "finished",
                 "task_id": 0,
-                "executable": str(TESTDATA_DIR/"exec/wc_map.sh"),
-                "input_paths": [
-                    str(TESTDATA_DIR/"input/file01"),
-                    str(TESTDATA_DIR/"input/file03"),
-                    str(TESTDATA_DIR/"input/file05"),
-                    str(TESTDATA_DIR/"input/file07"),
-                ],
-                "output_directory": tmpdir_job0,
-                "num_partitions": 1,
                 "worker_host": "localhost",
-                "worker_port": 3001,
-            },
-            {
-                "message_type": "new_map_task",
-                "task_id": 1,
-                "executable": str(TESTDATA_DIR/"exec/wc_map.sh"),
-                "input_paths": [
-                    str(TESTDATA_DIR/"input/file02"),
-                    str(TESTDATA_DIR/"input/file04"),
-                    str(TESTDATA_DIR/"input/file06"),
-                    str(TESTDATA_DIR/"input/file08"),
-                ],
-                "output_directory": tmpdir_job0,
-                "num_partitions": 1,
-                "worker_host": "localhost",
-                "worker_port": 3001,
-            },
-            {
-                "message_type": "new_reduce_task",
-                "task_id": 0,
-                "executable": str(TESTDATA_DIR/"exec/wc_reduce.sh"),
-                "input_paths": [
-                    f"{tmpdir_job0}/maptask00000-part00000",
-                    f"{tmpdir_job0}/maptask00001-part00000"
-                ],
-                "output_directory": str(tmp_path),
-                "worker_host": "localhost",
-                "worker_port": 3001,
-            },
-            {
-                "message_type": "shutdown",
+                "worker_port": 6001,
             },
         ]
-E       AssertionError: assert [{'message_type': 'register_ack', 'worker_host': 'localhost', 'worker_port': 3001}, {'message_type': 'new_map_task', 'task_id': 0, 'input_paths': ['/Users/cjy/eecs485/p4-mapreduce/tests/testdata/input/file01', '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/input/file03', '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/input/file05', '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/input/file07'], 'executable': '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/exec/wc_map.sh', 'output_directory': '/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0/mapreduce-shared-job00000-25ts4a8r', 'num_partitions': 1, 'worker_host': 'localhost', 'worker_port': 3001}, {'message_type': 'new_map_task', 'task_id': 1, 'input_paths': ['/Users/cjy/eecs485/p4-mapreduce/tests/testdata/input/file02', '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/input/file04', '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/input/file06', '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/input/file08'], 'executable': '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/exec/wc_map.sh', 'output_directory': '/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0/mapreduce-shared-job00000-25ts4a8r', 'num_partitions': 1, 'worker_host': 'localhost', 'worker_port': 3001}, {'message_type': 'new_reduce_task', 'task_id': 0, 'executable': '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/exec/wc_reduce.sh', 'input_paths': ['/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0/mapreduce-shared-job00000-25ts4a8r/maptask00001-part00000', '/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0/mapreduce-shared-job00000-25ts4a8r/maptask00000-part00000'], 'output_directory': '/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0', 'worker_host': 'localhost', 'worker_port': 3001}, {'message_type': 'shutdown'}] == [{'message_type': 'register_ack', 'worker_host': 'localhost', 'worker_port': 3001}, {'message_type': 'new_map_task', 'task_id': 0, 'executable': '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/exec/wc_map.sh', 'input_paths': ['/Users/cjy/eecs485/p4-mapreduce/tests/testdata/input/file01', '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/input/file03', '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/input/file05', '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/input/file07'], 'output_directory': '/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0/mapreduce-shared-job00000-25ts4a8r', 'num_partitions': 1, 'worker_host': 'localhost', 'worker_port': 3001}, {'message_type': 'new_map_task', 'task_id': 1, 'executable': '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/exec/wc_map.sh', 'input_paths': ['/Users/cjy/eecs485/p4-mapreduce/tests/testdata/input/file02', '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/input/file04', '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/input/file06', '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/input/file08'], 'output_directory': '/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0/mapreduce-shared-job00000-25ts4a8r', 'num_partitions': 1, 'worker_host': 'localhost', 'worker_port': 3001}, {'message_type': 'new_reduce_task', 'task_id': 0, 'executable': '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/exec/wc_reduce.sh', 'input_paths': ['/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0/mapreduce-shared-job00000-25ts4a8r/maptask00000-part00000', '/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0/mapreduce-shared-job00000-25ts4a8r/maptask00001-part00000'], 'output_directory': '/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0', 'worker_host': 'localhost', 'worker_port': 3001}, {'message_type': 'shutdown'}]
-E         At index 3 diff: {'message_type': 'new_reduce_task', 'task_id': 0, 'executable': '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/exec/wc_reduce.sh', 'input_paths': ['/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0/mapreduce-shared-job00000-25ts4a8r/maptask00001-part00000', '/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0/mapreduce-shared-job00000-25ts4a8r/maptask00000-part00000'], 'output_directory': '/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0', 'worker_host': 'localhost', 'worker_port': 3001} != {'message_type': 'new_reduce_task', 'task_id': 0, 'executable': '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/exec/wc_reduce.sh', 'input_paths': ['/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0/mapreduce-shared-job00000-25ts4a8r/maptask00000-part00000', '/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0/mapreduce-shared-job00000-25ts4a8r/maptask00001-part00000'], 'output_directory': '/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0', 'worker_host': 'localhost', 'worker_port': 3001}
-E         Full diff:
-E           [
-E            {'message_type': 'register_ack',
-E             'worker_host': 'localhost',
-E             'worker_port': 3001},
-E            {'executable': '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/exec/wc_map.sh',
-E             'input_paths': ['/Users/cjy/eecs485/p4-mapreduce/tests/testdata/input/file01',
-E                             '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/input/file03',
-E                             '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/input/file05',
-E                             '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/input/file07'],
-E             'message_type': 'new_map_task',
-E             'num_partitions': 1,
-E             'output_directory': '/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0/mapreduce-shared-job00000-25ts4a8r',
-E             'task_id': 0,
-E             'worker_host': 'localhost',
-E             'worker_port': 3001},
-E            {'executable': '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/exec/wc_map.sh',
-E             'input_paths': ['/Users/cjy/eecs485/p4-mapreduce/tests/testdata/input/file02',
-E                             '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/input/file04',
-E                             '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/input/file06',
-E                             '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/input/file08'],
-E             'message_type': 'new_map_task',
-E             'num_partitions': 1,
-E             'output_directory': '/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0/mapreduce-shared-job00000-25ts4a8r',
-E             'task_id': 1,
-E             'worker_host': 'localhost',
-E             'worker_port': 3001},
-E            {'executable': '/Users/cjy/eecs485/p4-mapreduce/tests/testdata/exec/wc_reduce.sh',
-E         -   'input_paths': ['/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0/mapreduce-shared-job00000-25ts4a8r/maptask00000-part00000',
-E         ?                                                                                                                                                                ^
-E         +   'input_paths': ['/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0/mapreduce-shared-job00000-25ts4a8r/maptask00001-part00000',
-E         ?                                                                                                                                                                ^
-E         -                   '/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0/mapreduce-shared-job00000-25ts4a8r/maptask00001-part00000'],
-E         ?                                                                                                                                                                ^
-E         +                   '/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0/mapreduce-shared-job00000-25ts4a8r/maptask00000-part00000'],
-E         ?                                                                                                                                                                ^
-E             'message_type': 'new_reduce_task',
-E             'output_directory': '/private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0',
-E             'task_id': 0,
-E             'worker_host': 'localhost',
-E             'worker_port': 3001},
-E            {'message_type': 'shutdown'},
-E           ]
+    
+        # Verify time and memory constraints
+        map_time_seconds = memory_profiler.get_time_delta()
+        map_memory_bytes = memory_profiler.get_mem_delta()
+>       assert map_memory_bytes < 55 * 1024 * 1024  # 55 MB
+E       assert 58626048 < ((55 * 1024) * 1024)
 
-tests/test_manager_03.py:166: AssertionError
+tests/test_worker_11.py:137: AssertionError
 ------------------------------ Captured log call -------------------------------
-INFO     mapreduce.manager.__main__:__main__.py:64 Starting manager host=localhost port=6000 pwd=/Users/cjy/eecs485/p4-mapreduce
-INFO     mapreduce.manager.__main__:__main__.py:282 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0/mapreduce-shared-job00000-25ts4a8r
-INFO     mapreduce.manager.__main__:__main__.py:290 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-44/test_finish0/mapreduce-shared-job00000-25ts4a8r
+INFO     mapreduce.worker.__main__:__main__.py:31 Starting worker host=localhost port=6001 pwd=/Users/cjy/eecs485/p4-mapreduce
+INFO     mapreduce.worker.__main__:__main__.py:35 manager_host=localhost manager_port=6000
+INFO     mapreduce.worker.__main__:__main__.py:91 Created tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-1/test_dead_worker0/mapreduce-local-task00000-5tqinupj
+INFO     mapreduce.worker.__main__:__main__.py:135 Cleaned up tmpdir /private/var/folders/h0/htpjtrh57z53gn45nkqhfp2c0000gn/T/pytest-of-cjy/pytest-1/test_dead_worker0/mapreduce-local-task00000-5tqinupj
+=============================== warnings summary ===============================
+tests/test_manager_00.py::test_shutdown
+  /Users/cjy/eecs485/p4-mapreduce/env/lib/python3.10/site-packages/_pytest/threadexception.py:73: PytestUnhandledThreadExceptionWarning: Exception in thread Thread-1 (create_UDP)
+  
+  Traceback (most recent call last):
+    File "/usr/local/Cellar/python@3.10/3.10.7/Frameworks/Python.framework/Versions/3.10/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+      self.run()
+    File "/usr/local/Cellar/python@3.10/3.10.7/Frameworks/Python.framework/Versions/3.10/lib/python3.10/threading.py", line 953, in run
+      self._target(*self._args, **self._kwargs)
+    File "/Users/cjy/eecs485/p4-mapreduce/mapreduce/utils/__main__.py", line 105, in create_UDP
+      self.UDP_handler(message_dict)
+    File "/Users/cjy/eecs485/p4-mapreduce/mapreduce/manager/__main__.py", line 129, in UDP_handler
+      self.workers[host, port].birth = time.time()
+  KeyError: ('localhost', 3001)
+  
+    warnings.warn(pytest.PytestUnhandledThreadExceptionWarning(msg))
+
+tests/test_manager_01.py::test_new_job
+  /Users/cjy/eecs485/p4-mapreduce/env/lib/python3.10/site-packages/_pytest/threadexception.py:73: PytestUnhandledThreadExceptionWarning: Exception in thread Thread-7 (create_UDP)
+  
+  Traceback (most recent call last):
+    File "/usr/local/Cellar/python@3.10/3.10.7/Frameworks/Python.framework/Versions/3.10/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+      self.run()
+    File "/usr/local/Cellar/python@3.10/3.10.7/Frameworks/Python.framework/Versions/3.10/lib/python3.10/threading.py", line 953, in run
+      self._target(*self._args, **self._kwargs)
+    File "/Users/cjy/eecs485/p4-mapreduce/mapreduce/utils/__main__.py", line 105, in create_UDP
+      self.UDP_handler(message_dict)
+    File "/Users/cjy/eecs485/p4-mapreduce/mapreduce/manager/__main__.py", line 129, in UDP_handler
+      self.workers[host, port].birth = time.time()
+  KeyError: ('localhost', 3001)
+  
+    warnings.warn(pytest.PytestUnhandledThreadExceptionWarning(msg))
+
+tests/test_manager_05.py::test_dead_worker
+  /Users/cjy/eecs485/p4-mapreduce/env/lib/python3.10/site-packages/_pytest/threadexception.py:73: PytestUnhandledThreadExceptionWarning: Exception in thread Thread-17 (fault_tolerance)
+  
+  Traceback (most recent call last):
+    File "/usr/local/Cellar/python@3.10/3.10.7/Frameworks/Python.framework/Versions/3.10/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+      self.run()
+    File "/usr/local/Cellar/python@3.10/3.10.7/Frameworks/Python.framework/Versions/3.10/lib/python3.10/threading.py", line 953, in run
+      self._target(*self._args, **self._kwargs)
+    File "/Users/cjy/eecs485/p4-mapreduce/mapreduce/manager/__main__.py", line 138, in fault_tolerance
+      self.deal_dead_workers(worker)
+    File "/Users/cjy/eecs485/p4-mapreduce/mapreduce/manager/__main__.py", line 247, in deal_dead_workers
+      self.assign_task(self.workers[worker].taskid)
+    File "/Users/cjy/eecs485/p4-mapreduce/mapreduce/manager/__main__.py", line 238, in assign_task
+      self.tasks.remove(taskid)
+  ValueError: list.remove(x): x not in list
+  
+    warnings.warn(pytest.PytestUnhandledThreadExceptionWarning(msg))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
 =========================== short test summary info ============================
-FAILED tests/test_manager_03.py::test_finish - AssertionError: assert [{'mess...
-!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
-============================== 1 failed in 4.08s ===============================
+FAILED tests/test_style.py::test_pycodestyle - subprocess.CalledProcessError:...
+FAILED tests/test_style.py::test_pydocstyle - subprocess.CalledProcessError: ...
+FAILED tests/test_style.py::test_pylint - subprocess.CalledProcessError: Comm...
+FAILED tests/test_worker_11.py::test_map_memory - assert 58626048 < ((55 * 10...
+============= 4 failed, 19 passed, 3 warnings in 195.84s (0:03:15) =============
