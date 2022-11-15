@@ -91,6 +91,14 @@ class Worker:
                 prefix=f"mapreduce-local-task{message_dict['task_id']:05d}-"
                 ) as tmpdir:
             LOGGER.info("Created tmpdir %s", tmpdir)
+            tmp_files = [(
+                Path(tmpdir) /
+                f"""maptask{
+                message_dict['task_id']:05d}-part{
+                partition:05d}""") for partition in range(
+                    message_dict['num_partitions']
+                    )
+                ]
             for input_path in message_dict["input_paths"]:
                 with open(input_path, encoding='utf-8') as infile:
                     with subprocess.Popen(
@@ -106,15 +114,8 @@ class Worker:
                                     ).hexdigest(),
                                 base=16
                                 ) % message_dict['num_partitions']
-                            # correct partiton output file
-                            filename = (
-                                Path(tmpdir) /
-                                f"""maptask{
-                                    message_dict['task_id']:05d}-part{
-                                        partition:05d}"""
-                                )
                             with open(
-                                    filename,
+                                    tmp_files[partition],
                                     'a+',
                                     encoding='utf-8') as outfile:
                                 outfile.write(line)
@@ -133,19 +134,18 @@ class Worker:
                             ]
             with ExitStack() as stack:
                 output_files = [
-                                stack.enter_context(
-                                    open(file, "a", encoding="utf8")
-                                    ) for file in output_files
-                                ]
+                    stack.enter_context(
+                        open(file, "a", encoding="utf8")
+                    ) for file in output_files
+                ]
+                input_files = [
+                    stack.enter_context(
+                        open(file, "r", encoding="utf8")
+                    ) for file in tmp_files
+                ]
                 for partition in range(message_dict['num_partitions']):
-                    filename = (
-                        Path(tmpdir) /
-                        f"""maptask{
-                            message_dict['task_id']:05d}-part{
-                                partition:05d}"""
-                        )
-                    with open(filename, encoding='utf-8') as input_file:
-                        lines = sorted(input_file.readlines())
+                    lines = input_files[partition].readlines()
+                    lines.sort()
                     for line in lines:
                         output_files[partition].write(line)
             finish_msg = {
